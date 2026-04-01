@@ -39,7 +39,7 @@ const AdminChat: React.FC = () => {
         const initSocket = () => {
             const s = io(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/chat`, {
                 query: { userId: user?.id },
-                transports: ['websocket'],
+                transports: ['polling', 'websocket'],
                 auth: { token }
             });
 

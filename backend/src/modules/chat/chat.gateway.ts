@@ -17,6 +17,7 @@ import { ChatService } from './chat.service';
     origin: '*',
   },
   namespace: 'chat',
+  transports: ['polling', 'websocket'],
 })
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()

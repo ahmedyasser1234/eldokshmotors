@@ -10,7 +10,7 @@ class SocketService {
 
     this.socket = io(`${SOCKET_URL}/notifications`, {
       query: { userId },
-      transports: ['websocket'],
+      transports: ['polling', 'websocket'],
     });
 
     this.socket.on('connect', () => {
