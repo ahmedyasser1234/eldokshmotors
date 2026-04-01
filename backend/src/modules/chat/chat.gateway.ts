@@ -41,8 +41,12 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect, On
 
   async handleConnection(client: Socket) {
     const userId = client.handshake.query.userId as string;
+    const clientIp = client.handshake.address;
+    this.logger.log(`[Socket] Connection attempt: userId=${userId}, IP=${clientIp}, transport=${client.conn.transport.name}`);
+
     if (userId) {
       this.connectedUsers.set(userId, client.id);
+      this.logger.log(`[Chat] User connected: ${userId} (Socket: ${client.id}, IP: ${clientIp})`);
       
       // Check if user is admin
       try {
@@ -50,14 +54,15 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect, On
         if (user && user.role === 'admin') {
           this.connectedAdmins.add(userId);
           this.server.emit('supportStatusChanged', { status: 'online' });
-          console.log(`[Chat] Admin connected: ${userId}. Total online support: ${this.connectedAdmins.size}`);
+          this.logger.log(`[Chat] Admin recognized: ${userId}. Total online support: ${this.connectedAdmins.size}`);
         }
       } catch (err) {
-        console.error('[Chat] Error checking user role:', err);
+        this.logger.error(`[Chat] Error checking user role for ${userId}:`, err);
       }
 
-      console.log(`[Chat] User connected: ${userId} (Socket: ${client.id})`);
       this.server.emit('userStatusChanged', { userId, status: 'online' });
+    } else {
+      this.logger.warn(`[Chat] Connection attempt without userId from IP: ${clientIp}`);
     }
   }
 

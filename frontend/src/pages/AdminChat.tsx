@@ -39,11 +39,13 @@ const AdminChat: React.FC = () => {
         const initSocket = () => {
             const s = io(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/chat`, {
                 query: { userId: user?.id },
-                transports: ['polling', 'websocket'],
-                auth: { token }
+                transports: ['websocket', 'polling'],
+                auth: { token },
+                reconnectionAttempts: 5,
             });
 
             s.on('connect', () => {
+                console.log('[Socket] Admin chat connected');
                 if (activeConversation) {
                     s.emit('joinConversation', activeConversation.id);
                     
@@ -93,8 +95,15 @@ const AdminChat: React.FC = () => {
                 }
             });
 
+            s.on('connect_error', (err) => {
+                console.error('[Socket] Admin chat connection error:', err.message);
+                if (err.message === 'xhr poll error') {
+                    console.warn('[Socket] XHR Poll Error - This often means Mixed Content (HTTPS -> HTTP) or CORS issues.');
+                }
+            });
+
             s.on('error', (err: any) => {
-                console.error('Socket error:', err);
+                console.error('[Socket] Generic admin chat error:', err);
             });
 
             setSocket(s);

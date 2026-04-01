@@ -10,15 +10,23 @@ class SocketService {
 
     this.socket = io(`${SOCKET_URL}/notifications`, {
       query: { userId },
-      transports: ['polling', 'websocket'],
+      transports: ['websocket', 'polling'],
+      reconnectionAttempts: 5,
     });
 
     this.socket.on('connect', () => {
-      console.log('Connected to notification service');
+      console.log('[Socket] Connected to notification service');
     });
 
-    this.socket.on('disconnect', () => {
-      console.log('Disconnected from notification service');
+    this.socket.on('connect_error', (err) => {
+      console.error('[Socket] Notification connection error:', err.message);
+      if (err.message === 'xhr poll error') {
+        console.warn('[Socket] XHR Poll Error - This often means Mixed Content (HTTPS -> HTTP) or CORS issues.');
+      }
+    });
+
+    this.socket.on('disconnect', (reason) => {
+      console.log('[Socket] Disconnected from notification service:', reason);
     });
   }
 

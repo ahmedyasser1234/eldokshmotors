@@ -34,9 +34,14 @@ export class NotificationsGateway implements OnGatewayConnection, OnGatewayDisco
 
   handleConnection(client: Socket) {
     const userId = client.handshake.query.userId as string;
+    const clientIp = client.handshake.address;
+    this.logger.log(`[Socket] Connection attempt: userId=${userId}, IP=${clientIp}, transport=${client.conn.transport.name}`);
+
     if (userId) {
       this.connectedUsers.set(userId, client.id);
-      console.log(`User connected: ${userId} (Socket: ${client.id})`);
+      this.logger.log(`[Notification] User connected: ${userId} (Socket: ${client.id}, IP: ${clientIp})`);
+    } else {
+      this.logger.warn(`[Notification] Connection attempt without userId from IP: ${clientIp}`);
     }
   }
 
