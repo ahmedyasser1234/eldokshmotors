@@ -116,17 +116,30 @@ export class SalesService {
     sale.status = SaleStatus.COMPLETED;
     await this.saleRepository.save(sale);
 
-    // Update corresponding payment status
+    // Update corresponding payment status or create it if missing
     try {
-      const payment = await this.paymentRepository.findOne({
+      let payment = await this.paymentRepository.findOne({
         where: { reference_id: sale.id, reference_type: 'sale' }
       });
+      
       if (payment) {
         payment.payment_status = PaymentStatus.COMPLETED;
         await this.paymentRepository.save(payment);
+      } else {
+        // Self-heal: Create missing payment record if it didn't exist
+        payment = this.paymentRepository.create({
+          user: sale.customer,
+          amount: sale.final_price,
+          reference_id: sale.id,
+          reference_type: 'sale',
+          payment_method: (sale.payment_method as any) || PaymentMethod.ONLINE,
+          payment_status: PaymentStatus.COMPLETED,
+          transaction_id: `TXN-S-RECOVER-${Math.random().toString(36).substr(2, 5).toUpperCase()}`
+        });
+        await this.paymentRepository.save(payment);
       }
     } catch (err) {
-      console.error('Failed to update payment status:', err);
+      console.error('Failed to update/create payment status:', err);
     }
 
     // Update vehicle status to strictly 'reserved' when initially completed 

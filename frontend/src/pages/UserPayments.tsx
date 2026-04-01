@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
-import { Wallet, Clock, CheckCircle2 } from 'lucide-react';
+import { Wallet } from 'lucide-react';
 import DashboardLayout from '../components/DashboardLayout';
 import api from '../services/api';
 
@@ -20,25 +20,57 @@ const UserPayments: React.FC = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchPayments = async () => {
+        const fetchData = async () => {
             try {
-                const response = await api.get('/payments/my-payments'); 
-                const mappedPayments = response.data.map((p: any) => ({
+                const [paymentsRes, salesRes] = await Promise.all([
+                    api.get('/payments/my-payments'),
+                    api.get('/sales/my-sales')
+                ]);
+
+                // Map existing payment records
+                const existingPayments = paymentsRes.data.map((p: any) => ({
                     id: p.id,
                     amount: p.amount,
                     method: p.payment_method,
                     status: p.payment_status,
                     createdAt: p.created_at,
                     reference: p.transaction_id || p.reference_id,
+                    saleId: p.reference_type === 'sale' ? p.reference_id : null
                 }));
-                setPayments(mappedPayments);
+
+                // Map sales that might not have a payment record yet
+                const salesAsPayments = salesRes.data
+                    .filter((s: any) => {
+                        // Only include sales that are NOT rejected
+                        const status = (s.status || '').toLowerCase();
+                        if (status === 'rejected' || status === 'cancelled') return false;
+                        
+                        // Check if this sale already has a payment record in existingPayments
+                        return !existingPayments.find((p: any) => p.saleId === s.id);
+                    })
+                    .map((s: any) => ({
+                        id: `s-${s.id}`,
+                        amount: s.final_price,
+                        method: s.payment_method || 'N/A',
+                        status: s.status,
+                        createdAt: s.sale_date,
+                        reference: s.id.substring(0, 8),
+                        saleId: s.id
+                    }));
+
+                // Merge and sort
+                const combined = [...existingPayments, ...salesAsPayments].sort((a, b) => 
+                    new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+                );
+
+                setPayments(combined);
             } catch (error) {
-                console.error('Error fetching payments:', error);
+                console.error('Error fetching payment data:', error);
             } finally {
                 setLoading(false);
             }
         };
-        fetchPayments();
+        fetchData();
     }, []);
 
     const getStatusColor = (status: string) => {
@@ -63,15 +95,15 @@ const UserPayments: React.FC = () => {
                         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-brand-primary"></div>
                     </div>
                 ) : payments.length > 0 ? (
-                    <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-sm overflow-hidden">
-                        <table className="w-full text-left">
-                            <thead className="bg-slate-50/50 border-b border-slate-100">
-                                <tr>
-                                    <th className="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">{t('admin.table.reference')}</th>
-                                    <th className="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">{t('userDashboard.payments.method')}</th>
-                                    <th className="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">{t('admin.table.date')}</th>
-                                    <th className="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">{t('admin.table.price')}</th>
-                                    <th className="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">{t('admin.table.status')}</th>
+                    <div className="bg-white rounded-[3rem] border border-slate-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden">
+                        <table className="w-full text-left ltr:text-left rtl:text-right border-collapse">
+                            <thead>
+                                <tr className="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em] border-b border-slate-50 bg-slate-50/30">
+                                    <th className="px-10 py-8">{t('admin.table.reference')}</th>
+                                    <th className="px-10 py-8">{t('userDashboard.payments.method')}</th>
+                                    <th className="px-10 py-8">{t('admin.table.date')}</th>
+                                    <th className="px-10 py-8">{t('admin.table.price')}</th>
+                                    <th className="px-10 py-8">{t('admin.table.status')}</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-50">
@@ -80,15 +112,21 @@ const UserPayments: React.FC = () => {
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         key={payment.id} 
-                                        className="hover:bg-slate-50/30 transition-colors"
+                                        className="hover:bg-slate-50/50 transition-colors group"
                                     >
-                                        <td className="px-8 py-6 font-black text-slate-900">#{payment.reference || payment.id.substring(0, 8)}</td>
-                                        <td className="px-8 py-6 font-bold text-slate-600 uppercase text-xs tracking-tight">{payment.method}</td>
-                                        <td className="px-8 py-6 text-slate-500 font-bold text-sm tracking-tight">{new Date(payment.createdAt).toLocaleDateString(i18n.language === 'ar' ? 'ar-EG' : 'en-US')}</td>
-                                        <td className="px-8 py-6 font-black text-brand-primary tracking-tighter">{payment.amount.toLocaleString()} {t('common.currency')}</td>
-                                        <td className="px-8 py-6">
-                                            <div className={`px-4 py-1.5 rounded-lg border font-black text-[10px] uppercase tracking-widest inline-flex items-center gap-2 ${getStatusColor(payment.status)}`}>
-                                                {payment.status.toLowerCase() === 'completed' ? <CheckCircle2 size={12} /> : <Clock size={12} />}
+                                        <td className="px-10 py-8">
+                                            <div className="px-3 py-1 bg-slate-100 rounded-lg inline-block font-mono text-[10px] text-slate-500 group-hover:bg-brand-primary/10 group-hover:text-brand-primary transition-colors">
+                                                #{payment.reference || payment.id.substring(0, 8)}
+                                            </div>
+                                        </td>
+                                        <td className="px-10 py-8 font-black text-slate-600 uppercase text-xs tracking-tight">{payment.method}</td>
+                                        <td className="px-10 py-8 text-slate-400 font-bold text-sm tracking-tight">{new Date(payment.createdAt).toLocaleDateString(i18n.language === 'ar' ? 'ar-EG' : 'en-US')}</td>
+                                        <td className="px-10 py-8 font-black text-brand-primary text-lg tracking-tighter">
+                                            {payment.amount.toLocaleString()} <span className="text-[10px] opacity-50">{t('common.currency')}</span>
+                                        </td>
+                                        <td className="px-10 py-8">
+                                            <div className={`px-4 py-2 rounded-xl border font-black text-[9px] uppercase tracking-[0.15em] inline-flex items-center gap-2 ${getStatusColor(payment.status)}`}>
+                                                <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${payment.status.toLowerCase() === 'completed' ? 'bg-emerald-500' : 'bg-amber-500'}`} />
                                                 {t(`status.${payment.status.toLowerCase()}`)}
                                             </div>
                                         </td>
