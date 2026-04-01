@@ -32,11 +32,12 @@ const UserDashboard: React.FC = () => {
                 setSales(mySales);
 
                 // Calculate stats
-                const totalSpent = mySales.reduce((acc: number, s: any) => acc + Number(s.final_price || 0), 0);
+                const nonRejectedSales = mySales.filter((s: any) => s.status !== 'rejected' && s.status !== 'cancelled');
+                const totalSpent = nonRejectedSales.reduce((acc: number, s: any) => acc + Number(s.final_price || 0), 0);
                 const pendingCount = mySales.filter((s: any) => s.status === 'pending').length;
 
                 setStats({
-                    purchases: mySales.length,
+                    purchases: nonRejectedSales.length,
                     spent: totalSpent,
                     pending: pendingCount
                 });

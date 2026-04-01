@@ -40,6 +40,10 @@ export enum PaymentMethod {
   WALLET = 'wallet',
   CASH_DEPOSIT = 'cash_deposit',
   ONLINE = 'online',
+  VODAFONE = 'vodafone',
+  INSTAPAY = 'instapay',
+  FAWRY = 'fawry',
+  STRIPE = 'stripe',
 }
 
 export enum PaymentStatus {
