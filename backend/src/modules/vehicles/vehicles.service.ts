@@ -44,16 +44,16 @@ export class VehiclesService implements OnModuleInit {
             // Remove erroneous trailing slashes
             while (cleaned.endsWith('/')) cleaned = cleaned.slice(0, -1);
             
-            // Fix local paths
+            // Handing for local vs cloud paths
             if (cleaned && !cleaned.startsWith('http')) {
-              // If it's a naked filename or missing /uploads/ prefix
-              if (!cleaned.includes('/uploads/')) {
-                const filename = cleaned.split('/').pop(); // Get just the filename
+              // Only prepend /uploads/ if it's clearly a local filename and not already prefixed
+              if (!cleaned.includes('/uploads/') && !cleaned.startsWith('cloudinary')) {
+                const filename = cleaned.split('/').pop();
                 if (filename) {
                   cleaned = `/uploads/vehicles/${filename}`;
                 }
-              } else if (!cleaned.startsWith('/')) {
-                cleaned = '/' + cleaned;
+              } else if (cleaned.startsWith('uploads/') || cleaned.startsWith('public/')) {
+                cleaned = '/' + cleaned.replace('public/', '');
               }
             }
             return cleaned;

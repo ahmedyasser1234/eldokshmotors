@@ -15,16 +15,16 @@ export const normalizeImageUrl = (url: string | undefined | null): string => {
     u = u.slice(0, -1);
   }
   
-  // Handing for local uploads (should start with /uploads/vehicles/...)
+  // Handing for local vs cloud paths
   if (u && !u.startsWith('http')) {
-    // If it's a naked filename or missing /uploads/ prefix
-    if (!u.includes('/uploads/')) {
-      const filename = u.split('/').pop(); // Get just the last part
+    // Only prepend /uploads/ if it's clearly a local filename and not a cloud marker
+    if (!u.includes('/uploads/') && !u.startsWith('cloudinary')) {
+      const filename = u.split('/').pop();
       if (filename) {
         u = `/uploads/vehicles/${filename}`;
       }
-    } else if (!u.startsWith('/')) {
-      u = '/' + u;
+    } else if (u.startsWith('uploads/') || u.startsWith('public/')) {
+        u = '/' + u.replace('public/', '');
     }
   }
   
