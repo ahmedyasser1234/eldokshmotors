@@ -15,25 +15,7 @@ export class VehiclesService implements OnModuleInit {
   async onModuleInit() {
     const vehicles = await this.vehicleRepository.find();
     for (const v of vehicles) {
-       // Fix missing make/model info (existing logic)
-      if (!v.make_en || !v.make_ar) {
-        if (v.details?.engine?.includes('Aventador') || v.sale_price > 20000000) {
-          v.make_en = v.make_en || 'Lamborghini';
-          v.make_ar = v.make_ar || 'لامبورجيني';
-          v.model_en = v.model_en || 'Aventador SVJ';
-          v.model_ar = v.model_ar || 'أفنتادور SVJ';
-        } else if (v.sale_price > 10000000) {
-          v.make_en = v.make_en || 'Porsche';
-          v.make_ar = v.make_ar || 'بورش';
-          v.model_en = v.model_en || 'Panamera Turbo';
-          v.model_ar = v.model_ar || 'باناميرا تيربو';
-        } else {
-          v.make_en = v.make_en || 'Luxury Car';
-          v.make_ar = v.make_ar || 'سيارة فاخرة';
-          v.model_en = v.model_en || 'Premium';
-          v.model_ar = v.model_ar || 'مميز';
-        }
-      }
+      // Removed legacy fallback logic for brand/model generation
 
       // NEW: Normalize image_urls (Strip trailing slashes + ensure correct prefix)
       if (v.image_urls && v.image_urls.length > 0) {
