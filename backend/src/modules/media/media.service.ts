@@ -1,35 +1,24 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryResponse } from './cloudinary-response';
-import { createWriteStream, existsSync, mkdirSync } from 'fs';
-import { join } from 'path';
-import { randomUUID } from 'crypto';
+import * as streamifier from 'streamifier';
 
 @Injectable()
 export class MediaService {
   async uploadFile(file: any): Promise<any> {
-    const uploadDir = join(process.cwd(), 'public', 'uploads', 'vehicles');
-    if (!existsSync(uploadDir)) {
-      mkdirSync(uploadDir, { recursive: true });
-    }
-
-    const fileName = `${randomUUID()}-${file.originalname}`;
-    const filePath = join(uploadDir, fileName);
-
     return new Promise((resolve, reject) => {
-      const writeStream = createWriteStream(filePath);
-      writeStream.write(file.buffer);
-      writeStream.end();
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          folder: 'eldoksh_motors',
+        },
+        (error, result) => {
+          if (error) return reject(error);
+          if (!result) return reject(new Error('Cloudinary upload failed: No result'));
+          resolve({ url: result.secure_url });
+        },
+      );
 
-      writeStream.on('finish', () => {
-        const url = `/uploads/vehicles/${fileName}`;
-        resolve({ url });
-      });
-
-      writeStream.on('error', (error) => {
-        console.error('LOCAL UPLOAD ERROR:', error);
-        reject(error);
-      });
+      streamifier.createReadStream(file.buffer).pipe(uploadStream);
     });
   }
 
