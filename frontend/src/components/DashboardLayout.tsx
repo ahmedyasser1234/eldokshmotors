@@ -17,14 +17,14 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, role, title
     const isRtl = i18n.language === 'ar';
 
     return (
-        <div className="flex bg-[#f8fafc] text-slate-900 font-sans h-full min-h-screen">
+        <div className={`min-h-screen bg-[#f8fafc] text-slate-900 font-sans ${isRtl ? 'rtl' : 'ltr'}`}>
             <Sidebar 
                 role={role} 
                 isOpen={isSidebarOpen} 
                 onClose={() => setIsSidebarOpen(false)} 
             />
             
-            <div className="md:ltr:ml-72 md:rtl:mr-72 min-h-screen flex flex-col">
+            <div className="md:ltr:ml-72 md:rtl:mr-72 min-h-screen flex flex-col transition-all duration-300">
                 {/* Header */}
                 <header className="h-24 glass-morphism border-b border-slate-200/60 flex items-center justify-between px-6 md:px-10 sticky top-0 z-30">
                     <div className="flex items-center gap-4">
@@ -62,7 +62,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, role, title
 
                 {/* Main Content */}
                 <main className="p-4 md:p-10 flex-grow">
-                    <div className="max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-700">
+                    <div className="w-full animate-in fade-in slide-in-from-bottom-4 duration-700">
                         {children}
                     </div>
                 </main>
