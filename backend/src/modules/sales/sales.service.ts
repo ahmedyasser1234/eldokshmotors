@@ -4,8 +4,9 @@ import { Repository } from 'typeorm';
 import { Sale } from './entities/sale.entity';
 import { Vehicle } from '../vehicles/entities/vehicle.entity';
 import { User } from '../users/entities/user.entity';
-import { SaleStatus, VehicleStatus } from '../../common/enums';
+import { SaleStatus, VehicleStatus, PaymentStatus, PaymentMethod } from '../../common/enums';
 import { NotificationsService } from '../notifications/notifications.service';
+import { Payment } from '../payments/entities/payment.entity';
 
 @Injectable()
 export class SalesService {
@@ -16,6 +17,8 @@ export class SalesService {
     private vehicleRepository: Repository<Vehicle>,
     @InjectRepository(User)
     private userRepository: Repository<User>,
+    @InjectRepository(Payment)
+    private paymentRepository: Repository<Payment>,
     private notificationsService: NotificationsService,
   ) {}
 
@@ -52,6 +55,22 @@ export class SalesService {
     });
 
     const savedSale = await this.saleRepository.save(sale);
+
+    // Create a Payment record for the transaction history
+    try {
+      const payment = this.paymentRepository.create({
+        user: user,
+        amount: data.finalPrice,
+        reference_id: savedSale.id,
+        reference_type: 'sale',
+        payment_method: (data.payment_method as any) || PaymentMethod.ONLINE,
+        payment_status: PaymentStatus.PENDING,
+        transaction_id: `TXN-S-${Math.random().toString(36).substr(2, 9).toUpperCase()}`
+      });
+      await this.paymentRepository.save(payment);
+    } catch (err) {
+      console.error('Failed to create payment record:', err);
+    }
 
     // Notify Customer
     await this.notificationsService.notify(
@@ -96,6 +115,19 @@ export class SalesService {
 
     sale.status = SaleStatus.COMPLETED;
     await this.saleRepository.save(sale);
+
+    // Update corresponding payment status
+    try {
+      const payment = await this.paymentRepository.findOne({
+        where: { reference_id: sale.id, reference_type: 'sale' }
+      });
+      if (payment) {
+        payment.payment_status = PaymentStatus.COMPLETED;
+        await this.paymentRepository.save(payment);
+      }
+    } catch (err) {
+      console.error('Failed to update payment status:', err);
+    }
 
     // Update vehicle status to strictly 'reserved' when initially completed 
     // The admin takes them from 'reserved' to 'sold' directly later when final balance is cleared.

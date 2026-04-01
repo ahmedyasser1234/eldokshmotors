@@ -247,7 +247,7 @@ const FleetManagement: React.FC = () => {
                                     </button>
                                 </div>
 
-                                <div className="grid grid-cols-2 gap-4">
+                                <div className="grid grid-cols-1 gap-4">
                                     <div className="bg-slate-50/50 p-4 rounded-3xl border border-slate-100/50 flex flex-col justify-center">
                                         <div className="flex items-center gap-2 mb-1">
                                             <Zap size={12} className="text-brand-primary" />

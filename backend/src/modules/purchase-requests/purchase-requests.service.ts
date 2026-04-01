@@ -154,6 +154,13 @@ export class PurchaseRequestsService {
     });
   }
 
+  async findByUser(userId: string) {
+    return this.purchaseRequestRepository.find({
+      where: { user: { id: userId } },
+      order: { created_at: 'DESC' },
+    });
+  }
+
   async findOne(id: string) {
     const request = await this.purchaseRequestRepository.findOne({
       where: { id },

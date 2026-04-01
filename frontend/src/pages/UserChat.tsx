@@ -51,15 +51,28 @@ const UserChat: React.FC = () => {
                        s.emit('checkUserStatus', resp.data.admin_id, (res: any) => {
                            setParticipantConnected(res.status === 'online');
                        });
+                   } else {
+                       // Check if ANY support is online
+                       s.emit('getSupportStatus', (res: any) => {
+                           setParticipantConnected(res?.status === 'online');
+                       });
                    }
                 });
 
                 s.on('disconnect', () => {});
 
                 s.on('userStatusChanged', (data: { userId: string, status: string }) => {
-                    // Using functional update to access latest state without stale closure
                     setConversation((curr: any) => {
                         if (curr && data.userId === curr.admin_id) {
+                            setParticipantConnected(data.status === 'online');
+                        }
+                        return curr;
+                    });
+                });
+
+                s.on('supportStatusChanged', (data: { status: string }) => {
+                    setConversation((curr: any) => {
+                        if (!curr?.admin_id) {
                             setParticipantConnected(data.status === 'online');
                         }
                         return curr;

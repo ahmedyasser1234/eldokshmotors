@@ -18,23 +18,6 @@ import Logo from '../components/Logo';
 import ReviewSection from '../components/ReviewSection';
 import SEO from '../components/SEO';
 
-const TireTrackDivider = () => (
-  <div className="relative w-full h-16 md:h-24 overflow-hidden pointer-events-none opacity-15 border-y border-slate-200 bg-slate-50 shadow-inner">
-    <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-[1px] md:h-[2px] bg-slate-300" />
-    <motion.div
-      animate={{ x: ["0%", "-50%"] }}
-      transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-      className="flex gap-8 md:gap-16 absolute top-1/2 -translate-y-1/2 whitespace-nowrap"
-    >
-      {[...Array(30)].map((_: any, i: number) => (
-        <div key={i} className="flex gap-1 md:gap-2 shrink-0">
-          <div className="w-8 md:w-12 h-4 md:h-6 bg-slate-500/20 skew-x-[30deg] rounded-sm" />
-          <div className="w-8 md:w-12 h-4 md:h-6 bg-slate-500/20 skew-x-[30deg] rounded-sm" />
-        </div>
-      ))}
-    </motion.div>
-  </div>
-);
 
 const Home: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -222,7 +205,6 @@ const Home: React.FC = () => {
         </div>
       </section>
 
-      <TireTrackDivider />
       {/* Featured Sales Section */}
       <section id="featured-sales" className="py-16 md:py-24 bg-white relative overflow-hidden scroll-mt-24">
         {/* Decorative Background Car */}
@@ -325,6 +307,12 @@ const Home: React.FC = () => {
 
       {/* Recently Added Section Block */}
       <div className="relative">
+        {/* Top Wave */}
+        <div className="absolute top-0 left-0 w-full overflow-hidden leading-none rotate-180 -translate-y-[99%] z-20">
+          <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[60px] md:h-[100px] fill-slate-950">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
+          </svg>
+        </div>
 
         <section id="recent-additions" className="py-24 bg-slate-950 relative overflow-hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -391,11 +379,16 @@ const Home: React.FC = () => {
           </div>
         </section>
 
+        {/* Bottom Wave */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none translate-y-[99%] z-20">
+          <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[60px] md:h-[100px] fill-slate-950">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
+          </svg>
+        </div>
       </div>
 
       <RecentlySold />
 
-      <TireTrackDivider />
 
       {/* How it Works / The Track */}
       <section id="how-it-works" className="py-16 md:py-20 bg-slate-50 relative overflow-hidden scroll-mt-24">

@@ -10,6 +10,7 @@ import {
 import { Server, Socket } from 'socket.io';
 import { Injectable, UseGuards } from '@nestjs/common';
 import { ChatService } from './chat.service';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 @WebSocketGateway({
@@ -24,15 +25,31 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   server: Server;
 
   private connectedUsers: Map<string, string> = new Map(); 
+  private connectedAdmins: Set<string> = new Set<string>();
 
-  constructor(private chatService: ChatService) { }
+  constructor(
+    private chatService: ChatService,
+    private usersService: UsersService,
+  ) { }
 
-  handleConnection(client: Socket) {
+  async handleConnection(client: Socket) {
     const userId = client.handshake.query.userId as string;
     if (userId) {
       this.connectedUsers.set(userId, client.id);
+      
+      // Check if user is admin
+      try {
+        const user = await this.usersService.findOne(userId);
+        if (user && user.role === 'admin') {
+          this.connectedAdmins.add(userId);
+          this.server.emit('supportStatusChanged', { status: 'online' });
+          console.log(`[Chat] Admin connected: ${userId}. Total online support: ${this.connectedAdmins.size}`);
+        }
+      } catch (err) {
+        console.error('[Chat] Error checking user role:', err);
+      }
+
       console.log(`[Chat] User connected: ${userId} (Socket: ${client.id})`);
-      // Broadcast status change
       this.server.emit('userStatusChanged', { userId, status: 'online' });
     }
   }
@@ -41,8 +58,16 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     for (const [userId, socketId] of this.connectedUsers.entries()) {
       if (socketId === client.id) {
         this.connectedUsers.delete(userId);
+        
+        if (this.connectedAdmins.has(userId)) {
+          this.connectedAdmins.delete(userId);
+          if (this.connectedAdmins.size === 0) {
+            this.server.emit('supportStatusChanged', { status: 'offline' });
+          }
+          console.log(`[Chat] Admin disconnected: ${userId}.`);
+        }
+
         console.log(`[Chat] User disconnected: ${userId}`);
-        // Broadcast status change
         this.server.emit('userStatusChanged', { userId, status: 'offline' });
         break;
       }
@@ -77,6 +102,11 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   handleCheckStatus(client: Socket, userId: string) {
     const isOnline = this.connectedUsers.has(userId);
     return { userId, status: isOnline ? 'online' : 'offline' };
+  }
+
+  @SubscribeMessage('getSupportStatus')
+  handleGetSupportStatus() {
+    return { status: this.connectedAdmins.size > 0 ? 'online' : 'offline' };
   }
 
   @SubscribeMessage('joinConversation')

@@ -19,6 +19,11 @@ export class NotificationsController {
     return this.notificationsService.getUnreadCounts(user.id);
   }
 
+  @Get('unread-count')
+  getUnreadCountAlias(@GetUser() user: User) {
+    return this.notificationsService.getUnreadCounts(user.id);
+  }
+
   @Patch('read-type/:type')
   markTypeAsRead(@GetUser() user: User, @Param('type') type: string) {
     return this.notificationsService.markTypeAsRead(user.id, type);

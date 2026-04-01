@@ -25,6 +25,12 @@ export class PurchaseRequestsController {
     return this.purchaseRequestsService.confirmPurchase(id, confirmDto);
   }
 
+  @Get('my-requests')
+  @UseGuards(JwtAuthGuard)
+  findByUser(@Request() req) {
+    return this.purchaseRequestsService.findByUser(req.user.id);
+  }
+
   @Get()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
