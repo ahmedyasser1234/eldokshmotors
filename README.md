@@ -75,4 +75,4 @@ npm run dev
 
 ---
 
-Developed with ❤️ for **Eldoksh Motors**.
+Developed with ❤️ by [aqrablk](https://aqrablkmedia.com/).
