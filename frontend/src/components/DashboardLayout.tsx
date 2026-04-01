@@ -17,7 +17,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children, role, title
     const isRtl = i18n.language === 'ar';
 
     return (
-        <div className={`min-h-screen bg-[#f8fafc] text-slate-900 font-sans ${isRtl ? 'rtl' : 'ltr'}`}>
+        <div className="flex bg-[#f8fafc] text-slate-900 font-sans h-full min-h-screen">
             <Sidebar 
                 role={role} 
                 isOpen={isSidebarOpen} 

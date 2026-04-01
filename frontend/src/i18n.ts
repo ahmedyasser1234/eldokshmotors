@@ -26,8 +26,11 @@ i18n
 
 // Update HTML lang and dir on change
 i18n.on('languageChanged', (lng: string) => {
+  const dir = lng === 'ar' ? 'rtl' : 'ltr';
   document.documentElement.lang = lng;
-  document.documentElement.dir = lng === 'ar' ? 'rtl' : 'ltr';
+  document.documentElement.dir = dir;
+  // Force a redraw if needed for some CSS engines
+  document.body.dir = dir;
 });
 
 // Initial set

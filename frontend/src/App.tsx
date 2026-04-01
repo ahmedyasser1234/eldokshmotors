@@ -50,7 +50,7 @@ const AppContent: React.FC = () => {
     location.pathname === '/admin/settings';
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#f8fafc] text-slate-900 font-sans">
+    <div className="w-full min-h-screen flex flex-col bg-[#f8fafc] text-slate-900 font-sans overflow-x-hidden">
       {!isDashboard && <Navbar />}
       <main className="flex-grow">
         <Routes>

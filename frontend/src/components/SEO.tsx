@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import { useTranslation } from 'react-i18next';
 
 interface SEOProps {
   title?: string;
@@ -20,9 +19,6 @@ export const SEO = ({
   ogType = 'website',
   twitterHandle = '@eldoksh',
 }: SEOProps) => {
-  const { i18n } = useTranslation();
-  const currentLang = i18n.language || 'ar';
-  
   const siteName = 'Eldoksh';
   const fullTitle = title ? `${title} | ${siteName}` : siteName;
   const defaultDescription = 'Eldoksh - The premier destination for luxury car sales and acquisition. We provide the finest global vehicles with exceptional financing solutions.';
@@ -39,7 +35,6 @@ export const SEO = ({
       <meta name="description" content={metaDescription} />
       {keywords && <meta name="keywords" content={keywords} />}
       <link rel="canonical" href={canonicalUrl} />
-      <html lang={currentLang} dir={currentLang === 'ar' ? 'rtl' : 'ltr'} />
 
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={ogType} />
