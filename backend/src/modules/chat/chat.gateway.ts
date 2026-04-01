@@ -8,7 +8,7 @@ import {
   ConnectedSocket,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { Injectable, UseGuards } from '@nestjs/common';
+import { Injectable, UseGuards, OnModuleInit, Logger } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { UsersService } from '../users/users.service';
 
@@ -20,17 +20,24 @@ import { UsersService } from '../users/users.service';
   namespace: 'chat',
   transports: ['polling', 'websocket'],
 })
-export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
+export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect, OnModuleInit {
   @WebSocketServer()
   server: Server;
 
+  private readonly logger = new Logger(ChatGateway.name);
   private connectedUsers: Map<string, string> = new Map(); 
   private connectedAdmins: Set<string> = new Set<string>();
 
   constructor(
     private chatService: ChatService,
     private usersService: UsersService,
-  ) { }
+  ) {
+    this.logger.log('ChatGateway initialized in constructor');
+  }
+
+  onModuleInit() {
+    this.logger.log('ChatGateway initialized in onModuleInit');
+  }
 
   async handleConnection(client: Socket) {
     const userId = client.handshake.query.userId as string;

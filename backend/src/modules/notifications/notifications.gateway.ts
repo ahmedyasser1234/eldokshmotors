@@ -6,7 +6,7 @@ import {
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { Injectable, UseGuards } from '@nestjs/common';
+import { Injectable, UseGuards, OnModuleInit, Logger } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 
 @Injectable()
@@ -17,11 +17,20 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
   namespace: 'notifications',
   transports: ['polling', 'websocket'],
 })
-export class NotificationsGateway implements OnGatewayConnection, OnGatewayDisconnect {
+export class NotificationsGateway implements OnGatewayConnection, OnGatewayDisconnect, OnModuleInit {
   @WebSocketServer()
   server: Server;
 
+  private readonly logger = new Logger(NotificationsGateway.name);
   private connectedUsers: Map<string, string> = new Map(); // userId -> socketId
+
+  constructor() {
+    this.logger.log('NotificationsGateway initialized in constructor');
+  }
+
+  onModuleInit() {
+    this.logger.log('NotificationsGateway initialized in onModuleInit');
+  }
 
   handleConnection(client: Socket) {
     const userId = client.handshake.query.userId as string;
