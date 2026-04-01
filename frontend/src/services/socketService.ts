@@ -7,6 +7,8 @@ class SocketService {
 
   connect(userId: string) {
     if (this.socket) return;
+    
+    console.log('[Socket] Connecting to notifications at:', SOCKET_URL);
 
     this.socket = io(`${SOCKET_URL}/notifications`, {
       query: { userId },

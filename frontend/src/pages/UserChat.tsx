@@ -36,7 +36,9 @@ const UserChat: React.FC = () => {
                 setLoading(false);
 
                 // 3. Connect Socket
-                const s = io(`${import.meta.env.VITE_API_URL || 'http://localhost:3000'}/chat`, {
+                const socketUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+                console.log('[Socket] Connecting to chat at:', socketUrl);
+                const s = io(`${socketUrl}/chat`, {
                     query: { userId: user?.id },
                     transports: ['websocket', 'polling'],
                     auth: { token },
