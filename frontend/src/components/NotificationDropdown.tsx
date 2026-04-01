@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import api from '../services/api';
 import { socketService } from '../services/socketService';
+import { useNotificationStore } from '../store/notificationStore';
 
 interface Notification {
     id: string;
@@ -18,11 +19,14 @@ const NotificationDropdown: React.FC<{ onClose: () => void }> = ({ onClose }) =>
     const { t } = useTranslation();
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [loading, setLoading] = useState(true);
+    const { setUnreadCount, decrementUnreadCount } = useNotificationStore();
 
     const fetchNotifications = async () => {
         try {
             const res = await api.get('/notifications');
             setNotifications(res.data);
+            const count = res.data.filter((n: Notification) => !n.is_read).length;
+            setUnreadCount(count);
         } catch (err) {
             console.error('Failed to fetch notifications:', err);
         } finally {
@@ -36,6 +40,7 @@ const NotificationDropdown: React.FC<{ onClose: () => void }> = ({ onClose }) =>
         // Listen for real-time updates to refresh the list
         socketService.onNotification((newNotif) => {
             setNotifications(prev => [newNotif, ...prev]);
+            // Increment is handled in NotificationListener, but we ensure list is updated
         });
 
         return () => {
@@ -47,6 +52,7 @@ const NotificationDropdown: React.FC<{ onClose: () => void }> = ({ onClose }) =>
         try {
             await api.patch(`/notifications/${id}/read`);
             setNotifications(prev => prev.map(n => n.id === id ? { ...n, is_read: true } : n));
+            decrementUnreadCount();
         } catch (err) {
             console.error('Failed to mark notification as read:', err);
         }
@@ -56,6 +62,7 @@ const NotificationDropdown: React.FC<{ onClose: () => void }> = ({ onClose }) =>
         try {
             await api.patch('/notifications/read-all');
             setNotifications(prev => prev.map(n => ({ ...n, is_read: true })));
+            setUnreadCount(0);
         } catch (err) {
             console.error('Failed to mark all as read:', err);
         }

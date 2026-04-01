@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, Upload, Save, Loader2, Plus, Info, Settings, Image as ImageIcon } from 'lucide-react';
+import { X, Upload, Save, Loader2, Plus, Info, Settings, Image as ImageIcon, Trash2 } from 'lucide-react';
 import api from '../services/api';
 import { useTranslation } from 'react-i18next';
 import { normalizeImageUrl } from '../utils/imageUtils';
@@ -129,6 +129,16 @@ const AddVehicleModal: React.FC<AddVehicleModalProps> = ({ isOpen, onClose, onSu
 
     const addImageUrl = () => {
         setFormData(prev => ({ ...prev, image_urls: [...prev.image_urls, ''] }));
+    };
+
+    const removeImageUrl = (index: number) => {
+        setFormData(prev => {
+            const newUrls = [...prev.image_urls];
+            newUrls.splice(index, 1);
+            // Ensure at least one empty string if everything is removed
+            if (newUrls.length === 0) newUrls.push('');
+            return { ...prev, image_urls: newUrls };
+        });
     };
 
     const [uploadingIdx, setUploadingIdx] = useState<number | null>(null);
@@ -522,6 +532,15 @@ const AddVehicleModal: React.FC<AddVehicleModalProps> = ({ isOpen, onClose, onSu
                                                     {uploadingIdx === idx ? <Loader2 className="animate-spin" size={16} /> : <Upload size={16} />}
                                                 </div>
                                             </label>
+
+                                            <button 
+                                                type="button"
+                                                onClick={() => removeImageUrl(idx)}
+                                                className="w-10 h-10 rounded-xl border border-red-100 bg-red-50 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-all flex-shrink-0"
+                                                title={isRTL ? "حذف الصورة" : "Delete Image"}
+                                            >
+                                                <Trash2 size={16} />
+                                            </button>
                                         </div>
                                     </div>
                                 ))}

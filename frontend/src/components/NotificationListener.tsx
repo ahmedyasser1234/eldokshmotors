@@ -4,17 +4,39 @@ import { socketService } from '../services/socketService';
 import toast from 'react-hot-toast';
 import { Bell } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useNotificationStore } from '../store/notificationStore';
+import api from '../services/api';
 
 const NotificationListener: React.FC = () => {
   const { user, isAuthenticated } = useAuthStore();
   const { t } = useTranslation();
+  const { setUnreadCount, incrementUnreadCount } = useNotificationStore();
 
   useEffect(() => {
     if (isAuthenticated && user) {
+      // Fetch initial unread count
+      const fetchCount = async () => {
+        try {
+          const res = await api.get('/notifications/unread-count');
+          setUnreadCount(res.data.count);
+        } catch (err) {
+          // Fallback to full fetch if unread-count endpoint doesn't exist
+          try {
+            const res = await api.get('/notifications');
+            const count = res.data.filter((n: any) => !n.is_read).length;
+            setUnreadCount(count);
+          } catch (e) {
+            console.error('Failed to fetch initial count:', e);
+          }
+        }
+      };
+      
+      fetchCount();
       socketService.connect(user.id);
 
       socketService.onNotification((notification) => {
         console.log('New notification received:', notification);
+        incrementUnreadCount();
         
         // Show a premium toast notification
         toast.custom((toastItem) => (

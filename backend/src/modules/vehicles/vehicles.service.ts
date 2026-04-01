@@ -19,27 +19,14 @@ export class VehiclesService implements OnModuleInit {
 
       // NEW: Normalize image_urls (Strip trailing slashes + ensure correct prefix)
       if (v.image_urls && v.image_urls.length > 0) {
-        const cleanedUrls = v.image_urls.map(url => {
+        const cleanedUrls = v.image_urls
+          .map(url => {
             if (typeof url !== 'string') return url;
             let cleaned = url.trim();
-            
-            // Remove erroneous trailing slashes
             while (cleaned.endsWith('/')) cleaned = cleaned.slice(0, -1);
-            
-            // Handing for local vs cloud paths
-            if (cleaned && !cleaned.startsWith('http')) {
-              // Only prepend /uploads/ if it's clearly a local filename and not already prefixed
-              if (!cleaned.includes('/uploads/') && !cleaned.startsWith('cloudinary')) {
-                const filename = cleaned.split('/').pop();
-                if (filename) {
-                  cleaned = `/uploads/vehicles/${filename}`;
-                }
-              } else if (cleaned.startsWith('uploads/') || cleaned.startsWith('public/')) {
-                cleaned = '/' + cleaned.replace('public/', '');
-              }
-            }
             return cleaned;
-        });
+          })
+          .filter(url => url && (url.startsWith('http') || url.startsWith('https'))); // ONLY keep cloud URLs
         
         // Check if any url actually changed
         const hasChanges = JSON.stringify(v.image_urls) !== JSON.stringify(cleanedUrls);

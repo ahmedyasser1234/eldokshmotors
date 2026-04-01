@@ -70,13 +70,13 @@ const Login: React.FC = () => {
                         <Logo className="h-28" isWhite={true} />
                     </div>
                     <h1 className="text-5xl font-black tracking-tighter text-white">{t('auth.login.title')}</h1>
-                    <p className="text-white/90 font-medium">{t('auth.login.subtitle')}</p>
+                    <p className="text-white/80 font-medium">{t('auth.login.subtitle')}</p>
                 </div>
 
                 <div className="bg-gray-900/40 backdrop-blur-3xl border border-gray-800 p-10 rounded-[40px] shadow-2xl space-y-8">
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div className="space-y-2">
-                            <label className="text-xs font-black text-gray-500 uppercase tracking-[0.2em] rtl:mr-2 ltr:ml-2">{t('auth.login.emailLabel')}</label>
+                            <label className="text-xs font-black text-white uppercase tracking-[0.2em] rtl:mr-2 ltr:ml-2">{t('auth.login.emailLabel')}</label>
                             <div className="relative group">
                                 <Mail className="absolute ltr:left-5 rtl:right-5 top-1/2 -translate-y-1/2 text-gray-600 group-focus-within:text-brand-primary transition-colors" size={20} />
                                 <input 
@@ -85,14 +85,14 @@ const Login: React.FC = () => {
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     placeholder="name@example.com"
-                                    className="w-full bg-black/50 border border-gray-800 rounded-2xl ltr:pl-14 rtl:pr-14 py-5 focus:border-brand-primary/50 focus:ring-4 focus:ring-brand-primary/10 outline-none transition-all placeholder:text-gray-700 font-medium rtl:text-right" 
+                                    className="w-full bg-black/50 border border-gray-800 rounded-2xl ltr:pl-14 rtl:pr-14 py-5 focus:border-brand-primary/50 focus:ring-4 focus:ring-brand-primary/10 outline-none transition-all placeholder:text-gray-500 text-white font-medium rtl:text-right" 
                                 />
                             </div>
                         </div>
 
                         <div className="space-y-2">
                             <div className="flex justify-between items-center rtl:mr-2 ltr:ml-2">
-                                <label className="text-xs font-black text-gray-500 uppercase tracking-[0.2em]">{t('auth.login.passwordLabel')}</label>
+                                <label className="text-xs font-black text-white uppercase tracking-[0.2em]">{t('auth.login.passwordLabel')}</label>
                                 <Link to="/forgot-password" className="text-[10px] font-black text-brand-primary hover:text-brand-primary/80 uppercase tracking-widest transition-colors">{t('auth.login.forgotPassword')}</Link>
                             </div>
                             <div className="relative group">
@@ -103,7 +103,7 @@ const Login: React.FC = () => {
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
                                     placeholder="••••••••"
-                                    className="w-full bg-black/50 border border-gray-800 rounded-2xl ltr:pl-14 rtl:pr-14 ltr:pr-12 rtl:pl-12 py-5 focus:border-brand-primary/50 focus:ring-4 focus:ring-brand-primary/10 outline-none transition-all placeholder:text-gray-700 font-mono rtl:text-right" 
+                                    className="w-full bg-black/50 border border-gray-800 rounded-2xl ltr:pl-14 rtl:pr-14 ltr:pr-12 rtl:pl-12 py-5 focus:border-brand-primary/50 focus:ring-4 focus:ring-brand-primary/10 outline-none transition-all placeholder:text-gray-500 text-white font-mono rtl:text-right" 
                                 />
                                 <button 
                                     type="button"
@@ -130,7 +130,7 @@ const Login: React.FC = () => {
 
                     <div className="relative py-4">
                         <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-gray-800"></div></div>
-                        <div className="relative flex justify-center text-[10px] uppercase font-black tracking-[0.3em] text-gray-300"><span className="bg-[#0c0c0c] px-4">{t('auth.login.orContinueWith')}</span></div>
+                        <div className="relative flex justify-center text-[10px] uppercase font-black tracking-[0.3em] text-white/50"><span className="bg-[#0c0c0c] px-4">{t('auth.login.orContinueWith')}</span></div>
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
@@ -167,7 +167,7 @@ const Login: React.FC = () => {
                     </div>
                 </div>
 
-                <p className="text-center text-gray-300 font-medium relative z-10">
+                <p className="text-center text-white/60 font-medium relative z-10">
                     {t('auth.login.newUser')} <Link to={`/register${redirectUrl ? `?redirect=${encodeURIComponent(redirectUrl)}` : ''}`} className="text-white font-black hover:text-brand-primary transition-colors underline underline-offset-8 pointer-events-auto">{t('auth.login.createAccount')}</Link>
                 </p>
             </div>
