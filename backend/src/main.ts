@@ -6,10 +6,7 @@ import { join } from 'path';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.enableCors({
-    origin: [
-      'https://eldokshmators.netlify.app',
-      'http://localhost:5173', // For local testing
-    ],
+    origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
   });
@@ -19,6 +16,7 @@ async function bootstrap() {
     prefix: '/',
   });
 
-  await app.listen(process.env.PORT ?? 3000);
+  const port = process.env.PORT || 4321;
+  await app.listen(port, '0.0.0.0');
 }
 bootstrap();
