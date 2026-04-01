@@ -1,0 +1,894 @@
+{
+  "seo": {
+    "default": {
+      "title": "Eldoksh - Luxury Car Sales & Acquisition",
+      "description": "Premium destination for luxury car sales and acquisition in Egypt. Certified inspection and flexible financing for the world's finest vehicles.",
+      "keywords": "luxury cars Egypt, buy car Egypt, Eldoksh, Mercedes for sale, BMW for sale, car financing Egypt"
+    },
+    "home": {
+      "title": "Home",
+      "description": "Discover the finest luxury car collection in Egypt. Eldoksh offers certified premium vehicles with exceptional financing and inspection services."
+    },
+    "fleet": {
+      "title": "Luxury Fleet",
+      "description": "Browse our exclusive collection of luxury and sports cars for sale. Each car is 200-point inspected with warranty options."
+    },
+    "sell": {
+      "title": "Sell Your Car",
+      "description": "Sell your luxury or sports car to Eldoksh at the best market value. Professional appraisal and instant inspection."
+    },
+    "about": {
+      "title": "About Us",
+      "description": "Learn about Eldoksh, Egypt's premier luxury car dealership. Our mission is to provide excellence, luxury, and peace of mind."
+    },
+    "contact": {
+      "title": "Contact Us",
+      "description": "Get in touch with Eldoksh for inquiries about buying or selling luxury cars. We are here to assist you."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "description": "Understand how Eldoksh collects and protects your personal data."
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "description": "The legal terms and conditions for using the Eldoksh website and services."
+    },
+    "notFound": {
+      "title": "404 - Page Not Found",
+      "description": "The page you are looking for does not exist on Eldoksh."
+    }
+  },
+  "error": {
+    "adminNotAllowed": "Sorry, this feature is for customers only. Admins are not allowed to perform this action."
+  },
+  "nav": {
+    "home": "Home",
+    "vehicles": "Vehicles",
+    "sales": "Buy a Car",
+    "about": "About Us",
+    "contact": "Contact Us",
+    "signIn": "Sign In",
+    "getStarted": "Get Started",
+    "sellCar": "Sell Your Car"
+  },
+  "common": {
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "loading": "Loading...",
+    "error": "Error",
+    "agency": "ELDOKSH PREMIUM CAR SALES",
+    "contactUs": "CONTACT US",
+    "allRightsReserved": "© 2026 ELDOKSH. All rights reserved",
+    "make_ar": "Make (Arabic)",
+    "make_en": "Make (English)",
+    "model_ar": "Model (Arabic)",
+    "model_en": "Model (English)",
+    "noData": "No data available",
+    "brandName": "ELDOKSH TRADING ESTABLISHMENT",
+    "currency": "EGP",
+    "months": "Month",
+    "reviews": {
+      "title": "What Our Customers Say",
+      "subtitle": "CUSTOMER REVIEWS",
+      "addReview": "Write a Review",
+      "loginPrompt": "Sign in to share your experience",
+      "rating": "Rating",
+      "comment": "Comment",
+      "submit": "Submit Review",
+      "success": "Thank you for your feedback!",
+      "noReviews": "No reviews yet. Be the first to rate us!",
+      "stars": "Stars"
+    }
+  },
+  "home": {
+    "title": "Own Your Dream Car with Eldoksh",
+    "subtitle": "We provide the finest global vehicles with exceptional financing solutions",
+    "hero": {
+      "selection": "Eldoksh Premium Selection",
+      "mainTitle": "OWN THE FUTURE",
+      "subTitle": "The premier destination for luxury car sales and acquisition",
+      "brandTag": "Eldoksh for Car Trading & Marketing",
+      "location": "Model",
+      "locationPlaceholder": "Search for a specific car",
+      "dateRange": "Category",
+      "datePlaceholder": "Select preferred category",
+      "explore": "EXPLORE NOW"
+    },
+    "features": {
+      "commitment": "Our Quality Commitment",
+      "title": "THE GOLD STANDARD OF OWNERSHIP",
+      "desc": "We don’t just sell cars; we provide an unmatched ownership experience with comprehensive warranty and full protection",
+      "items": {
+        "protection": {
+          "title": "360° Inspection",
+          "desc": "All our vehicles undergo a rigorous 200-point technical inspection to ensure perfect condition"
+        },
+        "finance": {
+          "title": "Flexible Finance",
+          "desc": "Easy financing plans in cooperation with major certified banks in Egypt"
+        },
+        "concierge": {
+          "title": "Extended Warranty",
+          "desc": "We offer extended warranty programs up to 3 years, giving you complete peace of mind"
+        }
+      }
+    },
+    "featured_sales": {
+      "title": "FEATUED SHOWROOM",
+      "subtitle": "Choose from an exclusive selection of cars that have been subjected to the highest quality standards"
+    },
+    "recent_additions": {
+      "title": "RECENTLY ADDED",
+      "subtitle": "Be the first to own these newly added masterpieces in our showroom"
+    },
+    "recently_sold": {
+      "title": "GLOBAL SUCCESS",
+      "subtitle": "RECENTLY SOLD",
+      "desc": "Discover the premium automotive masterpieces that have recently found their proud new owners through our agency.",
+      "view_fleet": "VIEW CURRENT FLEET",
+      "final_price": "Final Price",
+      "sale_date": "Sale Date",
+      "sold_status": "SOLD"
+    },
+    "services": {
+      "title": "Eldoksh Comprehensive Services",
+      "subtitle": "Everything you need under one roof for a seamless buying experience",
+      "inspection_center": {
+        "title": "Certified Inspection Center",
+        "desc": "We provide you with comprehensive and certified inspection reports before completing the purchase"
+      },
+      "finance_solutions": {
+        "title": "Financing Solutions",
+        "desc": "Instant approval with lowest down payment and longest repayment period"
+      },
+      "trade_in": {
+        "title": "Trade-In Your Car",
+        "desc": "We appraise your old car at the highest market price and deduct its value from your new car"
+      },
+      "insurance": {
+        "title": "Comprehensive Insurance",
+        "desc": "Exclusive insurance offers from major companies at competitive prices"
+      }
+    },
+    "how_it_works": {
+      "title": "How to Buy Your Car with Eldoksh?",
+      "subtitle": "Simple steps separate you from sitting behind the steering wheel",
+      "step1": {
+        "title": "Browse Our Fleet",
+        "desc": "Choose your favorite car via our website or visit our showroom"
+      },
+      "step2": {
+        "title": "Schedule Inspection",
+        "desc": "Book an appointment to view the car and take a test drive with our expert"
+      },
+      "step3": {
+        "title": "Choose Payment System",
+        "desc": "Whether you pay in cash or via financing systems, we will provide you with the best options"
+      },
+      "step4": {
+        "title": "Receive the Key",
+        "desc": "We finish all paperwork and registration to deliver your car as soon as possible"
+      }
+    },
+    "cta": {
+      "subtitle": "THINKING OF SELLING?",
+      "title": "WE BUY THE BEST",
+      "desc": "Eldoksh is the trusted place to sell your luxury vehicle at the highest market value. We appreciate the value of excellence.",
+      "button": "START SELLING"
+    },
+    "why_us": {
+      "title": "Why choose Eldoksh? We promise the best always",
+      "inspection_verified": "VERIFIED INSPECTION"
+    }
+  },
+  "fleet": {
+    "title": "Car Fleet",
+    "subtitle": "Browse our carefully selected collection for immediate sale",
+    "showing": "Showing",
+    "vehicles": "Vehicles",
+    "luxuryCollection": "Luxury Collection",
+    "loading": "Loading Collection...",
+    "noVehicles": "No vehicles found matching your criteria",
+    "retry": "Retry"
+  },
+  "filters": {
+    "title": "Filter Vehicles",
+    "search": "Search",
+    "searchPlaceholder": "Search make or model",
+    "category": "Category",
+    "allCategories": "All Categories",
+    "allSelected": "All",
+    "priceRange": "Price Range",
+    "min": "Min",
+    "max": "Max",
+    "availability": "Availability",
+    "apply": "Apply Filters"
+  },
+  "card": {
+    "buy": "Buy",
+    "viewDetails": "View Details"
+  },
+  "categories": {
+    "economy": "Economy",
+    "luxury": "Luxury",
+    "suv": "SUV",
+    "sport": "Sport",
+    "van": "Van"
+  },
+  "status": {
+    "available": "Available",
+    "reserved": "Reserved",
+    "sold": "Sold",
+    "pending": "Pending",
+    "reviewed": "Reviewed",
+    "accepted": "Accepted",
+    "rejected": "Rejected",
+    "completed": "Sold",
+    "confirmed": "Confirmed",
+    "purchased": "Purchased"
+  },
+  "sell": {
+    "title": "Sell Your Car at the Best Price",
+    "subtitle": "We are always looking to add exceptional vehicles to our fleet. If you own a luxury or sports car, we are happy to review your request.",
+    "form": {
+      "personalInfo": "Personal Information",
+      "fullName": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "name": "Full Name",
+      "contactInfo": "Contact Information",
+      "carInfo": "Vehicle Information",
+      "make": "Make",
+      "model": "Model",
+      "year": "Manufacturing Year",
+      "mileage": "Mileage (km)",
+      "expectedPrice": "Expected Price (EGP)",
+      "condition": "Vehicle Condition",
+      "selectCondition": "Select Overall Condition",
+      "description": "Additional Details",
+      "descriptionPlaceholder": "Tell us more about the car (features, condition, warranty, etc...)",
+      "makePlaceholder": "e.g. Mercedes-Benz",
+      "modelPlaceholder": "e.g. S-Class",
+      "images": "Car Images",
+      "addPhoto": "Add Photos",
+      "remove": "Remove",
+      "disclaimer": "Once submitted, our team will review the details and contact you within 48 hours to arrange a technical inspection.",
+      "submit": "Submit Request",
+      "submitting": "Submitting...",
+      "success": "Your request has been submitted successfully!",
+      "technicalSpecs": "Technical Specifications",
+      "engineSize": "Engine Size (e.g., 2000 CC)",
+      "transmission": "Transmission",
+      "fuelType": "Fuel Type",
+      "exteriorColor": "Exterior Color",
+      "interiorColor": "Interior Color",
+      "vin": "VIN Number (Optional)",
+      "locationInfo": "Vehicle Location",
+      "location": "City / Area",
+      "address": "Full Address",
+      "transmissions": {
+        "automatic": "Automatic",
+        "manual": "Manual"
+      },
+      "fuelTypes": {
+        "gasoline": "Gasoline",
+        "diesel": "Diesel",
+        "hybrid": "Hybrid",
+        "electric": "Electric"
+      },
+      "conditions": {
+        "excellent": "Excellent (Like New)",
+        "very_good": "Very Good",
+        "good": "Good",
+        "fair": "Needs Some Repairs"
+      }
+    },
+    "success": {
+      "title": "Thank You!",
+      "message": "Your car information has been received. Our team will contact you soon.",
+      "button": "Back to Home"
+    }
+  },
+  "details": {
+    "transmission": "Transmission",
+    "fuel": "Fuel",
+    "ac": "A/C",
+    "safety": "Safety",
+    "description": "Description",
+    "description_ar": "Description (Arabic)",
+    "description_en": "Description (English)",
+    "readMore": "Read More",
+    "salePrice": "Sale Price",
+    "buyCar": "BUY THIS CAR",
+    "reviews": "Reviews",
+    "modelYear": "Model Year",
+    "perDay": "per day",
+    "specs": {
+      "title": "Technical Specifications",
+      "engine": "Engine",
+      "power": "Horsepower",
+      "acceleration": "Acceleration (0-100)",
+      "topSpeed": "Top Speed",
+      "driveType": "Drive Type",
+      "transmission": "Transmission",
+      "fuel": "Fuel Type",
+      "mileage": "Mileage (km)",
+      "condition": "Condition",
+      "exteriorColor": "Exterior Color",
+      "interiorColor": "Interior Color",
+      "features": "Extra Features"
+    },
+    "financing": {
+      "title": "Ownership & Finance Options",
+      "calcTitle": "Calculate Your Monthly Payment",
+      "downPayment": "Down Payment",
+      "months": "Duration (Months)",
+      "monthlyPayment": "Est. Monthly Payment",
+      "applyNow": "Apply for Financing"
+    },
+    "trust": {
+      "inspectionReport": "Certified Inspection Report",
+      "warrantyStatus": "Warranty Status",
+      "verifiedSeller": "Eldoksh Verified Seller"
+    },
+    "buySuccessTitle": "Request Received Successfully!",
+    "buySuccessDesc": "We've received your inquiry for the {{make}} {{model}}. Our sales team will contact you shortly to arrange the next steps.",
+    "verified": "CERTIFIED INSPECTION"
+  },
+  "booking": {
+    "steps": {
+      "step1": "Date & Location",
+      "step2": "Addons",
+      "step3": "Driver",
+      "step4": "Review & Pay"
+    },
+    "titles": {
+      "step1": "Select Dates & Pickup Location",
+      "step2": "Select Luxury Addons",
+      "step3": "Professional Driver Service",
+      "step4": "Booking Summary"
+    },
+    "labels": {
+      "pickupDate": "Pickup Date",
+      "dropoffDate": "Dropoff Date",
+      "pickupLocation": "Pickup Location",
+      "locationAirport": "International Airport (T1)",
+      "locationDowntown": "Downtown Branch",
+      "locationHotel": "Luxe Hotel Pickup",
+      "driverDesc": "Would you like a professional bilingual driver for your journey?",
+      "iWillDrive": "I WILL DRIVE",
+      "hireDriver": "HIRE A DRIVER",
+      "startingAt": "Starting at"
+    },
+    "summary": {
+      "dailyRate": "Daily Base Rate",
+      "period": "Rental Period",
+      "days": "Days",
+      "addons": "Luxury Addons",
+      "driver": "Professional Driver",
+      "total": "Total Amount",
+      "taxNote": "Inc all taxes and fees Cancellation is free within 24 hours"
+    },
+    "buttons": {
+      "back": "BACK",
+      "continue": "CONTINUE",
+      "confirm": "CONFIRM & PAY"
+    },
+    "addons": {
+      "seat": {
+        "name": "Child Seat",
+        "desc": "ISOFIX compatible safety seat"
+      },
+      "ins": {
+        "name": "Premium Insurance",
+        "desc": "Zero deductible full coverage"
+      },
+      "gps": {
+        "name": "Advanced Navigation",
+        "desc": "Real-time traffic & offline maps"
+      },
+      "wifi": {
+        "name": "In-car 5G Wi-Fi",
+        "desc": "Unlimited data for all devices"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Experience luxury at your fingertips. Log in to continue",
+      "emailLabel": "Email Address",
+      "passwordLabel": "Password",
+      "forgotPassword": "Forgot Password?",
+      "signInButton": "SIGN IN",
+      "orContinueWith": "Or continue with",
+      "newUser": "New to Eldoksh?",
+      "createAccount": "Create an account",
+      "error": "Invalid credentials",
+      "errors": {
+        "invalid_credentials": "Invalid credentials",
+        "email_not_registered": "Email not registered"
+      }
+    },
+    "forgotPassword": {
+      "title": "Reset Access",
+      "subtitle": "Enter your email to receive a recovery link",
+      "sendButton": "Send Link",
+      "backToLogin": "Back to Login",
+      "success": "If this email is registered, you will receive a reset link shortly.",
+      "otpSent": "Verification code sent to your email.",
+      "otpTitle": "Verify Code",
+      "otpSubtitle": "Enter the 6-digit code sent to your email",
+      "verifyButton": "Verify Code",
+      "changeEmail": "Change Email",
+      "error": "Something went wrong. Please try again."
+    },
+    "resetPassword": {
+      "title": "New Password",
+      "subtitle": "Set a new strong password for your account",
+      "submitButton": "Change Password",
+      "invalidToken": "Token is missing or invalid",
+      "mismatch": "Passwords do not match",
+      "success": "Your password has been successfully reset.",
+      "error": "Failed to reset password. Token may be expired."
+    },
+    "register": {
+      "title": "Start Your Journey",
+      "subtitle": "Join our exclusive community of luxury travelers",
+      "fullName": "Full Name",
+      "phone": "Phone",
+      "securePassword": "Secure Password",
+      "termsPrefix": "By creating an account, you agree to our",
+      "termsLink": "Terms of Service",
+      "privacyLink": "Privacy Policy",
+      "createAccountButton": "CREATE ACCOUNT",
+      "alreadyMember": "Already a member?",
+      "signInLink": "Sign in here",
+      "address": "Address"
+    }
+  },
+  "checkout": {
+    "title": "Final Step",
+    "subtitle": "Secure your reservation with our encrypted payment system",
+    "paymentMethod": "Select Payment Method",
+    "methods": {
+      "card": "Credit Card",
+      "apple": "Apple Pay",
+      "bank": "Bank Transfer"
+    },
+    "cardDetails": "Card Details (Secured by Stripe)",
+    "cardNumber": "Card Number",
+    "billingAddress": "Billing Address",
+    "billingAddressPlaceholder": "Full Billing Address",
+    "securityNote": "Your payment is secured by military-grade 256-bit SSL encryption We never store your sensitive card information on our servers",
+    "bookingDetails": "Booking Details",
+    "duration": "Rental Duration",
+    "nights": "Nights",
+    "totalPrice": "Total Price (Inc. Addons)",
+    "payButton": "PAY SECURELY",
+    "verifiedSecure": "Verified & Secure",
+    "success": {
+      "title": "Booking Confirmed",
+      "desc": "Your luxury vehicle is reserved We've sent the confirmation details to your email",
+      "bookingId": "Booking ID",
+      "vehicle": "Vehicle",
+      "dashboardButton": "GO TO DASHBOARD"
+    }
+  },
+  "admin": {
+    "dashboard": {
+      "login": {
+        "control": "Admin Control",
+        "title": "ADMIN LOGIN",
+        "subtitle": "Access the central management dashboard",
+        "emailLabel": "Email Address",
+        "passwordLabel": "Secret Key",
+        "submitButton": "AUTHORIZE ACCESS",
+        "backToShowroom": "Back to Showroom",
+        "errors": {
+          "unauthorized": "Unauthorized: Admin access only.",
+          "failed": "Login failed. Please check your credentials."
+        }
+      },
+      "title": "Overview",
+      "stats": {
+        "revenue": "Total Revenue",
+        "users": "Registered Clients",
+        "fleet": "Fleet Inventory",
+        "sold": "Completed Deals"
+      },
+      "activity": {
+        "title": "Recent Fleet Activity",
+        "subtitle": "Monitor your latest bookings and vehicle status across all locations",
+        "status": "Status"
+      }
+    },
+    "fleet": {
+      "title": "Fleet Management",
+      "subtitle": "Manage your active inventory, vehicle conditions and sales schedules",
+      "addVehicle": "Add Vehicle",
+      "filter": "Filter",
+      "syncing": "Syncing Fleet...",
+      "price": "Price",
+      "engine": "Engine",
+      "viewDetails": "View Details",
+      "deleteConfirm": "Are you sure you want to delete this vehicle?",
+      "deleteFailed": "Failed to delete vehicle."
+    },
+    "table": {
+      "actions": "Actions",
+      "status": "Status",
+      "date": "Date",
+      "customer": "Customer",
+      "vehicle": "Vehicle",
+      "reference": "Reference",
+      "price": "Price",
+      "joined": "Joined",
+      "role": "Role",
+      "contact": "Contact",
+      "user": "User",
+      "details": "Details"
+    },
+    "purchase": {
+      "detailsTitle": "Purchase Inquiry Details",
+      "technicalSpecs": "Technical Specifications",
+      "pricingTerms": "Pricing & Terms",
+      "customerInfo": "Customer Info",
+      "location": "Location Details",
+      "carPhotos": "Car Photos",
+      "manageStatus": "Manage Status",
+      "submittedOn": "Submitted on",
+      "noOffers": "No offers found",
+      "deleteConfirm": "Are you sure you want to delete this offer?",
+      "year": "Year",
+      "mileage": "Mileage",
+      "engine": "Engine",
+      "transmission": "Transmission",
+      "fuelType": "Fuel Type",
+      "vin": "VIN / Chassis",
+      "extColor": "Exterior Color",
+      "intColor": "Interior Color",
+      "priceLabel": "Expected Price"
+    },
+    "sold": {
+      "title": "Sold History",
+      "subtitle": "Tracking global success and automotive handovers",
+      "archive": "Accessing Archive...",
+      "noData": "No vehicles have been marked as sold yet. Complete a purchase request to see history here.",
+      "buyer": "Buyer",
+      "soldOn": "Sold on",
+      "price": "Final Price"
+    },
+    "users": {
+      "title": "User Management",
+      "subtitle": "Manage all registered users and their roles"
+    },
+    "logs": {
+      "title": "System Logs",
+      "subtitle": "View real-time system activity and audit trails",
+      "timestamp": "Timestamp",
+      "user": "User",
+      "action": "Action",
+      "details": "Details",
+      "noLogs": "No activity logs found."
+    },
+    "actions": {
+      "reviewed": "Reviewed",
+      "accept": "Accept",
+      "reject": "Reject",
+      "reset": "Reset",
+      "markSold": "Mark as Sold",
+      "view": "View Details",
+      "close": "Close Window",
+      "approveSold": "Approve & Mark Sold",
+      "rejectSale": "Reject Sale"
+    },
+    "analytics": {
+      "title": "Analytics & Insights",
+      "subtitle": "Real-time performance metrics and business growth tracking",
+      "monthlyRevenue": "Monthly Revenue",
+      "revenueReady": "REVENUE ANALYTICS READY",
+      "fleetDistribution": "Fleet Distribution",
+      "fleetSummary": "Your fleet comprises {{fleet}} luxury vehicles with {{bookings}} active reservations."
+    },
+    "manualPayments": {
+      "title": "Manual Payments Tracking",
+      "subtitle": "Review and verify manual transfer receipts (Vodafone Cash, Instapay, Fawry)",
+      "filterAll": "All",
+      "filterVodafone": "Vodafone Cash",
+      "filterInstapay": "Instapay",
+      "filterFawry": "Fawry",
+      "viewReceipt": "View Receipt",
+      "noReceipt": "No Receipt",
+      "approve": "Approve Payment",
+      "reject": "Reject Receipt",
+      "confirmApprove": "Are you sure you want to approve this payment? The order status will be updated.",
+      "confirmReject": "Are you sure you want to reject this receipt? The customer will be notified."
+    }
+  },
+  "sidebar": {
+    "nav": "Navigation",
+    "overview": "Overview",
+    "fleet": "Fleet",
+    "manualPayments": "Payment Receipts",
+    "bookings": "Purchase Requests",
+    "soldVehicles": "Sold Vehicles",
+    "sellOffers": "Sell Offers",
+    "customers": "Customers",
+    "revenue": "Revenue",
+    "logs": "System Logs",
+    "mySales": "My Sales",
+    "myPurchases": "My Purchases",
+    "payments": "Payments",
+    "profile": "Profile",
+    "settings": "Account Settings",
+    "messages": "Messages",
+    "missions": "My Missions",
+    "schedule": "Schedule",
+    "signOut": "Sign Out"
+  },
+  "chat": {
+    "title": "Messages",
+    "withSupport": "Chat with Support",
+    "typeMessage": "Type a message...",
+    "send": "Send",
+    "noConversations": "No conversations yet",
+    "startNew": "Start new conversation",
+    "adminTitle": "Message Center",
+    "online": "Online",
+    "offline": "Offline",
+    "adminSubtitle": "Manage customer support requests",
+    "searchCustomers": "Search customers...",
+    "noChatsFound": "No chats found",
+    "newConversation": "New conversation",
+    "typeReply": "Type your reply...",
+    "adminWelcomeTitle": "Support Message Center",
+    "adminWelcomeSub": "Select a conversation from the list to start chatting with a customer in real-time.",
+    "close": "Close"
+  },
+  "notifications": {
+    "markAllAsRead": "Mark all as read",
+    "title": "Notifications",
+    "empty": "No notifications yet",
+    "loading": "Loading...",
+    "viewAll": "View All Notifications",
+    "close": "Close",
+    "sales": {
+      "received": {
+        "title": "Purchase Request Received",
+        "message": "Your request to purchase {{make}} {{model}} has been received."
+      },
+      "admin_new": {
+        "title": "New Car Reservation",
+        "message": "{{userName}} has reserved {{make}} {{model}}. Check the dashboard."
+      },
+      "completed": {
+        "title": "Purchase Completed",
+        "message": "Congratulations! Your purchase of {{make}} {{model}} is complete."
+      },
+      "rejected": {
+        "title": "Purchase Request Rejected",
+        "message": "We regret to inform you that your request for {{make}} {{model}} has been rejected."
+      }
+    },
+    "purchase": {
+      "confirmed": {
+        "title": "Sale Confirmed!",
+        "message": "Admin has confirmed the purchase of your {{make}} {{model}}. It is now part of the fleet."
+      },
+      "admin_new": {
+        "title": "New Sell Request",
+        "message": "{{clientName}} wants to sell a {{make}} {{model}}."
+      }
+    },
+    "reservations": {
+      "created": {
+        "title": "Reservation Created",
+        "message": "Your reservation for {{make}} {{model}} has been created successfully."
+      },
+      "updated": {
+        "title": "Reservation Status Updated",
+        "message": "Your reservation status has been changed to {{status}}."
+      }
+    }
+  },
+  "settings": {
+    "title": "Account Settings",
+    "subtitle": "Manage your personal information and security settings",
+    "profileInfo": "Personal Information",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone Number",
+    "address": "Address",
+    "security": "Security",
+    "changePassword": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "updateProfile": "Update Profile",
+    "success": "Settings updated successfully",
+    "error": "Error updating settings",
+    "passwordsMismatch": "Passwords do not match"
+  },
+  "footer": {
+    "quickLinks": "Quick Links",
+    "ourCollection": "Our Collection",
+    "connectWithUs": "Connect With Us",
+    "newsletter": "Newsletter",
+    "newsletterDesc": "Get the latest offers and newly added luxury cars before anyone else.",
+    "newsletterPlaceholder": "Email Address",
+    "subscribe": "Subscribe Now",
+    "address": "Daraksa - Minyet El Nasr - Dakahlia, Egypt",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "sitemap": "Sitemap"
+  },
+  "about": {
+    "title": "About Eldoksh",
+    "subtitle": "Egypt's Premier Luxury Car Dealership",
+    "storyTitle": "Our Story",
+    "story1": "Eldoksh Dealership began with a simple vision: to bring the world's finest luxury cars to the Egyptian market with unmatched quality standards. Over the years, we have built a reputation based on trust and reliability in the luxury auto world.",
+    "story2": "We don’t just sell cars; we provide a complete ownership experience starting from your first visit to our showroom until after-sales service. Our dedicated team always aims to ensure your absolute satisfaction and provide options matching your ambition.",
+    "visionTitle": "Our Vision",
+    "visionDesc": "To be the first and only destination for anyone seeking excellence, luxury, and peace of mind in the automotive world in Egypt.",
+    "missionTitle": "Our Mission",
+    "missionDesc": "Delivering exceptional services, ensuring the highest standards of inspection for our vehicles, and providing innovative financing solutions that make owning a luxury car a reality.",
+    "stats": {
+      "cars": "1000+",
+      "clients": "Happy Clients",
+      "experience": "10 Years",
+      "inspection": "200-Point Check"
+    }
+  },
+  "userDashboard": {
+    "title": "Account Overview",
+    "subtitle": "Welcome back! Here you can track your purchases and requests.",
+    "stats": {
+      "totalPurchases": "Total Purchases",
+      "totalSpent": "Total Spent",
+      "pendingRequests": "Pending Requests",
+      "savedCars": "Saved Vehicles"
+    },
+    "recentActivity": "Recent Activity",
+    "noPurchases": "No purchases found yet.",
+    "viewAll": "View All",
+    "activeReservation": "Active Reservation",
+    "manageBooking": "Manage Request",
+    "extend": "Extend",
+    "purchases": {
+      "title": "My Purchases",
+      "subtitle": "View your purchase history and current order status.",
+      "explore": "Explore our premium collection and find your perfect match today."
+    },
+    "sales": {
+      "title": "My Sales",
+      "subtitle": "Track your car sale offers to our agency.",
+      "noRequests": "No Sale Requests",
+      "description": "Have a luxury car you'd like to sell? Start the process today.",
+      "button": "Sell Your Car"
+    },
+    "payments": {
+      "title": "Payment History",
+      "subtitle": "View all your financial transactions and receipts.",
+      "method": "Method",
+      "noTransactions": "No Transactions",
+      "historyMsg": "Your financial transaction history will appear here once you complete a purchase."
+    },
+    "profile": {
+      "verified": "Account Verified",
+      "premium": "Premium Status Active",
+      "loyalty": "Loyalty Points",
+      "pointsEarned": "{{count}} Points Earned",
+      "support": "Support center",
+      "address": "Detailed Address"
+    }
+  },
+  "contact": {
+    "title": "Contact Us",
+    "subtitle": "We are here to answer all your inquiries.",
+    "infoTitle": "Contact Information",
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "hours": "Working Hours",
+    "workingHours": "Sat to Thu: 10 AM - 10 PM",
+    "formTitle": "Send Us a Message",
+    "form": {
+      "name": "Full Name",
+      "email": "Email Address",
+      "phone": "Phone Number",
+      "subject": "Subject",
+      "message": "Your Message",
+      "submit": "Send Message",
+      "sending": "Sending...",
+      "success": "Your message has been sent successfully! Our team will contact you soon.",
+      "error": "An error occurred. Please try again."
+    }
+  },
+  "notFound": {
+    "title": "404",
+    "subtitle": "Oops! Page Not Found",
+    "description": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+    "backHome": "Back to Home"
+  },
+  "legal": {
+    "officialDocument": "Official Document of Eldoksh Trading Establishment",
+    "legalAgreement": "Legal Agreement - Eldoksh Trading Establishment",
+    "sitemapFooter": "ELDOKSH PREMIUM CAR SELECTION SITEMAP",
+    "privacy": {
+      "title": "Privacy Policy",
+      "lastUpdated": "Last Updated: March 2026",
+      "introduction": "At Eldoksh, we value your privacy. This policy explains how we collect and use your data.",
+      "sections": [
+        {
+          "title": "Data Collection",
+          "content": "We collect information you provide directly to us when registering, booking a car, or contacting support."
+        },
+        {
+          "title": "Data Usage",
+          "content": "Your data is used to process bookings, verify identity, and improve our services."
+        },
+        {
+          "title": "Security",
+          "content": "We use industry-standard encryption to protect your personal and payment information."
+        }
+      ]
+    },
+    "terms": {
+      "title": "Terms of Service",
+      "lastUpdated": "Last Updated: March 2026",
+      "introduction": "By using Eldoksh services, you agree to these legal terms.",
+      "sections": [
+        {
+          "title": "Eligibility",
+          "content": "Users must be of legal age and possess a valid driver's license for rental services."
+        },
+        {
+          "title": "Booking & Payments",
+          "content": "All bookings are subject to availability and payment verification."
+        },
+        {
+          "title": "Liability",
+          "content": "Eldoksh is not liable for indirect damages arising from the use of our vehicles."
+        }
+      ]
+    }
+  },
+  "sitemapPage": {
+    "title": "Sitemap",
+    "subtitle": "Explore all sections of Eldoksh",
+    "sections": {
+      "main": "Main Navigation",
+      "categories": "Car Categories",
+      "account": "Your Account",
+      "legal": "Legal & Info"
+    }
+  },
+  "confirmFleet": {
+    "buttonLabel": "Confirm Purchase & Add to Fleet",
+    "confirmPurchaseBtn": "Purchase Confirmed — Add to Fleet",
+    "alreadyInFleet": "This vehicle has already been added to the fleet",
+    "modalTag": "Confirm Purchase",
+    "modalSubtitle": "Complete vehicle data before adding to fleet",
+    "sectionPricing": "Pricing & Reservation",
+    "salePrice": "Resale Price (EGP)",
+    "reservationPrice": "Reservation Deposit (EGP)",
+    "sectionInstallments": "Installments",
+    "installmentsToggle": "Installment Option Available",
+    "installmentsToggleDesc": "Enable to add installment terms for this vehicle",
+    "downPayment": "Down Payment (EGP)",
+    "months": "Number of Months",
+    "monthlyPayment": "Monthly Payment (EGP)",
+    "sectionVehicleData": "Vehicle Identity",
+    "missingDataBadge": "Missing Data",
+    "category": "Category",
+    "sectionTechnical": "Technical Specs",
+    "sectionDescriptions": "Descriptions",
+    "addToFleetBtn": "Add to Fleet",
+    "adding": "Adding...",
+    "successTitle": "Successfully Added!",
+    "successDesc": "Purchase confirmed and vehicle added to the fleet with all its data.",
+    "successClose": "Close",
+    "errorGeneric": "An error occurred while adding. Please verify the data and try again."
+  }
+}
