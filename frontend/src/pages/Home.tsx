@@ -122,7 +122,7 @@ const Home: React.FC = () => {
           </video>
         </motion.div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full pt-32 pb-20 md:pt-0 md:pb-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full pt-32 pb-20 md:pt-40 md:pb-32">
           <div className="max-w-3xl space-y-6 md:space-y-8">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -138,10 +138,11 @@ const Home: React.FC = () => {
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="text-4xl sm:text-6xl md:text-8xl font-black tracking-tight leading-[0.9] uppercase"
+              className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight leading-[1.1] uppercase"
             >
-              <span className="block drop-shadow-2xl">{t('home.hero.mainTitle').split(' ')[0]}</span>
-              <span className="text-brand-accent block mt-2 drop-shadow-2xl">{t('home.hero.mainTitle').split(' ').slice(1).join(' ')}</span>
+              <span className="drop-shadow-2xl">{t('home.hero.mainTitle').split(' ')[0]}</span>
+              {' '}
+              <span className="text-brand-accent drop-shadow-2xl">{t('home.hero.mainTitle').split(' ').slice(1).join(' ')}</span>
             </motion.h1>
 
             <p className="text-sm md:text-xl text-slate-100 font-medium max-w-xl leading-relaxed drop-shadow-md">
