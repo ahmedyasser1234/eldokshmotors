@@ -34,12 +34,6 @@ const Preloader: React.FC = () => {
                                     >
                                         COBRAMOTORS
                                     </span>
-                                    <img 
-                                        src="/logo.png" 
-                                        alt="Logo" 
-                                        style={{ height: '3rem' }}
-                                        className="object-contain"
-                                    />
                                 </div>
                             ))}
                         </motion.div>
