@@ -6,9 +6,15 @@ import { join } from 'path';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.enableCors({
-    origin: true,
+    origin: [
+      'https://eldokshmators.netlify.app',
+      'https://eldokshmotors.netlify.app',
+      'http://localhost:5173',
+      'http://localhost:3000',
+    ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     credentials: true,
+    allowedHeaders: 'Content-Type, Accept, Authorization',
   });
   
   // Serve static files from the public folder

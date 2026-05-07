@@ -42,6 +42,12 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
+    console.error('Detailed API Error:', {
+      message: error.message,
+      code: error.code,
+      config: error.config,
+      response: error.response
+    });
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('auth-storage');
