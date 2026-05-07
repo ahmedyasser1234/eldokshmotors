@@ -1,53 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 
 const Preloader: React.FC = () => {
-    const [isVisible, setIsVisible] = useState(true);
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setIsVisible(false);
-        }, 3000); // 3 seconds splash
-        return () => clearTimeout(timer);
-    }, []);
-
     return (
-        <AnimatePresence>
-            {isVisible && (
+        <div className="w-full bg-white flex flex-col items-center justify-center overflow-hidden py-10">
+            <div className="relative w-full flex items-center overflow-hidden">
                 <motion.div 
-                    initial={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.8, ease: "easeInOut" }}
-                    className="fixed inset-0 z-[9999] bg-white flex flex-col items-center justify-center overflow-hidden"
+                    animate={{ x: ["0%", "-50%"] }}
+                    transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+                    className="flex whitespace-nowrap items-center"
                 >
-                    <div className="relative w-full flex items-center overflow-hidden">
-                        <motion.div 
-                            animate={{ x: ["0%", "-50%"] }}
-                            transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-                            className="flex whitespace-nowrap items-center"
-                        >
-                            {[...Array(10)].map((_, i) => (
-                                <div key={i} className="flex items-center gap-8 md:gap-12 mx-8 md:mx-12 shrink-0">
-                                    <span 
-                                        style={{ fontSize: '3rem' }} 
-                                        className="font-black tracking-tighter uppercase text-brand-primary"
-                                    >
-                                        COBRAMOTORS
-                                    </span>
-                                </div>
-                            ))}
-                        </motion.div>
-                    </div>
-                    
-                    <motion.div 
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ duration: 2.8, ease: "easeInOut" }}
-                        className="absolute bottom-0 left-0 right-0 h-1 bg-brand-accent origin-left"
-                    />
+                    {[...Array(10)].map((_, i) => (
+                        <div key={i} className="flex items-center gap-8 md:gap-12 mx-8 md:mx-12 shrink-0">
+                            <span 
+                                style={{ fontSize: '3rem' }} 
+                                className="font-black tracking-tighter uppercase text-brand-primary"
+                            >
+                                COBRAMOTORS
+                            </span>
+                        </div>
+                    ))}
                 </motion.div>
-            )}
-        </AnimatePresence>
+            </div>
+            
+            <div className="w-full h-1 bg-brand-accent mt-4" />
+        </div>
     );
 };
 
