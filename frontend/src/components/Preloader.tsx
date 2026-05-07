@@ -28,7 +28,7 @@ const Preloader: React.FC = () => {
                         >
                             {[...Array(10)].map((_, i) => (
                                 <div key={i} className="flex items-center gap-12 md:gap-24 mx-12 md:mx-24 shrink-0">
-                                    <span className="text-6xl md:text-[10rem] font-black tracking-tighter uppercase text-brand-primary">
+                                    <span className="text-[5rem] font-black tracking-tighter uppercase text-brand-primary">
                                         COBRAMOTORS
                                     </span>
                                     <img 
