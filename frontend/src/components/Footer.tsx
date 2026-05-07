@@ -130,7 +130,7 @@ const Footer: React.FC = () => {
                         {t('common.allRightsReserved')}
                     </p>
                     <p className="text-slate-600 text-[10px] font-bold uppercase tracking-[0.2em] md:mt-0 mt-4">
-                        Developed with ❤️ by <a href="https://aqrablkmedia.com/" target="_blank" rel="noopener noreferrer" className="text-brand-primary hover:underline transition-all font-black">aqrablk</a>
+                        Developed by <a href="https://cobracompany.netlify.app/" target="_blank" rel="noopener noreferrer" className="text-brand-primary hover:underline transition-all font-black">COBRA</a>
                     </p>
                     <div className="flex items-center gap-6 text-xs text-slate-500 font-medium">
                         <Link to="/privacy" className="hover:text-brand-primary transition-colors">{t('footer.privacy')}</Link>

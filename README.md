@@ -75,4 +75,4 @@ npm run dev
 
 ---
 
-Developed with ❤️ by [aqrablk](https://aqrablkmedia.com/).
+Developed by [COBRA](https://cobracompany.netlify.app/).
