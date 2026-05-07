@@ -17,14 +17,14 @@ export class UsersService implements OnModuleInit {
   }
 
   private async seedAdmin() {
-    const adminEmail = 'admin@eldoksh.com';
+    const adminEmail = 'admin@cobramotors.com';
     const existingAdmin = await this.userRepository.findOne({ where: { email: adminEmail } });
 
     if (!existingAdmin) {
       console.log('Seeding default admin user...');
       const hashedPassword = await bcrypt.hash('admin123', 10);
       const admin = this.userRepository.create({
-        name: 'Admin Eldoksh',
+        name: 'Admin Cobramotors',
         email: adminEmail,
         password_hash: hashedPassword,
         role: UserRole.ADMIN,

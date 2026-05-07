@@ -173,7 +173,7 @@ const ReviewSection: React.FC = () => {
                           <p className={`font-bold text-[10px] tracking-widest uppercase mt-0.5 ${
                             isDark ? 'text-white/50' : 'text-slate-400'
                           }`}>
-                            ELDOKSH CUSTOMER
+                            COBRAMOTORS CUSTOMER
                           </p>
                         </div>
                       </div>

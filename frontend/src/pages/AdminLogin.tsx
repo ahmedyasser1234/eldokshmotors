@@ -97,7 +97,7 @@ const AdminLogin: React.FC = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full bg-black/40 border border-white/5 rounded-2xl py-5 px-14 text-white focus:outline-none focus:border-brand-primary/50 transition-all rtl:text-right"
-                  placeholder="admin@eldoksh.com"
+                  placeholder="admin@cobramotors.com"
                   required
                 />
               </div>

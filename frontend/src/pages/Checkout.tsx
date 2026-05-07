@@ -301,7 +301,7 @@ const CheckoutContent: React.FC = () => {
                                                 {isRTL ? 'برجاء تحويل المبلغ إلى عنوان الدفع أو رقم الهاتف التالي:' : 'Please transfer the amount to:'}
                                             </p>
                                             <div dir="ltr" className="text-xl font-black tracking-widest text-purple-600 bg-purple-100 px-4 py-2 rounded-xl inline-block">
-                                                eldoksh@instapay
+                                                cobramotors@instapay
                                             </div>
                                             <div className="text-purple-500 font-bold text-sm">{isRTL ? 'أو عبر رقم الهاتف:' : 'Or via phone:'}</div>
                                             <div dir="ltr" className="text-xl font-black text-purple-600 bg-purple-100 px-4 py-2 rounded-xl inline-block">

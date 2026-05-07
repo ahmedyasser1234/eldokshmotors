@@ -33,7 +33,7 @@ const Contact: React.FC = () => {
         {
             icon: <Mail className="text-brand-primary" size={24} />,
             title: t('contact.email'),
-            value: "support@eldoksh.com",
+            value: "support@cobramotors.com",
             delay: 0.3
         },
         {
@@ -54,7 +54,7 @@ const Contact: React.FC = () => {
             <div className="relative pt-32 pb-24 px-4 flex flex-col items-center justify-center overflow-hidden min-h-[40vh]">
                 <img 
                     src="/123456.jpeg" 
-                    alt="Eldoksh Contact"
+                    alt="Cobramotors Contact"
                     className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-slate-900/70" /> {/* Dark overlay */}
@@ -171,7 +171,7 @@ const Contact: React.FC = () => {
                     className="mt-20 rounded-[40px] overflow-hidden shadow-2xl border border-slate-100 h-[450px]"
                 >
                     <iframe 
-                        title="ELDOKSH Location"
+                        title="COBRAMOTORS Location"
                         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3415.632039230197!2d31.636633776338925!3d31.119957574399734!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f9d7004f5fba91%3A0x23b235417b4b3468!2z2YXYpNiz2LPYqSDYp9mE2K_ZiNmD2LQg2YTZhNiq2KzYp9ix2Kk!5e0!3m2!1sen!2seg!4v1774709543926!5m2!1sen!2seg" 
                         width="100%" 
                         height="100%" 

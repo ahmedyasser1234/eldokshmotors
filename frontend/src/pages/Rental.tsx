@@ -112,7 +112,7 @@ const Rental: React.FC = () => {
     return (
         <div className="min-h-screen bg-[#f8fafc] text-slate-900" dir={isRTL ? 'rtl' : 'ltr'}>
             <SEO
-                title={isRTL ? 'إيجار السيارات | الدوكش' : 'Car Rental | Eldoksh'}
+                title={isRTL ? 'إيجار السيارات | كوبراماتورز' : 'Car Rental | Cobramotors'}
                 description={isRTL ? 'استأجر أرقى السيارات بسهولة — مع سائق أو بدونه أو لمشوار' : 'Rent the finest cars easily — with or without a driver, or book a trip'}
             />
 

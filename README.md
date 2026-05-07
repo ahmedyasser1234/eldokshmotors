@@ -1,4 +1,4 @@
-# 🏎️ Eldoksh Motors - Luxury Car Rental & Sales Platform | منصة الدوكش للسيارات الفاخرة
+# 🏎️ Cobramotors - Luxury Car Rental & Sales Platform | منصة كوبراماتورز للسيارات الفاخرة
 
 A premium, full-stack digital solution designed for high-end vehicle rental and sales. This platform provides a seamless experience for both customers and administrators with real-time updates and secure payment processing.
 
@@ -70,8 +70,8 @@ npm run dev
 ## 📞 Contact Information | معلومات التواصل
 
 - **WhatsApp/Phone**: 01211171888
-- **Facebook**: [Eldoksh](https://www.facebook.com/Eldosksh)
-- **Linktree**: [Eldoksh Group](https://linktr.ee/EldokshGroup)
+- **Facebook**: [Cobramotors](https://www.facebook.com/cobramotors)
+- **Linktree**: [Cobramotors Group](https://linktr.ee/CobramotorsGroup)
 
 ---
 

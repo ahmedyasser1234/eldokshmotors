@@ -61,7 +61,7 @@ const NotFound: React.FC = () => {
                 </div>
 
                 <p className="text-white/20 text-[10px] font-black uppercase tracking-[0.5em]">
-                    ELDOKSH PREMIUM SELECTION
+                    COBRAMOTORS PREMIUM SELECTION
                 </p>
             </div>
         </div>

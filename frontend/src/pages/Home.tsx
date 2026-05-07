@@ -7,6 +7,8 @@ import {
   Repeat,
   Car,
   ShieldCheck,
+  Key,
+  DollarSign,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
@@ -151,12 +153,16 @@ const Home: React.FC = () => {
 
             <div className="pt-6 md:pt-10 flex flex-wrap gap-4">
               <Link to="/vehicles" className="w-full sm:w-auto bg-brand-accent hover:bg-white text-white hover:text-brand-dark px-8 md:px-12 py-4 md:py-6 rounded-2xl font-black text-sm md:text-xl transition-all flex items-center justify-center gap-4 group shadow-2xl shadow-brand-accent/50 hover:scale-105 active:scale-95">
-                <span>{t('home.hero.explore')}</span>
-                <ArrowRight className="rtl:rotate-180 group-hover:translate-x-2 transition-transform h-5 w-5 md:h-6 md:w-6" />
+                <span>{t('home.hero.buy')}</span>
+                <Car className="h-5 w-5 md:h-6 md:w-6" />
+              </Link>
+              <Link to="/rental" className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white px-8 md:px-12 py-4 md:py-6 rounded-2xl font-black text-sm md:text-xl transition-all flex items-center justify-center gap-4 group backdrop-blur-xl border border-white/10 hover:scale-105 active:scale-95">
+                <span>{t('home.hero.rent')}</span>
+                <Key className="h-5 w-5 md:h-6 md:w-6" />
               </Link>
               <Link to="/sell-car" className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white px-8 md:px-12 py-4 md:py-6 rounded-2xl font-black text-sm md:text-xl transition-all flex items-center justify-center gap-4 group backdrop-blur-xl border border-white/10 hover:scale-105 active:scale-95">
-                <span>{t('nav.sellCar')}</span>
-                <Car className="h-5 w-5 md:h-6 md:w-6" />
+                <span>{t('home.hero.sell')}</span>
+                <DollarSign className="h-5 w-5 md:h-6 md:w-6" />
               </Link>
               <div className="hidden md:flex items-center gap-4 text-white/60 font-black tracking-[0.3em] uppercase text-xs">
                 <span className="w-12 h-[2px] bg-brand-accent" />
@@ -227,7 +233,7 @@ const Home: React.FC = () => {
               <CheckCircle2 className="text-brand-accent w-5 h-5 md:w-6 md:h-6" />
               <div className="flex flex-col">
                 <span className="text-brand-dark font-bold uppercase text-sm md:text-base">{t('home.why_us.inspection_verified')}</span>
-                <span className="text-slate-400 font-bold text-[8px] md:text-[10px] tracking-widest uppercase">ELDOKSH CERTIFIED</span>
+                <span className="text-slate-400 font-bold text-[8px] md:text-[10px] tracking-widest uppercase">COBRAMOTORS CERTIFIED</span>
               </div>
             </div>
           </div>
@@ -512,7 +518,7 @@ const Home: React.FC = () => {
               />
             </div>
             <span className="text-2xl sm:text-7xl md:text-9xl font-black uppercase bg-gradient-to-r from-brand-primary via-brand-accent to-brand-primary bg-clip-text text-transparent py-2">
-              ELDOKSH
+              COBRAMOTORS
             </span>
             <div className="h-8 sm:h-28 md:h-36 flex items-center shrink-0">
               <img

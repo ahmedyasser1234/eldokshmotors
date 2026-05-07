@@ -13,7 +13,7 @@ export class MediaService {
     return new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
-          folder: 'eldoksh_motors',
+          folder: 'cobramotors',
         },
         (error, result) => {
           if (error) {

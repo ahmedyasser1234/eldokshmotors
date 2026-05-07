@@ -17,11 +17,11 @@ export const SEO = ({
   canonical,
   ogImage = '/logo.png',
   ogType = 'website',
-  twitterHandle = '@eldoksh',
+  twitterHandle = '@cobramotors',
 }: SEOProps) => {
-  const siteName = 'Eldoksh';
+  const siteName = 'Cobramotors';
   const fullTitle = title ? `${title} | ${siteName}` : siteName;
-  const defaultDescription = 'Eldoksh - The premier destination for luxury car sales and acquisition. We provide the finest global vehicles with exceptional financing solutions.';
+  const defaultDescription = 'Cobramotors - The premier destination for luxury car sales and acquisition. We provide the finest global vehicles with exceptional financing solutions.';
   const metaDescription = description || defaultDescription;
   
   const baseUrl = window.location.origin;

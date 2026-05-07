@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
                             </div>
                             <div className="flex items-center gap-3">
                                 <Mail size={20} className="text-brand-primary shrink-0" />
-                                <span className="text-sm font-medium">support@eldoksh.com</span>
+                                <span className="text-sm font-medium">support@cobramotors.com</span>
                             </div>
                         </div>
                     </div>
@@ -102,15 +102,15 @@ const Footer: React.FC = () => {
                         
                         <h4 className="text-white text-sm font-bold mb-4 uppercase tracking-widest">{t('footer.connectWithUs')}</h4>
                         <div className="flex items-center gap-3">
-                            <a href="https://www.facebook.com/Eldosksh" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] transition-all">
+                            <a href="https://www.facebook.com/cobramotors" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] transition-all">
                                 <Facebook size={18} />
                             </a>
-                            <a href="https://www.tiktok.com/@eldoksh" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:bg-black hover:text-white hover:border-black transition-all">
+                            <a href="https://www.tiktok.com/@cobramotors" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:bg-black hover:text-white hover:border-black transition-all">
                                 <svg stroke="currentColor" fill="currentColor" strokeWidth="0" viewBox="0 0 448 512" height="18" width="18" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z"></path>
                                 </svg>
                             </a>
-                            <a href="https://linktr.ee/EldokshGroup" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:bg-[#43E05D] hover:text-white hover:border-[#43E05D] transition-all">
+                            <a href="https://linktr.ee/CobramotorsGroup" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-400 hover:bg-[#43E05D] hover:text-white hover:border-[#43E05D] transition-all">
                                 <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" height="18" width="18" xmlns="http://www.w3.org/2000/svg" className="text-inherit">
                                     <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
                                     <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>

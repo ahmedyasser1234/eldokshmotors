@@ -11,7 +11,7 @@ const Logo: React.FC<LogoProps> = ({ className = "h-12", isWhite = false }) => {
     <div className={`flex items-center ${className}`}>
       <img 
         src="/logo.png" 
-        alt="ELDOKSH Logo" 
+        alt="COBRAMOTORS Logo" 
         className={`h-full w-auto object-contain transition-all duration-300 ${isWhite ? 'brightness-0 invert' : ''}`}
       />
     </div>

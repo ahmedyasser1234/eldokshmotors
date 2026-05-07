@@ -1,13 +1,13 @@
 {
   "seo": {
     "default": {
-      "title": "Eldoksh - Luxury Car Sales & Acquisition",
+      "title": "Cobramotors - Luxury Car Sales & Acquisition",
       "description": "Premium destination for luxury car sales and acquisition in Egypt. Certified inspection and flexible financing for the world's finest vehicles.",
-      "keywords": "luxury cars Egypt, buy car Egypt, Eldoksh, Mercedes for sale, BMW for sale, car financing Egypt"
+      "keywords": "luxury cars Egypt, buy car Egypt, Cobramotors, Mercedes for sale, BMW for sale, car financing Egypt"
     },
     "home": {
       "title": "Home",
-      "description": "Discover the finest luxury car collection in Egypt. Eldoksh offers certified premium vehicles with exceptional financing and inspection services."
+      "description": "Discover the finest luxury car collection in Egypt. Cobramotors offers certified premium vehicles with exceptional financing and inspection services."
     },
     "fleet": {
       "title": "Luxury Fleet",
@@ -15,27 +15,27 @@
     },
     "sell": {
       "title": "Sell Your Car",
-      "description": "Sell your luxury or sports car to Eldoksh at the best market value. Professional appraisal and instant inspection."
+      "description": "Sell your luxury or sports car to Cobramotors at the best market value. Professional appraisal and instant inspection."
     },
     "about": {
       "title": "About Us",
-      "description": "Learn about Eldoksh, Egypt's premier luxury car dealership. Our mission is to provide excellence, luxury, and peace of mind."
+      "description": "Learn about Cobramotors, Egypt's premier luxury car dealership. Our mission is to provide excellence, luxury, and peace of mind."
     },
     "contact": {
       "title": "Contact Us",
-      "description": "Get in touch with Eldoksh for inquiries about buying or selling luxury cars. We are here to assist you."
+      "description": "Get in touch with Cobramotors for inquiries about buying or selling luxury cars. We are here to assist you."
     },
     "privacy": {
       "title": "Privacy Policy",
-      "description": "Understand how Eldoksh collects and protects your personal data."
+      "description": "Understand how Cobramotors collects and protects your personal data."
     },
     "terms": {
       "title": "Terms of Service",
-      "description": "The legal terms and conditions for using the Eldoksh website and services."
+      "description": "The legal terms and conditions for using the Cobramotors website and services."
     },
     "notFound": {
       "title": "404 - Page Not Found",
-      "description": "The page you are looking for does not exist on Eldoksh."
+      "description": "The page you are looking for does not exist on Cobramotors."
     }
   },
   "error": {
@@ -56,15 +56,15 @@
     "cancel": "Cancel",
     "loading": "Loading...",
     "error": "Error",
-    "agency": "ELDOKSH PREMIUM CAR SALES",
+    "agency": "COBRAMOTORS PREMIUM CAR SALES",
     "contactUs": "CONTACT US",
-    "allRightsReserved": "© 2026 ELDOKSH. All rights reserved",
+    "allRightsReserved": "© 2026 COBRAMOTORS. All rights reserved",
     "make_ar": "Make (Arabic)",
     "make_en": "Make (English)",
     "model_ar": "Model (Arabic)",
     "model_en": "Model (English)",
     "noData": "No data available",
-    "brandName": "ELDOKSH TRADING ESTABLISHMENT",
+    "brandName": "COBRAMOTORS TRADING ESTABLISHMENT",
     "currency": "EGP",
     "months": "Month",
     "reviews": {
@@ -82,18 +82,21 @@
     }
   },
   "home": {
-    "title": "Own Your Dream Car with Eldoksh",
+    "title": "Own Your Dream Car with Cobramotors",
     "subtitle": "We provide the finest global vehicles with exceptional financing solutions",
     "hero": {
-      "selection": "Eldoksh Premium Selection",
+      "selection": "Cobramotors Premium Selection",
       "mainTitle": "OWN THE FUTURE",
       "subTitle": "The premier destination for luxury car sales and acquisition",
-      "brandTag": "Eldoksh for Car Trading & Marketing",
+      "brandTag": "Cobramotors for Car Trading & Marketing",
       "location": "Model",
       "locationPlaceholder": "Search for a specific car",
       "dateRange": "Category",
       "datePlaceholder": "Select preferred category",
-      "explore": "EXPLORE NOW"
+      "explore": "EXPLORE NOW",
+      "buy": "BUY A CAR",
+      "rent": "RENT A CAR",
+      "sell": "SELL YOUR CAR"
     },
     "features": {
       "commitment": "Our Quality Commitment",
@@ -132,7 +135,7 @@
       "sold_status": "SOLD"
     },
     "services": {
-      "title": "Eldoksh Comprehensive Services",
+      "title": "Cobramotors Comprehensive Services",
       "subtitle": "Everything you need under one roof for a seamless buying experience",
       "inspection_center": {
         "title": "Certified Inspection Center",
@@ -152,7 +155,7 @@
       }
     },
     "how_it_works": {
-      "title": "How to Buy Your Car with Eldoksh?",
+      "title": "How to Buy Your Car with Cobramotors?",
       "subtitle": "Simple steps separate you from sitting behind the steering wheel",
       "step1": {
         "title": "Browse Our Fleet",
@@ -174,11 +177,11 @@
     "cta": {
       "subtitle": "THINKING OF SELLING?",
       "title": "WE BUY THE BEST",
-      "desc": "Eldoksh is the trusted place to sell your luxury vehicle at the highest market value. We appreciate the value of excellence.",
+      "desc": "Cobramotors is the trusted place to sell your luxury vehicle at the highest market value. We appreciate the value of excellence.",
       "button": "START SELLING"
     },
     "why_us": {
-      "title": "Why choose Eldoksh? We promise the best always",
+      "title": "Why choose Cobramotors? We promise the best always",
       "inspection_verified": "VERIFIED INSPECTION"
     }
   },
@@ -332,7 +335,7 @@
     "trust": {
       "inspectionReport": "Certified Inspection Report",
       "warrantyStatus": "Warranty Status",
-      "verifiedSeller": "Eldoksh Verified Seller"
+      "verifiedSeller": "Cobramotors Verified Seller"
     },
     "buySuccessTitle": "Request Received Successfully!",
     "buySuccessDesc": "We've received your inquiry for the {{make}} {{model}}. Our sales team will contact you shortly to arrange the next steps.",
@@ -421,7 +424,7 @@
       "forgotPassword": "Forgot Password?",
       "signInButton": "SIGN IN",
       "orContinueWith": "Or continue with",
-      "newUser": "New to Eldoksh?",
+      "newUser": "New to Cobramotors?",
       "createAccount": "Create an account",
       "error": "Invalid credentials",
       "errors": {
@@ -745,10 +748,10 @@
     "sitemap": "Sitemap"
   },
   "about": {
-    "title": "About Eldoksh",
+    "title": "About Cobramotors",
     "subtitle": "Egypt's Premier Luxury Car Dealership",
     "storyTitle": "Our Story",
-    "story1": "Eldoksh Dealership began with a simple vision: to bring the world's finest luxury cars to the Egyptian market with unmatched quality standards. Over the years, we have built a reputation based on trust and reliability in the luxury auto world.",
+    "story1": "Cobramotors Dealership began with a simple vision: to bring the world's finest luxury cars to the Egyptian market with unmatched quality standards. Over the years, we have built a reputation based on trust and reliability in the luxury auto world.",
     "story2": "We don’t just sell cars; we provide a complete ownership experience starting from your first visit to our showroom until after-sales service. Our dedicated team always aims to ensure your absolute satisfaction and provide options matching your ambition.",
     "visionTitle": "Our Vision",
     "visionDesc": "To be the first and only destination for anyone seeking excellence, luxury, and peace of mind in the automotive world in Egypt.",
@@ -833,13 +836,13 @@
     "backHome": "Back to Home"
   },
   "legal": {
-    "officialDocument": "Official Document of Eldoksh Trading Establishment",
-    "legalAgreement": "Legal Agreement - Eldoksh Trading Establishment",
-    "sitemapFooter": "ELDOKSH PREMIUM CAR SELECTION SITEMAP",
+    "officialDocument": "Official Document of Cobramotors Trading Establishment",
+    "legalAgreement": "Legal Agreement - Cobramotors Trading Establishment",
+    "sitemapFooter": "COBRAMOTORS PREMIUM CAR SELECTION SITEMAP",
     "privacy": {
       "title": "Privacy Policy",
       "lastUpdated": "Last Updated: March 2026",
-      "introduction": "At Eldoksh, we value your privacy. This policy explains how we collect and use your data.",
+      "introduction": "At Cobramotors, we value your privacy. This policy explains how we collect and use your data.",
       "sections": [
         {
           "title": "Data Collection",
@@ -858,7 +861,7 @@
     "terms": {
       "title": "Terms of Service",
       "lastUpdated": "Last Updated: March 2026",
-      "introduction": "By using Eldoksh services, you agree to these legal terms.",
+      "introduction": "By using Cobramotors services, you agree to these legal terms.",
       "sections": [
         {
           "title": "Eligibility",
@@ -870,14 +873,14 @@
         },
         {
           "title": "Liability",
-          "content": "Eldoksh is not liable for indirect damages arising from the use of our vehicles."
+          "content": "Cobramotors is not liable for indirect damages arising from the use of our vehicles."
         }
       ]
     }
   },
   "sitemapPage": {
     "title": "Sitemap",
-    "subtitle": "Explore all sections of Eldoksh",
+    "subtitle": "Explore all sections of Cobramotors",
     "sections": {
       "main": "Main Navigation",
       "categories": "Car Categories",

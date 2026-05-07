@@ -6,9 +6,9 @@
 
 @layer base {
   :root {
-    --brand-primary: #002C4B; /* Eldoksh Dark Blue */
+    --brand-primary: #002C4B; /* Cobramotors Dark Blue */
     --brand-secondary: #003e69;
-    --brand-accent: #E31E24;   /* Eldoksh Red */
+    --brand-accent: #E31E24;   /* Cobramotors Red */
     --brand-dark: #001a2d;
   }
 
