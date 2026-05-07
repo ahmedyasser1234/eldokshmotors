@@ -68,19 +68,7 @@ const Vehicles: React.FC = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const videoRef = React.useRef<HTMLVideoElement>(null);
-    const videoPlaylist = ['/147.mp4', '/148.mp4'];
-    const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
 
-    const handleVideoEnded = () => {
-        setCurrentVideoIndex((prev) => (prev + 1) % videoPlaylist.length);
-    };
-
-    useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.play().catch(e => console.log("Auto-play blocked:", e));
-        }
-    }, [currentVideoIndex]);
 
     return (
         <div className="min-h-screen bg-white text-slate-900">
@@ -91,18 +79,11 @@ const Vehicles: React.FC = () => {
             {/* Branded Hero Header */}
             <section className="relative h-[40vh] md:h-[50vh] flex items-center justify-center overflow-hidden bg-slate-950">
                 <div className="absolute inset-0 z-0">
-                    <video
-                        ref={videoRef}
-                        autoPlay
-                        muted
-                        onEnded={handleVideoEnded}
-                        playsInline
-                        key={videoPlaylist[currentVideoIndex]}
+                    <img 
+                        src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=2600" 
+                        alt="Luxury Fleet"
                         className="w-full h-full object-cover object-center opacity-60"
-                        poster={headerImg}
-                    >
-                        <source src={videoPlaylist[currentVideoIndex]} type="video/mp4" />
-                    </video>
+                    />
                     <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/20 via-brand-dark/50 to-brand-dark z-10" />
                 </div>
                 

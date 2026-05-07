@@ -40,7 +40,7 @@ const Rental: React.FC = () => {
     const [searched, setSearched] = useState(false);
     const [filteredVehicles, setFilteredVehicles] = useState<any[]>([]);
 
-    const videoRef = React.useRef<HTMLVideoElement>(null);
+
 
     useEffect(() => {
         const fetchRentals = async () => {
@@ -60,11 +60,7 @@ const Rental: React.FC = () => {
         fetchRentals();
     }, []);
 
-    useEffect(() => {
-        if (videoRef.current) {
-            videoRef.current.play().catch(() => {});
-        }
-    }, []);
+
 
     const handleSearch = () => {
         setSearched(true);
@@ -118,15 +114,13 @@ const Rental: React.FC = () => {
 
             {/* ── HERO ── */}
             <section className="relative flex flex-col items-center overflow-visible bg-slate-950 pb-32 z-20">
-                {/* Video BG */}
+                {/* Image BG */}
                 <div className="absolute inset-0 z-0">
-                    <video
-                        ref={videoRef}
-                        autoPlay muted loop playsInline
+                    <img 
+                        src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80&w=2600" 
+                        alt="Luxury Fleet"
                         className="w-full h-full object-cover object-center opacity-50"
-                    >
-                        <source src="/147.mp4" type="video/mp4" />
-                    </video>
+                    />
                     <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-950/40 to-slate-950/90" />
                 </div>
 

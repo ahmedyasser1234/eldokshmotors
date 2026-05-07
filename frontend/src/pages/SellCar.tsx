@@ -137,12 +137,9 @@ const SellCar: React.FC = () => {
             />
             {/* Hero Section with Video Background */}
             <div className="relative pt-32 pb-24 px-4 flex flex-col items-center justify-center overflow-hidden min-h-[50vh]">
-                <video 
-                    src="/1236.mp4" 
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline
+                <img 
+                    src="https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&q=80&w=2600" 
+                    alt="Sell Your Car"
                     className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-slate-900/60" /> {/* Dark overlay */}

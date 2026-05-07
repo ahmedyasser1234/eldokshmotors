@@ -22,12 +22,9 @@ const About: React.FC = () => {
             />
             {/* Hero Section */}
             <div className="relative pt-32 pb-24 px-4 flex flex-col items-center justify-center overflow-hidden min-h-[50vh]">
-                <video 
-                    src="/147.mp4" 
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline
+                <img 
+                    src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=2600" 
+                    alt="About Cobramotors"
                     className="absolute inset-0 w-full h-full object-cover"
                 />
                 <div className="absolute inset-0 bg-slate-900/70" />
@@ -69,12 +66,9 @@ const About: React.FC = () => {
                         viewport={{ once: true }}
                         className="rounded-3xl overflow-hidden aspect-square md:aspect-auto"
                     >
-                        <video 
-                            src="/212.mp4" 
-                            autoPlay 
-                            loop 
-                            muted 
-                            playsInline
+                        <img 
+                            src="https://images.unsplash.com/photo-1562141961-b5d1972b73c5?auto=format&fit=crop&q=80&w=1200" 
+                            alt="Our Story"
                             className="w-full h-full object-cover"
                         />
                     </motion.div>

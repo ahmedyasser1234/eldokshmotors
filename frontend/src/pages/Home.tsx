@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   CreditCard,
   ArrowRight,
@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Link, useNavigate } from 'react-router-dom';
-import { useScroll, useTransform, motion } from 'framer-motion';
+import { useScroll, useTransform, motion, AnimatePresence } from 'framer-motion';
 import api from '../services/api';
 import { normalizeImageUrl } from '../utils/imageUtils';
 import RecentlySold from '../components/RecentlySold';
@@ -26,15 +26,19 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const isAr = i18n.language === 'ar';
   const { scrollYProgress } = useScroll();
-  const videoRef = useRef<HTMLVideoElement>(null);
   const [featuredVehicles, setFeaturedVehicles] = useState<any[]>([]);
   const [recentVehicles, setRecentVehicles] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadingRecent, setLoadingRecent] = useState(true);
 
-  // Video Playlist Logic
-  const videoPlaylist = ['/12.mp4', '/212.mp4'];
-  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  // Image Carousel Logic
+  const imagePlaylist = [
+    'https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2600',
+    'https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?auto=format&fit=crop&q=80&w=2600',
+    'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&q=80&w=2600',
+    'https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&q=80&w=2600'
+  ];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const yRange = useTransform(scrollYProgress, [0, 0.2], [0, -50]);
   const opacityRange = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
@@ -83,16 +87,11 @@ const Home: React.FC = () => {
 
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.playbackRate = 0.8;
-      // Ensure the video plays immediately if it was paused during index change
-      videoRef.current.play().catch(e => console.log("Auto-play blocked:", e));
-    }
-  }, [currentVideoIndex]);
-
-  const handleVideoEnded = () => {
-    setCurrentVideoIndex((prev) => (prev + 1) % videoPlaylist.length);
-  };
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % imagePlaylist.length);
+    }, 6000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen bg-brand-dark">
@@ -107,21 +106,24 @@ const Home: React.FC = () => {
           className="absolute inset-0 z-0"
         >
           <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/20 via-brand-dark/50 to-brand-dark z-10" />
+          <div className="absolute inset-0 bg-brand-dark/30 z-0" />
 
-          {/* Sequential Playlist Video */}
-          <video
-            key={videoPlaylist[currentVideoIndex]}
-            ref={videoRef}
-            autoPlay
-            muted
-            playsInline
-            onEnded={handleVideoEnded}
-            className="w-full h-full object-cover object-center opacity-60"
-            poster="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=2600"
-          >
-            <source src={videoPlaylist[currentVideoIndex]} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentImageIndex}
+              initial={{ opacity: 0, scale: 1.1 }}
+              animate={{ opacity: 0.6, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 2, ease: "easeInOut" }}
+              className="absolute inset-0"
+            >
+              <img
+                src={imagePlaylist[currentImageIndex]}
+                alt="Luxury Car"
+                className="w-full h-full object-cover object-center"
+              />
+            </motion.div>
+          </AnimatePresence>
         </motion.div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full pt-32 pb-20 md:pt-40 md:pb-32">
@@ -509,18 +511,18 @@ const Home: React.FC = () => {
       {/* Footer Branding - Static High Contrast */}
       <section className="py-16 md:py-24 bg-white border-y border-slate-100 relative">
         <div className="container mx-auto px-4">
-          <div className="flex flex-row items-center justify-center gap-4 sm:gap-8 md:gap-24">
-            <div className="h-8 sm:h-28 md:h-36 flex items-center shrink-0">
+          <div className="flex flex-row items-center justify-center gap-4 sm:gap-8 md:gap-12">
+            <div className="h-4 sm:h-8 md:h-12 flex items-center shrink-0">
               <img
                 src="/logo.png"
                 alt="Logo"
                 className="h-full w-auto object-contain"
               />
             </div>
-            <span className="text-2xl sm:text-7xl md:text-9xl font-black uppercase bg-gradient-to-r from-brand-primary via-brand-accent to-brand-primary bg-clip-text text-transparent py-2">
+            <span className="text-lg sm:text-2xl md:text-4xl font-black uppercase bg-gradient-to-r from-brand-primary via-brand-accent to-brand-primary bg-clip-text text-transparent py-2">
               COBRAMOTORS
             </span>
-            <div className="h-8 sm:h-28 md:h-36 flex items-center shrink-0">
+            <div className="h-4 sm:h-8 md:h-12 flex items-center shrink-0">
               <img
                 src="/logo.png"
                 alt="Logo"
