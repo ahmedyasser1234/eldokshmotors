@@ -508,21 +508,21 @@ const Home: React.FC = () => {
 
       <ReviewSection />
 
-      {/* Footer Branding - Static High Contrast */}
-      <section className="py-16 md:py-24 bg-white border-y border-slate-100 relative">
+      {/* Footer Branding - Minimalist */}
+      <section className="py-8 md:py-12 bg-white border-y border-slate-100 relative">
         <div className="container mx-auto px-4">
-          <div className="flex flex-row items-center justify-center gap-4 sm:gap-8 md:gap-12">
-            <div className="h-4 sm:h-8 md:h-12 flex items-center shrink-0">
+          <div className="flex flex-row items-center justify-center gap-3 sm:gap-6 md:gap-8">
+            <div className="h-3 sm:h-5 md:h-6 flex items-center shrink-0">
               <img
                 src="/logo.png"
                 alt="Logo"
                 className="h-full w-auto object-contain"
               />
             </div>
-            <span className="text-lg sm:text-2xl md:text-4xl font-black uppercase bg-gradient-to-r from-brand-primary via-brand-accent to-brand-primary bg-clip-text text-transparent py-2">
+            <span className="text-sm sm:text-base md:text-xl font-bold uppercase bg-gradient-to-r from-brand-primary via-brand-accent to-brand-primary bg-clip-text text-transparent">
               COBRAMOTORS
             </span>
-            <div className="h-4 sm:h-8 md:h-12 flex items-center shrink-0">
+            <div className="h-3 sm:h-5 md:h-6 flex items-center shrink-0">
               <img
                 src="/logo.png"
                 alt="Logo"
