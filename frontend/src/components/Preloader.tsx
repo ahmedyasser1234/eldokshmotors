@@ -27,9 +27,9 @@ const Preloader: React.FC = () => {
                             className="flex whitespace-nowrap items-center"
                         >
                             {[...Array(10)].map((_, i) => (
-                                <div key={i} className="flex items-center gap-12 md:gap-24 mx-12 md:mx-24 shrink-0">
+                                <div key={i} className="flex items-center gap-8 md:gap-12 mx-8 md:mx-12 shrink-0">
                                     <span 
-                                        style={{ fontSize: '5rem' }} 
+                                        style={{ fontSize: '3rem' }} 
                                         className="font-black tracking-tighter uppercase text-brand-primary"
                                     >
                                         COBRAMOTORS
@@ -37,7 +37,7 @@ const Preloader: React.FC = () => {
                                     <img 
                                         src="/logo.png" 
                                         alt="Logo" 
-                                        style={{ height: '5rem' }}
+                                        style={{ height: '3rem' }}
                                         className="object-contain"
                                     />
                                 </div>
