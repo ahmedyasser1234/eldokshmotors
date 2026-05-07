@@ -218,8 +218,10 @@
   },
   "status": {
     "available": "Available",
+    "available_rental": "Available for Rent",
     "reserved": "Reserved",
     "sold": "Sold",
+    "rented": "Rented",
     "pending": "Pending",
     "reviewed": "Reviewed",
     "accepted": "Accepted",
@@ -370,6 +372,15 @@
       "total": "Total Amount",
       "taxNote": "Inc all taxes and fees Cancellation is free within 24 hours"
     },
+    "wedding": "Wedding",
+    "map": {
+      "selectOnMap": "Select on Map",
+      "useCurrentLocation": "Use Current Location",
+      "pickupPoint": "Pick-up Point",
+      "dropoffPoint": "Drop-off Point",
+      "searchPlaceholder": "Search for a place...",
+      "confirmLocation": "Confirm Location"
+    },
     "buttons": {
       "back": "BACK",
       "continue": "CONTINUE",
@@ -392,6 +403,13 @@
         "name": "In-car 5G Wi-Fi",
         "desc": "Unlimited data for all devices"
       }
+    }
+  },
+  "rental": {
+    "modes": {
+      "self": "Self Drive",
+      "trip": "Trip with Driver",
+      "wedding": "Wedding"
     }
   },
   "auth": {
@@ -613,6 +631,8 @@
     "fleet": "Fleet",
     "manualPayments": "Payment Receipts",
     "bookings": "Purchase Requests",
+    "rentalFleet": "Rental Fleet",
+    "rentalRequests": "Rental Requests",
     "soldVehicles": "Sold Vehicles",
     "sellOffers": "Sell Offers",
     "customers": "Customers",

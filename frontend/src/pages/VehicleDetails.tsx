@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect, useMemo } from 'react';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import api from '../services/api';
 import { 
   MapPin, 
@@ -19,7 +19,11 @@ import {
   Palette,
   GaugeCircle,
   Activity,
-  Box
+  Box,
+  Heart,
+  User,
+  Route,
+  Calendar
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '../store/authStore';
@@ -31,12 +35,27 @@ import SEO from '../components/SEO';
 const VehicleDetails: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const { t } = useTranslation();
+    const { search } = useLocation();
+    const { t, i18n } = useTranslation();
+    const isArabic = i18n.language === 'ar';
+
+    const queryParams = useMemo(() => new URLSearchParams(search), [search]);
+    const rentalMode = queryParams.get('mode');
+    const pickupDate = queryParams.get('pickup');
+    const returnDate = queryParams.get('return');
+    const departure = queryParams.get('departure');
+    const startAddr = queryParams.get('start_addr');
+    const startLat = queryParams.get('start_lat');
+    const startLng = queryParams.get('start_lng');
+    const endAddr = queryParams.get('end_addr');
+    const endLat = queryParams.get('end_lat');
+    const endLng = queryParams.get('end_lng');
+
     const [selectedImage, setSelectedImage] = useState(0);
     const [vehicle, setVehicle] = useState<any>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const [bookingStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+    const [bookingStatus, setBookingStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
 
     const [downPaymentPercent, setDownPaymentPercent] = useState(20);
     const [installmentMonths, setInstallmentMonths] = useState(60);
@@ -73,7 +92,7 @@ const VehicleDetails: React.FC = () => {
     const handleBuy = async () => {
         const token = localStorage.getItem('token') || localStorage.getItem('admin-token');
         if (!token) {
-            navigate(`/login?redirect=/vehicles/${id}`);
+            navigate(`/login?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`);
             return;
         }
         if (useAuthStore.getState().user?.role === 'admin') {
@@ -81,6 +100,41 @@ const VehicleDetails: React.FC = () => {
             return;
         }
         navigate(`/checkout/${id}`);
+    };
+
+    const handleRent = async () => {
+        const token = localStorage.getItem('token') || localStorage.getItem('admin-token');
+        if (!token) {
+            navigate(`/login?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`);
+            return;
+        }
+
+        try {
+            setBookingStatus('submitting');
+            const data: any = {
+                vehicleId: id,
+                startDate: pickupDate || departure || new Date().toISOString(),
+                endDate: returnDate || pickupDate || departure || new Date().toISOString(),
+                mode: rentalMode || 'self',
+            };
+
+            if (startAddr && startLat && startLng) {
+                data.pickupLocation = { address: startAddr, lat: parseFloat(startLat), lng: parseFloat(startLng) };
+            }
+            if (endAddr && endLat && endLng) {
+                data.dropoffLocation = { address: endAddr, lat: parseFloat(endLat), lng: parseFloat(endLng) };
+            }
+
+            await api.post('/reservations', data);
+            setBookingStatus('success');
+        } catch (err: any) {
+            setAlertConfig({
+                isOpen: true,
+                type: 'error',
+                message: err.response?.data?.message || 'Failed to submit rental request.'
+            });
+            setBookingStatus('idle');
+        }
     };
 
     if (loading) {
@@ -110,13 +164,12 @@ const VehicleDetails: React.FC = () => {
     const formattedDownPayment = Math.round(downPaymentAmount).toLocaleString();
     const formattedMonthlyPayment = Math.round(monthlyPayment).toLocaleString();
 
-    const isArabic = t('common.make_ar') === 'الماركة (بالعربي)';
     const makeName = isArabic ? (vehicle.make_ar || vehicle.make_en) : (vehicle.make_en || vehicle.make_ar);
     const modelName = isArabic ? (vehicle.model_ar || vehicle.model_en) : (vehicle.model_en || vehicle.model_ar);
     const description = isArabic ? (vehicle.description_ar || vehicle.description_en) : (vehicle.description_en || vehicle.description_ar);
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] text-slate-800 pb-20 selection:bg-brand-primary selection:text-white">
+        <div className="min-h-screen bg-[#f8fafc] text-slate-800 pb-20 selection:bg-brand-primary selection:text-white" dir={isArabic ? 'rtl' : 'ltr'}>
             <SEO 
                 title={`${makeName} ${modelName}`}
                 description={description?.slice(0, 160) || `${makeName} ${modelName} - ${t('seo.default.description')}`}
@@ -153,16 +206,18 @@ const VehicleDetails: React.FC = () => {
                                 <CheckCircle size={48} />
                             </div>
                             <h2 className="text-4xl font-black text-slate-900 mb-6 leading-tight">
-                                {t('details.buySuccessTitle')}
+                                {rentalMode ? (isArabic ? 'تم إرسال طلبك!' : 'Request Sent!') : t('details.buySuccessTitle')}
                             </h2>
                             <p className="text-slate-500 text-lg font-bold leading-relaxed mb-10">
-                                {t('details.buySuccessDesc', { make: makeName, model: modelName })}
+                                {rentalMode 
+                                    ? (isArabic ? 'لقد استلمنا طلب الإيجار الخاص بك وسنتواصل معك قريباً لتأكيد الحجز.' : 'We have received your rental request and will contact you shortly to confirm.')
+                                    : t('details.buySuccessDesc', { make: makeName, model: modelName })}
                             </p>
                             <button
-                                onClick={() => navigate('/vehicles')}
+                                onClick={() => navigate(rentalMode ? '/dashboard' : '/vehicles')}
                                 className="w-full py-5 bg-brand-primary text-white rounded-2xl font-black text-lg hover:bg-brand-dark transition-all shadow-xl shadow-brand-primary/20 active:scale-95"
                             >
-                                {t('fleet.title')}
+                                {rentalMode ? (isArabic ? 'لوحة التحكم' : 'Dashboard') : t('fleet.title')}
                             </button>
                         </div>
                     </motion.div>
@@ -173,11 +228,11 @@ const VehicleDetails: React.FC = () => {
 
                 {/* Back Link */}
                 <button
-                    onClick={() => navigate('/vehicles')}
+                    onClick={() => navigate(rentalMode ? '/rental' : '/vehicles')}
                     className="flex items-center gap-2 text-slate-500 hover:text-brand-primary mb-8 transition-colors group"
                 >
-                    <ChevronLeft size={20} className="group-hover:-translate-x-1 transition-transform rtl:rotate-180" />
-                    <span className="text-sm font-bold uppercase tracking-widest">{t('nav.vehicles')}</span>
+                    <ChevronLeft size={20} className={`group-hover:-translate-x-1 transition-transform ${isArabic ? 'rotate-180' : ''}`} />
+                    <span className="text-sm font-bold uppercase tracking-widest">{rentalMode ? (isArabic ? 'إيجار السيارات' : 'Car Rental') : t('nav.vehicles')}</span>
                 </button>
 
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
@@ -209,16 +264,61 @@ const VehicleDetails: React.FC = () => {
                             )}
                         </div>
 
-                        {/* Mobile: Name & Price */}
-                        <div className="lg:hidden space-y-2 bg-white rounded-2xl p-6 border border-slate-200 shadow-sm">
-                            <h1 className="text-3xl font-black text-slate-900 tracking-tight">
-                                {makeName} {modelName}
-                            </h1>
-                            <div className="flex items-baseline gap-3">
-                                <span className="text-3xl font-black text-brand-primary">{Number(vehicle.sale_price).toLocaleString()}</span>
-                                <span className="text-sm font-bold text-slate-400">EGP</span>
-                            </div>
-                        </div>
+                        {/* Rental Summary Card */}
+                        {rentalMode && (
+                            <motion.div 
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="bg-white border border-slate-200 p-8 rounded-3xl shadow-sm space-y-6"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <div className={`w-14 h-14 ${rentalMode === 'wedding' ? 'bg-rose-100 text-rose-600' : 'bg-blue-100 text-blue-600'} rounded-2xl flex items-center justify-center shadow-sm`}>
+                                        {rentalMode === 'wedding' ? <Heart size={28} /> : rentalMode === 'trip' ? <Route size={28} /> : <User size={28} />}
+                                    </div>
+                                    <div>
+                                        <h3 className="text-2xl font-black text-slate-900 tracking-tight uppercase">
+                                            {rentalMode === 'wedding' ? (isArabic ? 'طلب باقة الزفاف' : 'Wedding Package Request') : (isArabic ? 'طلب إيجار سيارة' : 'Rental Request')}
+                                        </h3>
+                                        <p className="text-slate-400 text-xs font-black uppercase tracking-widest mt-0.5">
+                                            {rentalMode === 'wedding' ? (isArabic ? 'خدمة فاخرة مع سائق' : 'Premium service with driver') : (isArabic ? 'تأكيد تفاصيل الرحلة' : 'Confirm your trip details')}
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-100">
+                                    <div className="space-y-4">
+                                        <div className="flex items-start gap-3">
+                                            <Calendar size={18} className="text-blue-500 mt-1 shrink-0" />
+                                            <div>
+                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{isArabic ? 'التاريخ والوقت' : 'Date & Time'}</p>
+                                                <p className="text-sm font-bold text-slate-800">{pickupDate || departure} {returnDate && ` — ${returnDate}`}</p>
+                                            </div>
+                                        </div>
+                                        <div className="flex items-start gap-3">
+                                            <MapPin size={18} className="text-emerald-500 mt-1 shrink-0" />
+                                            <div>
+                                                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{isArabic ? 'الموقع' : 'Location'}</p>
+                                                <p className="text-sm font-bold text-slate-800">{startAddr || (isArabic ? 'غير محدد' : 'Not specified')}</p>
+                                                {endAddr && <p className="text-xs font-bold text-slate-400 mt-1">⟶ {endAddr}</p>}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="bg-slate-50 p-5 rounded-2xl border border-slate-100 h-fit">
+                                        <div className="flex justify-between items-center mb-2">
+                                            <span className="text-xs font-bold text-slate-500 uppercase">{isArabic ? 'باقة الإيجار' : 'Rental Mode'}</span>
+                                            <span className={`px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${rentalMode === 'wedding' ? 'bg-rose-500 text-white' : 'bg-blue-600 text-white'}`}>
+                                                {rentalMode}
+                                            </span>
+                                        </div>
+                                        <p className="text-[10px] text-slate-400 font-medium leading-relaxed">
+                                            {isArabic 
+                                                ? 'سيتم مراجعة طلبك من قبل الإدارة وتحديد السعر النهائي بناءً على المسافة والتفاصيل.' 
+                                                : 'Your request will be reviewed by admin to determine the final price based on distance and details.'}
+                                        </p>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        )}
 
                         {/* Specifications Grid */}
                         <div className="bg-white rounded-3xl border border-slate-200 shadow-sm p-8 space-y-6">
@@ -278,8 +378,6 @@ const VehicleDetails: React.FC = () => {
                                 {description || '—'}
                             </p>
                         </div>
-
-
                     </div>
 
                     {/* ── RIGHT: Sidebar (4 cols) ── */}
@@ -291,6 +389,9 @@ const VehicleDetails: React.FC = () => {
                                 <h1 className="text-2xl font-black text-slate-900 leading-tight">
                                     {makeName} {modelName}
                                 </h1>
+
+                                {/* Sale Price */}
+                                {vehicle.is_for_sale && (
                                 <div>
                                     <span className="text-[10px] text-slate-400 uppercase font-black tracking-[0.25em]">
                                         {t('details.salePrice')}
@@ -302,34 +403,73 @@ const VehicleDetails: React.FC = () => {
                                         <span className="text-sm font-bold text-slate-400">EGP</span>
                                     </div>
                                 </div>
+                                )}
 
-                                {vehicle.details?.reservation_fee && (
-                                    <div className="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl">
-                                        <span className="text-[10px] text-emerald-600 uppercase font-black tracking-[0.2em]">مبلغ جدية الحجز</span>
-                                        <div className="flex items-baseline gap-2 mt-1">
-                                            <span className="text-3xl font-black text-emerald-600">
-                                                {Number(vehicle.details.reservation_fee).toLocaleString()}
-                                            </span>
-                                            <span className="text-sm font-bold text-emerald-400">EGP</span>
-                                        </div>
+                                {/* Rental Pricing */}
+                                {vehicle.is_for_rent && (
+                                <div className="space-y-3">
+                                    <span className="text-[10px] text-blue-500 uppercase font-black tracking-[0.25em] flex items-center gap-1">
+                                        🚗 {isArabic ? 'أسعار الإيجار' : 'Rental Prices'}
+                                    </span>
+                                    <div className="grid grid-cols-3 gap-2">
+                                        {Number(vehicle.rent_price_per_day) > 0 && (
+                                            <div className="bg-blue-50 border border-blue-100 rounded-2xl p-3 text-center">
+                                                <p className="text-[8px] font-black text-blue-400 uppercase tracking-widest mb-1">{isArabic ? 'يوم' : 'Day'}</p>
+                                                <p className="text-lg font-black text-blue-700">{Number(vehicle.rent_price_per_day).toLocaleString()}</p>
+                                                <p className="text-[8px] text-blue-400 font-bold">EGP</p>
+                                            </div>
+                                        )}
+                                        {Number(vehicle.rent_price_per_week) > 0 && (
+                                            <div className="bg-blue-50 border border-blue-100 rounded-2xl p-3 text-center">
+                                                <p className="text-[8px] font-black text-blue-400 uppercase tracking-widest mb-1">{isArabic ? 'أسبوع' : 'Week'}</p>
+                                                <p className="text-lg font-black text-blue-700">{Number(vehicle.rent_price_per_week).toLocaleString()}</p>
+                                                <p className="text-[8px] text-blue-400 font-bold">EGP</p>
+                                            </div>
+                                        )}
+                                        {Number(vehicle.rent_price_per_month) > 0 && (
+                                            <div className="bg-blue-50 border border-blue-100 rounded-2xl p-3 text-center">
+                                                <p className="text-[8px] font-black text-blue-400 uppercase tracking-widest mb-1">{isArabic ? 'شهر' : 'Month'}</p>
+                                                <p className="text-lg font-black text-blue-700">{Number(vehicle.rent_price_per_month).toLocaleString()}</p>
+                                                <p className="text-[8px] text-blue-400 font-bold">EGP</p>
+                                            </div>
+                                        )}
                                     </div>
+                                    {!rentalMode && (
+                                        <div className="grid grid-cols-2 gap-2 mt-4">
+                                            <button 
+                                                onClick={() => navigate(`/rental`)}
+                                                className="flex flex-col items-center justify-center gap-1 py-3 bg-blue-50 border border-blue-100 rounded-2xl text-[10px] font-black text-blue-600 uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-sm"
+                                            >
+                                                <User size={16} /> {isArabic ? 'إيجار ذاتي' : 'Self Drive'}
+                                            </button>
+                                            <button 
+                                                onClick={() => navigate(`/rental`)}
+                                                className={`flex flex-col items-center justify-center gap-1 py-3 bg-purple-50 border border-purple-100 rounded-2xl text-[10px] font-black text-purple-600 uppercase tracking-widest hover:bg-purple-600 hover:text-white transition-all shadow-sm`}
+                                            >
+                                                <Zap size={16} /> {isArabic ? 'مشوار/زفاف' : 'Trip / Wedding'}
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
                                 )}
                             </div>
 
                             {/* CTA Button */}
                             {useAuthStore.getState().user?.role !== 'admin' && (
                                 <button
-                                    onClick={handleBuy}
+                                    onClick={rentalMode ? handleRent : handleBuy}
                                     disabled={bookingStatus === 'submitting'}
-                                    className="w-full py-5 bg-brand-primary hover:bg-brand-dark text-white font-black rounded-2xl transition-all shadow-lg shadow-brand-primary/25 active:scale-95 flex items-center justify-center gap-3 disabled:opacity-50 text-base"
+                                    className={`w-full py-5 ${rentalMode === 'wedding' ? 'bg-rose-500 hover:bg-rose-600 shadow-rose-500/25' : 'bg-brand-primary hover:bg-brand-dark shadow-brand-primary/25'} text-white font-black rounded-2xl transition-all shadow-lg active:scale-95 flex items-center justify-center gap-3 disabled:opacity-50 text-base`}
                                 >
                                     <span>
                                         {bookingStatus === 'submitting'
                                             ? t('sell.form.submitting')
-                                            : (vehicle.details?.reservation_fee ? 'دفع مبلغ الحجز' : t('details.buyCar'))
+                                            : rentalMode 
+                                                ? (isArabic ? 'إرسال طلب الحجز' : 'Request Rental')
+                                                : (vehicle.details?.reservation_fee ? 'دفع مبلغ الحجز' : t('details.buyCar'))
                                         }
                                     </span>
-                                    <ArrowRight size={20} className="rtl:rotate-180" />
+                                    <ArrowRight size={20} className={isArabic ? 'rotate-180' : ''} />
                                 </button>
                             )}
 
@@ -340,7 +480,7 @@ const VehicleDetails: React.FC = () => {
                             )}
 
                             {/* Installment Calculator */}
-                            {vehicle?.details?.is_installment_available && (
+                            {vehicle?.details?.is_installment_available && !rentalMode && (
                                 <div className="pt-6 border-t border-slate-100 space-y-5">
                                     <div className="flex items-center gap-2">
                                         <CreditCard size={16} className="text-brand-primary" />
@@ -404,7 +544,7 @@ const VehicleDetails: React.FC = () => {
                                             className="w-full py-3 text-xs font-black text-brand-primary hover:bg-brand-primary/5 border border-brand-primary/20 hover:border-brand-primary/40 rounded-xl transition-all flex items-center justify-center gap-2 group"
                                         >
                                             {t('details.financing.applyNow')}
-                                            <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform rtl:rotate-180" />
+                                            <ChevronRight size={14} className={`${isArabic ? 'rotate-180 group-hover:-translate-x-1' : 'group-hover:translate-x-1'} transition-transform`} />
                                         </button>
                                     </div>
                                 </div>

@@ -61,3 +61,10 @@ export enum PurchaseRequestStatus {
   PURCHASED = 'purchased',
 }
 
+export enum RentalMode {
+  SELF = 'self',
+  DRIVER = 'driver',
+  TRIP = 'trip',
+  WEDDING = 'wedding',
+}
+

@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, OneToMany, ManyToOne } from 'typeorm';
-import { VehicleStatus, VehicleCategory } from '../../../common/enums';
+import { VehicleStatus, VehicleCategory, RentalMode } from '../../../common/enums';
 import { Rental } from '../../reservations/entities/rental.entity';
 import { Sale } from '../../sales/entities/sale.entity';
 import { Review } from '../../reviews/entities/review.entity';
@@ -45,7 +45,19 @@ export class Vehicle {
   rent_price_per_day: number;
 
   @Column('decimal', { precision: 10, scale: 2, nullable: true })
+  rent_price_per_week: number;
+
+  @Column('decimal', { precision: 10, scale: 2, nullable: true })
+  rent_price_per_month: number;
+
+  @Column('decimal', { precision: 10, scale: 2, nullable: true })
   sale_price: number;
+
+  @Column({ default: false })
+  is_for_rent: boolean;
+
+  @Column({ default: true })
+  is_for_sale: boolean;
 
   @Column({ type: 'text', nullable: true })
   description_ar: string;
@@ -88,4 +100,13 @@ export class Vehicle {
 
   @OneToMany(() => VehicleMaintenance, (m) => m.vehicle)
   maintenances: VehicleMaintenance[];
+
+  @Column({
+    type: 'enum',
+    enum: RentalMode,
+    array: true,
+    default: [],
+    nullable: true,
+  })
+  allowed_rental_modes: RentalMode[];
 }

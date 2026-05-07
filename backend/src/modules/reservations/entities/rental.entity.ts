@@ -2,7 +2,7 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDat
 import { User } from '../../users/entities/user.entity';
 import { Vehicle } from '../../vehicles/entities/vehicle.entity';
 import { Location } from '../../locations/entities/location.entity';
-import { RentalStatus } from '../../../common/enums';
+import { RentalStatus, RentalMode } from '../../../common/enums';
 import { RentalAddon } from './rental-addon.entity';
 
 @Entity('rentals')
@@ -40,6 +40,13 @@ export class Rental {
     default: RentalStatus.PENDING,
   })
   status: RentalStatus;
+
+  @Column({
+    type: 'enum',
+    enum: [ 'self', 'driver', 'trip', 'wedding' ],
+    default: 'self',
+  })
+  mode: string;
 
   @OneToMany(() => RentalAddon, (ra) => ra.rental)
   addons: RentalAddon[];

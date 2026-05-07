@@ -35,9 +35,15 @@ const AddVehicleModal: React.FC<AddVehicleModalProps> = ({ isOpen, onClose, onSu
         category: initialData?.category || 'luxury',
         status: initialData?.status || 'available',
         sale_price: initialData?.sale_price || 0,
+        rent_price_per_day: initialData?.rent_price_per_day || 0,
+        rent_price_per_week: initialData?.rent_price_per_week || 0,
+        rent_price_per_month: initialData?.rent_price_per_month || 0,
+        is_for_rent: initialData?.is_for_rent || false,
+        is_for_sale: initialData?.is_for_sale !== undefined ? initialData.is_for_sale : true,
         description_ar: initialData?.description_ar || '',
         description_en: initialData?.description_en || '',
         image_urls: initialData?.image_urls?.length > 0 ? initialData.image_urls : [''],
+        allowed_rental_modes: initialData?.allowed_rental_modes || ['self'],
         details: {
             engine: initialData?.details?.engine || '',
             horsepower: initialData?.details?.horsepower || '',
@@ -73,9 +79,15 @@ const AddVehicleModal: React.FC<AddVehicleModalProps> = ({ isOpen, onClose, onSu
                 category: initialData.category,
                 status: initialData.status,
                 sale_price: initialData.sale_price,
+                rent_price_per_day: initialData.rent_price_per_day || 0,
+                rent_price_per_week: initialData.rent_price_per_week || 0,
+                rent_price_per_month: initialData.rent_price_per_month || 0,
+                is_for_rent: initialData.is_for_rent || false,
+                is_for_sale: initialData.is_for_sale !== undefined ? initialData.is_for_sale : true,
                 description_ar: initialData.description_ar || '',
                 description_en: initialData.description_en || '',
                 image_urls: normalizedUrls.length > 0 ? normalizedUrls : [''],
+                allowed_rental_modes: initialData.allowed_rental_modes || ['self'],
                 details: {
                     engine: initialData.details?.engine || '',
                     horsepower: initialData.details?.horsepower || '',
@@ -116,8 +128,17 @@ const AddVehicleModal: React.FC<AddVehicleModalProps> = ({ isOpen, onClose, onSu
                 }
             }));
         } else {
-            setFormData(prev => ({ ...prev, [name]: name === 'year' || name === 'sale_price' ? Number(value) : value }));
+            const numericFields = ['year', 'sale_price', 'rent_price_per_day', 'rent_price_per_week', 'rent_price_per_month'];
+            setFormData(prev => ({ 
+                ...prev, 
+                [name]: numericFields.includes(name) ? Number(value) : value 
+            }));
         }
+    };
+
+    const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, checked } = e.target;
+        setFormData(prev => ({ ...prev, [name]: checked }));
     };
 
     const handleImageUrlChange = (index: number, value: string) => {
@@ -310,22 +331,107 @@ const AddVehicleModal: React.FC<AddVehicleModalProps> = ({ isOpen, onClose, onSu
                                 </div>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="space-y-2">
-                                    <label className="text-[10px] font-black text-brand-primary uppercase tracking-widest">{isRTL ? 'سعر البيع الإجمالي (جنيه مصري)' : 'Total Sale Price (EGP)'}</label>
-                                    <input 
-                                        type="number" name="sale_price" value={formData.sale_price} onChange={handleChange} required
-                                        className="w-full bg-brand-primary/5 border border-brand-primary/20 rounded-2xl px-5 py-4 text-brand-primary focus:border-brand-primary outline-none transition-all font-black text-2xl tracking-tight"
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">{isRTL ? 'مبلغ جدية الحجز (جنيه مصري)' : 'Reservation Down Payment (EGP)'}</label>
-                                    <input 
-                                        type="number" name="details.reservation_fee" value={formData.details.reservation_fee} onChange={handleChange} required
-                                        className="w-full bg-emerald-50 border border-emerald-200 rounded-2xl px-5 py-4 text-emerald-600 focus:border-emerald-500 outline-none transition-all font-black text-2xl tracking-tight"
-                                    />
+                            <div className="space-y-6 border-t border-slate-100 pt-6">
+                                <h3 className="text-sm font-black text-slate-800 uppercase tracking-widest">{isRTL ? 'غرض العرض' : 'Listing Purpose'}</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                        <input 
+                                            type="checkbox" 
+                                            name="is_for_sale"
+                                            id="is_for_sale"
+                                            checked={formData.is_for_sale} 
+                                            onChange={handleCheckboxChange}
+                                            className="w-5 h-5 accent-brand-primary cursor-pointer rounded"
+                                        />
+                                        <label htmlFor="is_for_sale" className="text-sm font-bold text-slate-700 cursor-pointer">{isRTL ? 'متاحة للبيع' : 'Available for Sale'}</label>
+                                    </div>
+                                    <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                        <input 
+                                            type="checkbox" 
+                                            name="is_for_rent"
+                                            id="is_for_rent"
+                                            checked={formData.is_for_rent} 
+                                            onChange={handleCheckboxChange}
+                                            className="w-5 h-5 accent-brand-primary cursor-pointer rounded"
+                                        />
+                                        <label htmlFor="is_for_rent" className="text-sm font-bold text-slate-700 cursor-pointer">{isRTL ? 'متاحة للإيجار' : 'Available for Rent'}</label>
+                                    </div>
                                 </div>
                             </div>
+
+                            {formData.is_for_sale && (
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in slide-in-from-top-2 duration-300">
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-black text-brand-primary uppercase tracking-widest">{isRTL ? 'سعر البيع الإجمالي (جنيه مصري)' : 'Total Sale Price (EGP)'}</label>
+                                        <input 
+                                            type="number" name="sale_price" value={formData.sale_price} onChange={handleChange} required
+                                            className="w-full bg-brand-primary/5 border border-brand-primary/20 rounded-2xl px-5 py-4 text-brand-primary focus:border-brand-primary outline-none transition-all font-black text-2xl tracking-tight"
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-black text-emerald-600 uppercase tracking-widest">{isRTL ? 'مبلغ جدية الحجز (جنيه مصري)' : 'Reservation Down Payment (EGP)'}</label>
+                                        <input 
+                                            type="number" name="details.reservation_fee" value={formData.details.reservation_fee} onChange={handleChange}
+                                            className="w-full bg-emerald-50 border border-emerald-200 rounded-2xl px-5 py-4 text-emerald-600 focus:border-emerald-500 outline-none transition-all font-black text-2xl tracking-tight"
+                                        />
+                                    </div>
+                                </div>
+                            )}
+
+                            {formData.is_for_rent && (
+                                <div className="space-y-6 animate-in fade-in slide-in-from-top-2 duration-300 border-t border-slate-100 pt-6">
+                                    <h3 className="text-sm font-black text-blue-600 uppercase tracking-widest">{isRTL ? 'خيارات الإيجار المتاحة' : 'Available Rental Modes'}</h3>
+                                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+                                        {[
+                                            { id: 'self', label: isRTL ? 'قيادة ذاتية' : 'Self Drive' },
+                                            { id: 'trip', label: isRTL ? 'رحلة بسائق' : 'Trip with Driver' },
+                                            { id: 'wedding', label: isRTL ? 'زفاف' : 'Wedding' }
+                                        ].map((mode) => (
+                                            <div key={mode.id} className="flex items-center gap-3 p-3 bg-blue-50/50 rounded-xl border border-blue-100/30">
+                                                <input 
+                                                    type="checkbox" 
+                                                    id={`mode-${mode.id}`}
+                                                    checked={formData.allowed_rental_modes?.includes(mode.id)} 
+                                                    onChange={(e) => {
+                                                        const currentModes = formData.allowed_rental_modes || [];
+                                                        const newModes = e.target.checked 
+                                                            ? [...currentModes, mode.id]
+                                                            : currentModes.filter((m: string) => m !== mode.id);
+                                                        setFormData(prev => ({ ...prev, allowed_rental_modes: newModes }));
+                                                    }}
+                                                    className="w-4 h-4 accent-blue-600 cursor-pointer rounded"
+                                                />
+                                                <label htmlFor={`mode-${mode.id}`} className="text-xs font-bold text-slate-700 cursor-pointer">{mode.label}</label>
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <h3 className="text-sm font-black text-blue-600 uppercase tracking-widest">{isRTL ? 'أسعار الإيجار' : 'Rental Pricing'}</h3>
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{isRTL ? 'الإيجار اليومي' : 'Daily Rent'}</label>
+                                            <input 
+                                                type="number" name="rent_price_per_day" value={formData.rent_price_per_day} onChange={handleChange}
+                                                className="w-full bg-blue-50 border border-blue-100 rounded-2xl px-5 py-3 text-blue-700 focus:border-blue-500 outline-none transition-all font-bold"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{isRTL ? 'الإيجار الأسبوعي' : 'Weekly Rent'}</label>
+                                            <input 
+                                                type="number" name="rent_price_per_week" value={formData.rent_price_per_week} onChange={handleChange}
+                                                className="w-full bg-blue-50 border border-blue-100 rounded-2xl px-5 py-3 text-blue-700 focus:border-blue-500 outline-none transition-all font-bold"
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{isRTL ? 'الإيجار الشهري' : 'Monthly Rent'}</label>
+                                            <input 
+                                                type="number" name="rent_price_per_month" value={formData.rent_price_per_month} onChange={handleChange}
+                                                className="w-full bg-blue-50 border border-blue-100 rounded-2xl px-5 py-3 text-blue-700 focus:border-blue-500 outline-none transition-all font-bold"
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
 
                             <div className="space-y-6 border-t border-slate-100 pt-6">
                                 <h3 className="text-sm font-black text-slate-800 uppercase tracking-widest">{isRTL ? 'نظام التقسيط والتمويل' : 'Financing & Installment'}</h3>

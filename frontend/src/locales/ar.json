@@ -218,8 +218,10 @@
   },
   "status": {
     "available": "متاح للبيع",
+    "available_rental": "متاحة للايجار",
     "reserved": "محجوز",
     "sold": "مباع",
+    "rented": "مؤجر",
     "pending": "قيد الانتظار",
     "reviewed": "تمت المراجعة",
     "accepted": "مقبول",
@@ -370,6 +372,15 @@
       "total": "المبلغ الإجمالي",
       "taxNote": "شامل جميع الضرائب والرسوم الإلغاء مجاني خلال 24 ساعة"
     },
+    "wedding": "زفاف",
+    "map": {
+      "selectOnMap": "اختر من الخريطة",
+      "useCurrentLocation": "استخدم موقعي الحالي",
+      "pickupPoint": "نقطة الاستلام",
+      "dropoffPoint": "نقطة الوصول",
+      "searchPlaceholder": "ابحث عن مكان...",
+      "confirmLocation": "تأكيد الموقع"
+    },
     "buttons": {
       "back": "رجوع",
       "continue": "استمرار",
@@ -392,6 +403,13 @@
         "name": "واي فاي 5G في السيارة",
         "desc": "بيانات غير محدودة لجميع الأجهزة"
       }
+    }
+  },
+  "rental": {
+    "modes": {
+      "self": "قيادة ذاتية",
+      "trip": "رحلة بسائق",
+      "wedding": "زفاف"
     }
   },
   "auth": {
@@ -615,6 +633,8 @@
     "fleet": "الأسطول",
     "manualPayments": "إيصالات الدفع",
     "bookings": "عروض الشراء",
+    "rentalFleet": "أسطول الإيجار",
+    "rentalRequests": "طلبات الإيجار",
     "soldVehicles": "السيارات المباعة",
     "sellOffers": "عروض البيع",
     "customers": "العملاء",

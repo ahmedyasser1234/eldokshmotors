@@ -76,6 +76,17 @@ export class VehiclesService implements OnModuleInit {
       query.andWhere('vehicle.sale_price <= :maxPrice', { maxPrice: filters.maxPrice });
     }
 
+    if (filters.is_for_rent !== undefined) {
+      // Handle both boolean and string "true"/"false" from query params
+      const isForRent = filters.is_for_rent === 'true' || filters.is_for_rent === true;
+      query.andWhere('vehicle.is_for_rent = :isForRent', { isForRent });
+    }
+
+    if (filters.is_for_sale !== undefined) {
+      const isForSale = filters.is_for_sale === 'true' || filters.is_for_sale === true;
+      query.andWhere('vehicle.is_for_sale = :isForSale', { isForSale });
+    }
+
     if (filters.limit) {
       query.take(filters.limit);
     }

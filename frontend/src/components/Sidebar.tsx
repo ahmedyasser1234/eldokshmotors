@@ -34,8 +34,10 @@ const Sidebar: React.FC<SidebarProps> = ({ role, isOpen, onClose }) => {
     const adminLinks = [
         { name: t('sidebar.overview'), path: '/admin/dashboard', icon: LayoutDashboard },
         { name: t('sidebar.fleet'), path: '/admin/fleet', icon: Car },
+        { name: t('sidebar.rentalFleet'), path: '/admin/rental-fleet', icon: Car },
         { name: t('sidebar.manualPayments'), path: '/admin/manual-payments', icon: CreditCard },
-        { name: t('sidebar.bookings'), path: '/admin/bookings', icon: Calendar },
+        { name: t('sidebar.bookings') || 'طلبات الشراء', path: '/admin/bookings', icon: Calendar },
+        { name: t('sidebar.rentalRequests'), path: '/admin/rental-requests', icon: Car },
         { name: t('sidebar.soldVehicles'), path: '/admin/sold-vehicles', icon: CreditCard },
         { name: t('sidebar.sellOffers'), path: '/admin/sell-offers', icon: History },
         { name: t('sidebar.messages'), path: '/admin/messages', icon: MessageSquare },

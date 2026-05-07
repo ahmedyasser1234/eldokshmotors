@@ -39,6 +39,11 @@ export class ReservationBuilder {
     return this;
   }
 
+  setMode(mode: string): this {
+    this.rental.mode = mode;
+    return this;
+  }
+
   addAddon(addonId: string, price: number): this {
     this.addons.push({
         rental: this.rental as Rental,

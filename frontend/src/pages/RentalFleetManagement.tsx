@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import DashboardLayout from '../components/DashboardLayout';
-import { Plus, Filter, Zap, Droplet, Trash2, Loader2, Eye, Edit3 } from 'lucide-react';
+import { Plus, Filter, Zap, Trash2, Loader2, Eye, Edit3, Car, Calendar, User, Heart } from 'lucide-react';
 import api from '../services/api';
 import AddVehicleModal from '../components/AddVehicleModal';
 import { useTranslation } from 'react-i18next';
 import { normalizeImageUrl } from '../utils/imageUtils';
 import AlertModal from '../components/AlertModal';
 
-const FleetManagement: React.FC = () => {
+const RentalFleetManagement: React.FC = () => {
     const { t, i18n } = useTranslation();
     const isRTL = i18n.language === 'ar';
     const navigate = useNavigate();
@@ -41,7 +41,7 @@ const FleetManagement: React.FC = () => {
             const response = await api.get('/vehicles', { 
                 params: { 
                     ...filters,
-                    is_for_sale: true,
+                    is_for_rent: true,
                     status: filters.status === 'all' ? '' : (filters.status || 'available')
                 } 
             });
@@ -65,8 +65,8 @@ const FleetManagement: React.FC = () => {
         setAlertConfig({
             isOpen: true,
             type: 'warning',
-            title: t('common.confirm'),
-            message: t('admin.fleet.deleteConfirm'),
+            title: isRTL ? 'تأكيد الحذف' : 'Confirm Delete',
+            message: isRTL ? 'هل أنت متأكد من حذف هذه السيارة من أسطول الإيجار؟' : 'Are you sure you want to delete this vehicle from the rental fleet?',
             onConfirm: executeDelete
         });
     };
@@ -82,7 +82,7 @@ const FleetManagement: React.FC = () => {
             setAlertConfig({
                 isOpen: true,
                 type: 'error',
-                message: t('admin.fleet.deleteFailed')
+                message: isRTL ? 'فشل حذف السيارة' : 'Failed to delete vehicle'
             });
         }
     };
@@ -97,33 +97,47 @@ const FleetManagement: React.FC = () => {
         setEditingVehicle(null);
     };
 
+    const getModeIcon = (mode: string) => {
+        switch (mode) {
+            case 'self': return <User size={12} />;
+            case 'driver': return <Car size={12} />;
+            case 'trip': return <Calendar size={12} />;
+            case 'wedding': return <Heart size={12} />;
+            default: return <Zap size={12} />;
+        }
+    };
+
+    const getModeLabel = (mode: string) => {
+        return t(`rental.modes.${mode}`) || mode;
+    };
+
     return (
-        <DashboardLayout role="admin" title={t('admin.fleet.title')}>
+        <DashboardLayout role="admin" title={t('sidebar.rentalFleet')}>
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
                 <div>
-                    <h1 className="text-4xl font-black tracking-tighter text-slate-900 mb-2 tracking-tighter uppercase whitespace-pre-wrap">{t('admin.fleet.title')}</h1>
+                    <h1 className="text-4xl font-black tracking-tighter text-slate-900 mb-2 tracking-tighter uppercase whitespace-pre-wrap">{t('sidebar.rentalFleet')}</h1>
                     <div className="flex items-center gap-3">
-                        <span className="w-12 h-1 bg-brand-primary rounded-full"></span>
-                        <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">{t('admin.fleet.subtitle')}</p>
+                        <span className="w-12 h-1 bg-blue-600 rounded-full"></span>
+                        <p className="text-slate-500 font-bold uppercase tracking-widest text-xs">{isRTL ? 'إدارة سيارات الإيجار والخيارات المتاحة' : 'Manage rental vehicles and available options'}</p>
                     </div>
                 </div>
                 <div className="flex gap-4">
                     <button 
                         onClick={() => setIsFilterVisible(!isFilterVisible)}
-                        className={`flex items-center gap-2 px-6 py-4 rounded-2xl transition-all font-black text-[10px] uppercase tracking-widest shadow-sm border ${isFilterVisible ? 'bg-brand-primary text-white border-brand-primary' : 'bg-white text-slate-600 border-slate-200 hover:text-brand-primary hover:border-brand-primary/20'}`}
+                        className={`flex items-center gap-2 px-6 py-4 rounded-2xl transition-all font-black text-[10px] uppercase tracking-widest shadow-sm border ${isFilterVisible ? 'bg-blue-600 text-white border-blue-600' : 'bg-white text-slate-600 border-slate-200 hover:text-blue-600 hover:border-blue-600/20'}`}
                     >
                         <Filter size={16} />
                         {t('admin.fleet.filter')}
                     </button>
                     <button 
                         onClick={() => {
-                            setEditingVehicle({ is_for_sale: true, is_for_rent: false });
+                            setEditingVehicle({ is_for_rent: true, is_for_sale: false });
                             setIsModalOpen(true);
                         }}
-                        className="flex items-center gap-3 px-8 py-4 bg-brand-primary text-white rounded-2xl font-black transition-all active:scale-95 shadow-xl shadow-brand-primary/20 text-[10px] uppercase tracking-widest"
+                        className="flex items-center gap-3 px-8 py-4 bg-blue-600 text-white rounded-2xl font-black transition-all active:scale-95 shadow-xl shadow-blue-600/20 text-[10px] uppercase tracking-widest"
                     >
                         <Plus size={18} />
-                        {t('admin.fleet.addVehicle')}
+                        {isRTL ? 'إضافة سيارة إيجار' : 'Add Rental Vehicle'}
                     </button>
                 </div>
             </div>
@@ -131,9 +145,8 @@ const FleetManagement: React.FC = () => {
             {/* Quick Status Tabs */}
             <div className="flex items-center gap-2 mb-8 overflow-x-auto pb-4 hide-scrollbar">
                 {[
-                    { id: 'available', label: t('status.available') || 'Available' },
+                    { id: 'available', label: t('status.available_rental') || 'Available for Rent' },
                     { id: 'reserved', label: t('status.reserved') || 'Reserved' },
-                    { id: 'sold', label: t('status.sold') || 'Sold' },
                     { id: 'all', label: t('filters.allSelected') || 'All Fleet' }
                 ].map((st) => (
                     <button
@@ -165,7 +178,7 @@ const FleetManagement: React.FC = () => {
                                 value={filters.search}
                                 onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
                                 placeholder={t('filters.searchPlaceholder')}
-                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-primary outline-none transition-all font-bold"
+                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-600 outline-none transition-all font-bold"
                             />
                         </div>
                         <div className="space-y-2">
@@ -173,7 +186,7 @@ const FleetManagement: React.FC = () => {
                             <select 
                                 value={filters.category}
                                 onChange={(e) => setFilters(prev => ({ ...prev, category: e.target.value }))}
-                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-primary outline-none transition-all font-bold appearance-none cursor-pointer"
+                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-600 outline-none transition-all font-bold appearance-none cursor-pointer"
                             >
                                 <option value="">{t('filters.allCategories')}</option>
                                 <option value="economy">{t('categories.economy')}</option>
@@ -188,12 +201,11 @@ const FleetManagement: React.FC = () => {
                             <select 
                                 value={filters.status}
                                 onChange={(e) => setFilters(prev => ({ ...prev, status: e.target.value }))}
-                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-brand-primary outline-none transition-all font-bold appearance-none cursor-pointer"
+                                className="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:border-blue-600 outline-none transition-all font-bold appearance-none cursor-pointer"
                             >
                                 <option value="">{t('filters.allSelected') || 'All Status'}</option>
                                 <option value="available">{t('status.available')}</option>
                                 <option value="reserved">{t('status.reserved')}</option>
-                                <option value="sold">{t('status.sold')}</option>
                             </select>
                         </div>
                     </div>
@@ -203,21 +215,21 @@ const FleetManagement: React.FC = () => {
             {loading ? (
                 <div className="flex flex-col items-center justify-center py-32 space-y-6">
                     <div className="relative">
-                        <Loader2 className="w-16 h-16 text-brand-primary animate-spin" />
-                        <div className="absolute inset-0 bg-brand-primary/20 blur-xl rounded-full animate-pulse"></div>
+                        <Loader2 className="w-16 h-16 text-blue-600 animate-spin" />
+                        <div className="absolute inset-0 bg-blue-600/20 blur-xl rounded-full animate-pulse"></div>
                     </div>
                     <p className="text-slate-400 font-black uppercase tracking-[0.3em] text-[10px] animate-pulse">{t('admin.fleet.syncing')}</p>
                 </div>
             ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                     {vehicles.map(pkg => (
-                        <div key={pkg.id} className="bg-white border border-slate-100 rounded-[2.5rem] overflow-hidden group hover:border-brand-primary/20 hover:shadow-2xl hover:shadow-slate-200/50 transition-all duration-500 flex flex-col relative">
+                        <div key={pkg.id} className="bg-white border border-slate-100 rounded-[2.5rem] overflow-hidden group hover:border-blue-600/20 hover:shadow-2xl hover:shadow-slate-200/50 transition-all duration-500 flex flex-col relative">
                             {/* Status Badge Over Image */}
                             <div className="absolute top-6 right-6 z-10">
                                 <div className="px-4 py-2 bg-white/90 backdrop-blur-md rounded-2xl border border-white shadow-xl flex items-center gap-2">
-                                    <span className={`w-2 h-2 rounded-full ${pkg.status === 'available' ? 'bg-green-500 shadow-[0_0_12px_rgba(34,197,94,0.5)]' : pkg.status === 'sold' ? 'bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.5)]' : 'bg-red-500 shadow-[0_0_12px_rgba(239,68,68,0.5)]'}`}></span>
+                                    <span className={`w-2 h-2 rounded-full ${pkg.status === 'available' ? 'bg-green-500 shadow-[0_0_12px_rgba(34,197,94,0.5)]' : 'bg-red-500 shadow-[0_0_12px_rgba(239,68,68,0.5)]'}`}></span>
                                     <span className="text-[9px] font-black uppercase tracking-widest text-slate-900">
-                                        {t(`status.${pkg.status}`)}
+                                        {pkg.status === 'available' ? t('status.available_rental') : t(`status.${pkg.status}`)}
                                     </span>
                                 </div>
                             </div>
@@ -230,18 +242,28 @@ const FleetManagement: React.FC = () => {
                                     alt={pkg.model}
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                                
+                                {/* Rental Modes Badges */}
+                                <div className="absolute bottom-4 left-4 flex flex-wrap gap-2">
+                                    {pkg.allowed_rental_modes?.map((mode: string) => (
+                                        <span key={mode} className="px-2 py-1 bg-black/40 backdrop-blur-md text-white rounded-lg text-[8px] font-black uppercase tracking-widest flex items-center gap-1">
+                                            {getModeIcon(mode)}
+                                            {getModeLabel(mode)}
+                                        </span>
+                                    ))}
+                                </div>
                             </div>
 
-                            <div className="p-8 space-y-8 flex-grow flex flex-col">
+                            <div className="p-8 space-y-6 flex-grow flex flex-col">
                                 <div className="flex justify-between items-start">
                                     <div>
                                         <h4 className="text-2xl font-black text-slate-900 tracking-tight leading-none mb-2">
-                                            {t('common.make_ar') === 'الماركة (بالعربي)' ? (pkg.make_ar || pkg.make_en) : (pkg.make_en || pkg.make_ar)} {' '}
-                                            {t('common.model_ar') === 'الموديل (بالعربي)' ? (pkg.model_ar || pkg.model_en) : (pkg.model_en || pkg.model_ar)}
+                                            {isRTL ? (pkg.make_ar || pkg.make_en) : (pkg.make_en || pkg.make_ar)} {' '}
+                                            {isRTL ? (pkg.model_ar || pkg.model_en) : (pkg.model_en || pkg.model_ar)}
                                         </h4>
                                         <div className="flex items-center gap-2">
                                             <span className="px-2 py-0.5 bg-slate-100 text-slate-500 rounded text-[9px] font-bold uppercase tracking-widest">{pkg.year}</span>
-                                            <span className="text-[9px] text-brand-primary font-black tracking-widest uppercase">{t(`categories.${pkg.category}`)}</span>
+                                            <span className="text-[9px] text-blue-600 font-black tracking-widest uppercase">{t(`categories.${pkg.category}`)}</span>
                                         </div>
                                     </div>
                                     <button 
@@ -253,48 +275,30 @@ const FleetManagement: React.FC = () => {
                                 </div>
 
                                 <div className="grid grid-cols-1 gap-4">
-                                    {pkg.is_for_sale && (
-                                        <div className="bg-slate-50/50 p-4 rounded-3xl border border-slate-100/50 flex flex-col justify-center">
-                                            <div className="flex items-center gap-2 mb-1">
-                                                <Zap size={12} className="text-brand-primary" />
-                                                <p className="text-[8px] text-slate-400 font-black uppercase tracking-widest">{t('admin.fleet.price')}</p>
-                                            </div>
-                                            <p className="text-sm font-black text-slate-900">{Number(pkg.sale_price).toLocaleString()} <span className="text-[9px] text-slate-400 font-bold uppercase ml-1">EGP</span></p>
-                                        </div>
-                                    )}
-                                    {pkg.is_for_rent && (
-                                        <div className="bg-blue-50/30 p-4 rounded-3xl border border-blue-100/20 flex flex-col justify-center">
-                                            <div className="flex items-center gap-2 mb-1">
-                                                <Zap size={12} className="text-blue-600" />
-                                                <p className="text-[8px] text-blue-400 font-black uppercase tracking-widest">{isRTL ? 'سعر الإيجار' : 'Rental Price'}</p>
-                                            </div>
-                                            <div className="flex flex-wrap gap-x-4 gap-y-1">
-                                                {pkg.rent_price_per_day > 0 && <p className="text-[10px] font-black text-slate-900">{Number(pkg.rent_price_per_day).toLocaleString()} <span className="text-[8px] text-slate-400 font-bold uppercase">{isRTL ? 'يوم' : 'Day'}</span></p>}
-                                                {pkg.rent_price_per_week > 0 && <p className="text-[10px] font-black text-slate-900">{Number(pkg.rent_price_per_week).toLocaleString()} <span className="text-[8px] text-slate-400 font-bold uppercase">{isRTL ? 'أسبوع' : 'Week'}</span></p>}
-                                                {pkg.rent_price_per_month > 0 && <p className="text-[10px] font-black text-slate-900">{Number(pkg.rent_price_per_month).toLocaleString()} <span className="text-[8px] text-slate-400 font-bold uppercase">{isRTL ? 'شهر' : 'Month'}</span></p>}
-                                            </div>
-                                        </div>
-                                    )}
-                                    <div className="bg-slate-50/50 p-4 rounded-3xl border border-slate-100/50 flex flex-col justify-center">
+                                    <div className="bg-blue-50/30 p-4 rounded-3xl border border-blue-100/20 flex flex-col justify-center">
                                         <div className="flex items-center gap-2 mb-1">
-                                            <Droplet size={12} className="text-brand-primary" />
-                                            <p className="text-[8px] text-slate-400 font-black uppercase tracking-widest">{t('admin.fleet.engine')}</p>
+                                            <Zap size={12} className="text-blue-600" />
+                                            <p className="text-[8px] text-blue-400 font-black uppercase tracking-widest">{isRTL ? 'أسعار الإيجار' : 'Rental Pricing'}</p>
                                         </div>
-                                        <p className="text-sm font-black text-slate-900 truncate">{pkg.details?.engine || 'V8 BITURBO'}</p>
+                                        <div className="flex flex-wrap gap-x-4 gap-y-1">
+                                            {pkg.rent_price_per_day > 0 && <p className="text-[10px] font-black text-slate-900">{Number(pkg.rent_price_per_day).toLocaleString()} <span className="text-[8px] text-slate-400 font-bold uppercase">{isRTL ? 'يوم' : 'Day'}</span></p>}
+                                            {pkg.rent_price_per_week > 0 && <p className="text-[10px] font-black text-slate-900">{Number(pkg.rent_price_per_week).toLocaleString()} <span className="text-[8px] text-slate-400 font-bold uppercase">{isRTL ? 'أسبوع' : 'Week'}</span></p>}
+                                            {pkg.rent_price_per_month > 0 && <p className="text-[10px] font-black text-slate-900">{Number(pkg.rent_price_per_month).toLocaleString()} <span className="text-[8px] text-slate-400 font-bold uppercase">{isRTL ? 'شهر' : 'Month'}</span></p>}
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div className="pt-6 border-t border-slate-100 flex gap-3 mt-auto">
                                     <button 
                                         onClick={() => navigate(`/vehicles/${pkg.id}`)}
-                                        className="flex-[2] py-4 bg-slate-900 text-white rounded-2xl text-[9px] font-black tracking-[0.2em] uppercase hover:bg-brand-primary hover:shadow-lg hover:shadow-brand-primary/20 transition-all flex items-center justify-center gap-2"
+                                        className="flex-[2] py-4 bg-slate-900 text-white rounded-2xl text-[9px] font-black tracking-[0.2em] uppercase hover:bg-blue-600 hover:shadow-lg hover:shadow-blue-600/20 transition-all flex items-center justify-center gap-2"
                                     >
                                         <Eye size={14} />
                                         <span>{t('admin.fleet.viewDetails')}</span>
                                     </button>
                                     <button 
                                         onClick={() => handleEdit(pkg)}
-                                        className="flex-1 py-4 bg-white border border-slate-200 text-slate-600 rounded-2xl text-[9px] font-black tracking-[0.2em] uppercase hover:border-brand-primary/30 hover:text-brand-primary hover:bg-slate-50 transition-all flex items-center justify-center"
+                                        className="flex-1 py-4 bg-white border border-slate-200 text-slate-600 rounded-2xl text-[9px] font-black tracking-[0.2em] uppercase hover:border-blue-600/30 hover:text-blue-600 hover:bg-slate-50 transition-all flex items-center justify-center"
                                     >
                                         <Edit3 size={14} />
                                     </button>
@@ -326,4 +330,4 @@ const FleetManagement: React.FC = () => {
     );
 };
 
-export default FleetManagement;
+export default RentalFleetManagement;

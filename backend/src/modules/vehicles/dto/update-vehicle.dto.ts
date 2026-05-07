@@ -1,5 +1,5 @@
 import { IsString, IsNumber, IsEnum, IsOptional, IsArray, IsInt, Min } from 'class-validator';
-import { VehicleCategory, VehicleStatus } from '../../../common/enums';
+import { VehicleCategory, VehicleStatus, RentalMode } from '../../../common/enums';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class UpdateVehicleDto {
@@ -47,7 +47,25 @@ export class UpdateVehicleDto {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsNumber()
+  rent_price_per_week?: number;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNumber()
+  rent_price_per_month?: number;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsNumber()
   sale_price?: number;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  is_for_rent?: boolean;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  is_for_sale?: boolean;
 
   @ApiProperty({ required: false })
   @IsOptional()
@@ -68,4 +86,10 @@ export class UpdateVehicleDto {
   @IsArray()
   @IsString({ each: true })
   image_urls?: string[];
+
+  @ApiProperty({ type: [String], enum: RentalMode, default: [] })
+  @IsOptional()
+  @IsArray()
+  @IsEnum(RentalMode, { each: true })
+  allowed_rental_modes?: RentalMode[];
 }

@@ -5,12 +5,14 @@ import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
 import Vehicles from './pages/Vehicles';
 import VehicleDetails from './pages/VehicleDetails';
+import Rental from './pages/Rental';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminLogin from './pages/AdminLogin';
 import UserDashboard from './pages/UserDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import FleetManagement from './pages/FleetManagement';
+import RentalFleetManagement from './pages/RentalFleetManagement';
 import DriverDashboard from './pages/DriverDashboard';
 import AnalyticsDashboard from './pages/AnalyticsDashboard';
 import UserPayments from './pages/UserPayments';
@@ -22,6 +24,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 import AdminBookings from './pages/AdminBookings';
 import AdminSoldVehicles from './pages/AdminSoldVehicles';
+import AdminRentalRequests from './pages/AdminRentalRequests';
 import AdminUsers from './pages/AdminUsers';
 import SellCar from './pages/SellCar';
 import AdminPurchaseRequests from './pages/AdminPurchaseRequests';
@@ -57,6 +60,7 @@ const AppContent: React.FC = () => {
           <Route path="/" element={<Home />} />
           <Route path="/vehicles" element={<Vehicles />} />
           <Route path="/vehicles/:id" element={<VehicleDetails />} />
+          <Route path="/rental" element={<Rental />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -123,6 +127,11 @@ const AppContent: React.FC = () => {
               <FleetManagement />
             </ProtectedRoute>
           } />
+          <Route path="/admin/rental-fleet" element={
+            <ProtectedRoute roles={['admin']}>
+              <RentalFleetManagement />
+            </ProtectedRoute>
+          } />
           <Route path="/admin/manual-payments" element={
             <ProtectedRoute roles={['admin']}>
               <AdminManualPayments />
@@ -131,6 +140,11 @@ const AppContent: React.FC = () => {
           <Route path="/admin/bookings" element={
             <ProtectedRoute roles={['admin']}>
               <AdminBookings />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/rental-requests" element={
+            <ProtectedRoute roles={['admin']}>
+              <AdminRentalRequests />
             </ProtectedRoute>
           } />
           <Route path="/admin/sold-vehicles" element={

@@ -32,8 +32,11 @@ export class ReservationsService {
     vehicleId: string;
     startDate: Date;
     endDate: Date;
-    pickupLocationId: string;
-    dropoffLocationId: string;
+    pickupLocationId?: string;
+    dropoffLocationId?: string;
+    pickupLocation?: { address: string; lat: number; lng: number };
+    dropoffLocation?: { address: string; lat: number; lng: number };
+    mode?: string;
     addons?: { id: string; price: number }[];
     driverId?: string;
   }) {
@@ -49,8 +52,34 @@ export class ReservationsService {
 
     const vehicle = await this.vehicleRepository.findOne({ where: { id: data.vehicleId } });
     const user = await this.userRepository.findOne({ where: { id: data.userId } });
-    const pickup = await this.locationRepository.findOne({ where: { id: data.pickupLocationId } });
-    const dropoff = await this.locationRepository.findOne({ where: { id: data.dropoffLocationId } });
+    
+    let pickup: Location | null = null;
+    if (data.pickupLocation) {
+        const newPickup = this.locationRepository.create({
+            name: 'Map Picking',
+            city: 'Custom',
+            address: data.pickupLocation.address,
+            latitude: data.pickupLocation.lat,
+            longitude: data.pickupLocation.lng,
+        });
+        pickup = await this.locationRepository.save(newPickup);
+    } else if (data.pickupLocationId) {
+        pickup = await this.locationRepository.findOne({ where: { id: data.pickupLocationId } });
+    }
+
+    let dropoff: Location | null = null;
+    if (data.dropoffLocation) {
+        const newDropoff = this.locationRepository.create({
+            name: 'Map Picking',
+            city: 'Custom',
+            address: data.dropoffLocation.address,
+            latitude: data.dropoffLocation.lat,
+            longitude: data.dropoffLocation.lng,
+        });
+        dropoff = await this.locationRepository.save(newDropoff);
+    } else if (data.dropoffLocationId) {
+        dropoff = await this.locationRepository.findOne({ where: { id: data.dropoffLocationId } });
+    }
 
     if (!vehicle || !user || !pickup || !dropoff) {
       throw new NotFoundException('One or more entities not found');
@@ -58,7 +87,7 @@ export class ReservationsService {
 
     const days = Math.ceil(
       (new Date(data.endDate).getTime() - new Date(data.startDate).getTime()) / (1000 * 60 * 60 * 24),
-    );
+    ) || 1;
 
     const price = this.pricingService.calculateTotalPrice({
       basePrice: Number(vehicle.rent_price_per_day),
@@ -74,7 +103,8 @@ export class ReservationsService {
       .setVehicle(vehicle)
       .setDates(new Date(data.startDate), new Date(data.endDate))
       .setLocations(pickup, dropoff)
-      .setTotalPrice(price);
+      .setTotalPrice(price)
+      .setMode(data.mode || 'self');
 
     if (data.driverId) {
       const driverUser = await this.userRepository.findOne({ where: { id: data.driverId } });
