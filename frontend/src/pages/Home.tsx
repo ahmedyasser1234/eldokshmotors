@@ -506,6 +506,24 @@ const Home: React.FC = () => {
         </div>
       </div>
 
+      {/* Brand Marquee Strip */}
+      <div className="w-full bg-brand-dark border-y border-brand-accent/20 py-5 overflow-hidden">
+        <motion.div
+          animate={{ x: ['0%', '-50%'] }}
+          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+          className="flex whitespace-nowrap items-center"
+        >
+          {[...Array(12)].map((_, i) => (
+            <div key={i} className="flex items-center gap-6 shrink-0 mx-6">
+              <span className="text-2xl md:text-3xl font-black tracking-tighter uppercase text-white">
+                COBRA<span className="text-brand-accent">MOTORS</span>
+              </span>
+              <Star size={14} className="text-brand-accent fill-brand-accent shrink-0" />
+            </div>
+          ))}
+        </motion.div>
+      </div>
+
       <ReviewSection />
 
 
