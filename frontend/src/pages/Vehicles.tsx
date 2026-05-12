@@ -9,7 +9,6 @@ import SEO from '../components/SEO';
 
 const Vehicles: React.FC = () => {
     const { t } = useTranslation();
-    const headerImg = "/vehicles_header.png";
     const [vehicles, setVehicles] = useState<any[]>([]);
     const [total, setTotal] = useState(0);
     const [loading, setLoading] = useState(true);
