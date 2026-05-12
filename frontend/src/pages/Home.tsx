@@ -497,24 +497,17 @@ const Home: React.FC = () => {
             </div>
           </div>
         </section>
-
-        {/* Bottom Wave */}
-        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none translate-y-[99%] z-20">
-          <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[60px] md:h-[100px] fill-slate-950">
-            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
-          </svg>
-        </div>
       </div>
 
       {/* Brand Marquee Strip */}
-      <div className="w-full bg-brand-dark border-y border-brand-accent/20 py-5 overflow-hidden">
+      <div className="relative z-10 w-full bg-brand-dark border-y-2 border-brand-accent/30 py-6 overflow-hidden">
         <motion.div
           animate={{ x: ['0%', '-50%'] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
           className="flex whitespace-nowrap items-center"
         >
           {[...Array(12)].map((_, i) => (
-            <div key={i} className="flex items-center gap-6 shrink-0 mx-6">
+            <div key={i} className="flex items-center gap-6 shrink-0 mx-8">
               <span className="text-2xl md:text-3xl font-black tracking-tighter uppercase text-white">
                 COBRA<span className="text-brand-accent">MOTORS</span>
               </span>
