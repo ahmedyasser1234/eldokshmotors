@@ -158,11 +158,11 @@ const Home: React.FC = () => {
                 <span>{t('home.hero.buy')}</span>
                 <Car className="h-5 w-5 md:h-6 md:w-6" />
               </Link>
-              <Link to="/rental" className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white px-8 md:px-12 py-4 md:py-6 rounded-2xl font-black text-sm md:text-xl transition-all flex items-center justify-center gap-4 group backdrop-blur-xl border border-white/10 hover:scale-105 active:scale-95">
+              <Link to="/rental" className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-white px-8 md:px-12 py-4 md:py-6 rounded-2xl font-black text-sm md:text-xl transition-all flex items-center justify-center gap-4 group shadow-2xl shadow-emerald-500/40 hover:scale-105 active:scale-95">
                 <span>{t('home.hero.rent')}</span>
                 <Key className="h-5 w-5 md:h-6 md:w-6" />
               </Link>
-              <Link to="/sell-car" className="w-full sm:w-auto bg-white/10 hover:bg-white/20 text-white px-8 md:px-12 py-4 md:py-6 rounded-2xl font-black text-sm md:text-xl transition-all flex items-center justify-center gap-4 group backdrop-blur-xl border border-white/10 hover:scale-105 active:scale-95">
+              <Link to="/sell-car" className="w-full sm:w-auto bg-orange-500 hover:bg-orange-400 text-white px-8 md:px-12 py-4 md:py-6 rounded-2xl font-black text-sm md:text-xl transition-all flex items-center justify-center gap-4 group shadow-2xl shadow-orange-500/40 hover:scale-105 active:scale-95">
                 <span>{t('home.hero.sell')}</span>
                 <DollarSign className="h-5 w-5 md:h-6 md:w-6" />
               </Link>
