@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
 import ScrollToTop from './components/ScrollToTop';
 import Home from './pages/Home';
@@ -202,7 +201,6 @@ const App: React.FC = () => {
       <Toaster position="top-right" reverseOrder={false} />
       <NotificationListener />
       <ScrollToTop />
-      <Preloader />
       <AppContent />
     </BrowserRouter>
   );
