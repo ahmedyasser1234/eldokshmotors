@@ -441,16 +441,11 @@ const Home: React.FC = () => {
                 <p className="text-lg md:text-2xl font-bold leading-snug mb-8 md:mb-10">
                   "{t('home.why_us.title')}"
                 </p>
-                <div className="flex items-center gap-4 md:gap-5 border-t border-white/10 pt-6 md:pt-8">
-                  <div className="w-12 h-12 md:w-14 md:h-14 flex items-center justify-center">
-                    <Logo isWhite={true} className="w-full h-full object-contain" />
-                  </div>
-                  <div>
-                    <h5 className="font-bold text-base md:text-lg tracking-wide uppercase">{t('common.brandName')}</h5>
-                    <div className="flex items-center gap-2 mt-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-brand-accent animate-ping" />
-                      <p className="text-brand-accent font-bold tracking-[0.2em] text-[8px] uppercase">{t('details.verified')}</p>
-                    </div>
+                <div className="flex items-center gap-4 border-t border-white/10 pt-6 md:pt-8">
+                  <Logo isWhite={true} className="scale-90 origin-right" />
+                  <div className="flex items-center gap-2 mt-1 mr-auto">
+                    <span className="w-1.5 h-1.5 rounded-full bg-brand-accent animate-ping" />
+                    <p className="text-brand-accent font-bold tracking-[0.2em] text-[8px] uppercase">{t('details.verified')}</p>
                   </div>
                 </div>
               </div>
@@ -459,6 +454,7 @@ const Home: React.FC = () => {
         </div>
       </section>
 
+      {/* CTA Section Block */}
       {/* CTA Section Block */}
       <div className="relative">
         {/* Top Wave */}
@@ -497,21 +493,28 @@ const Home: React.FC = () => {
             </div>
           </div>
         </section>
+
+        {/* Bottom Wave — identical shape to the top wave extending downwards */}
+        <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none translate-y-[99%] z-20">
+          <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[60px] md:h-[100px] fill-slate-950">
+            <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z"></path>
+          </svg>
+        </div>
       </div>
 
-      {/* Brand Marquee Strip */}
-      <div className="relative z-10 w-full bg-brand-dark border-y-2 border-brand-accent/30 py-6 overflow-hidden">
+      {/* Brand Marquee Strip — Independent Section with White Background and Infinite Seamless Loop */}
+      <div className="relative z-10 w-full bg-white pt-20 md:pt-32 pb-8 overflow-hidden border-b border-slate-100">
         <motion.div
           animate={{ x: ['0%', '-50%'] }}
-          transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+          transition={{ duration: 15, repeat: Infinity, ease: 'linear' }}
           className="flex whitespace-nowrap items-center"
         >
-          {[...Array(12)].map((_, i) => (
-            <div key={i} className="flex items-center gap-6 shrink-0 mx-8">
-              <span className="text-2xl md:text-3xl font-black tracking-tighter uppercase text-white">
+          {[...Array(16)].map((_, i) => (
+            <div key={i} className="flex items-center gap-8 shrink-0 mx-8">
+              <span className="text-3xl md:text-4xl font-black tracking-tighter uppercase text-brand-dark">
                 COBRA<span className="text-brand-accent">MOTORS</span>
               </span>
-              <Star size={14} className="text-brand-accent fill-brand-accent shrink-0" />
+              <Star size={16} className="text-brand-accent fill-brand-accent shrink-0" />
             </div>
           ))}
         </motion.div>

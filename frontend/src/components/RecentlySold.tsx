@@ -28,7 +28,7 @@ const RecentlySold: React.FC = () => {
     if (!loading && soldSales.length === 0) return null;
 
     return (
-        <section className="py-32 bg-slate-50 relative overflow-hidden">
+        <section className="pt-16 pb-32 bg-slate-50 relative overflow-hidden">
             {/* Background Decorative Elements */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none opacity-20 z-0">
                 <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-emerald-200 blur-[120px] rounded-full"></div>
