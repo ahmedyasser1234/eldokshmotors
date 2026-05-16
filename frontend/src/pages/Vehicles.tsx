@@ -83,7 +83,7 @@ const Vehicles: React.FC = () => {
                         alt="Luxury Fleet"
                         className="w-full h-full object-cover object-center opacity-60"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/20 via-brand-dark/50 to-brand-dark z-10" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/40 via-brand-dark/70 to-brand-dark z-10" />
                 </div>
                 
                 <div className="relative z-20 text-center space-y-4 px-4">

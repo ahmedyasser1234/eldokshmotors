@@ -180,7 +180,7 @@ const Rental: React.FC = () => {
                                         }`}
                                     >
                                         <Icon size={14} />
-                                        <span>{isRTL ? mode.labelAr : mode.labelEn}</span>
+                                        <span>{t(mode.labelKey)}</span>
                                     </button>
                                 );
                             })}
@@ -192,7 +192,7 @@ const Rental: React.FC = () => {
                             <div className="flex flex-col gap-1.5 px-4 py-3 relative">
                                 <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
                                     <Car size={10} className="text-blue-500" />
-                                    {isRTL ? 'اختر السيارة' : 'Select Car'}
+                                    {t('rental.search.selectCar')}
                                 </label>
                                 <div className="flex items-center gap-2">
                                     {location && vehicles.find(v => v.id === location)?.image_urls?.[0] && (
@@ -209,7 +209,7 @@ const Rental: React.FC = () => {
                                         style={{ WebkitAppearance: 'none' }}
                                     >
                                         <option value="" className="text-slate-400">
-                                            {isRTL ? 'جميع السيارات...' : 'All cars...'}
+                                            {t('rental.search.allCars')}
                                         </option>
                                         {vehicles.map(v => (
                                             <option key={v.id} value={v.id} className="text-slate-800 font-semibold">
@@ -226,7 +226,7 @@ const Rental: React.FC = () => {
                                     <div className="flex flex-col gap-1.5 px-4 py-3 border-x border-slate-100">
                                         <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
                                             <Calendar size={10} className="text-blue-500" />
-                                            {isRTL ? 'تاريخ الاستلام' : 'Pick-Up Date'}
+                                            {t('rental.search.pickupDate')}
                                         </label>
                                         <input
                                             type="date"
@@ -239,7 +239,7 @@ const Rental: React.FC = () => {
                                     <div className="flex flex-col gap-1.5 px-4 py-3">
                                         <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
                                             <Calendar size={10} className="text-blue-500" />
-                                            {isRTL ? 'تاريخ الإرجاع' : 'Return Date'}
+                                            {t('rental.search.returnDate')}
                                         </label>
                                         <input
                                             type="date"
@@ -254,7 +254,7 @@ const Rental: React.FC = () => {
                                 <div className="flex flex-col gap-1.5 px-4 py-3 border-x border-slate-100">
                                     <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
                                         <Clock size={10} className="text-blue-500" />
-                                        {isRTL ? 'وقت التحرك' : 'Departure Time'}
+                                        {t('rental.search.departureTime')}
                                     </label>
                                     <input
                                         type="datetime-local"
@@ -272,25 +272,25 @@ const Rental: React.FC = () => {
                                     <div className="flex flex-col gap-1.5 px-4 py-3 relative group">
                                         <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
                                             <MapPin size={10} className="text-blue-500" />
-                                            {isRTL ? 'نقطة البداية' : 'Start Point'}
+                                            {t('rental.search.startPoint')}
                                         </label>
                                         <button 
                                             onClick={() => setShowMapPicker('start')}
                                             className="text-start outline-none text-sm font-bold text-slate-800 placeholder-slate-300 w-full truncate flex items-center gap-2 group-hover:text-blue-600 transition-colors"
                                         >
-                                            {tripStartPos ? tripStartPos.address : (isRTL ? 'اختر على الخريطة...' : 'Select on map...')}
+                                            {tripStartPos ? tripStartPos.address : t('rental.search.selectOnMap')}
                                         </button>
                                     </div>
                                     <div className="flex flex-col gap-1.5 px-4 py-3 relative group border-r border-slate-100">
                                         <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest flex items-center gap-1.5">
                                             <MapPin size={10} className="text-blue-500" />
-                                            {isRTL ? 'نقطة النهاية' : 'End Point'}
+                                            {t('rental.search.endPoint')}
                                         </label>
                                         <button 
                                             onClick={() => setShowMapPicker('end')}
                                             className="text-start outline-none text-sm font-bold text-slate-800 placeholder-slate-300 w-full truncate flex items-center gap-2 group-hover:text-blue-600 transition-colors"
                                         >
-                                            {tripEndPos ? tripEndPos.address : (isRTL ? 'اختر على الخريطة...' : 'Select on map...')}
+                                            {tripEndPos ? tripEndPos.address : t('rental.search.selectOnMap')}
                                         </button>
                                     </div>
                                 </>
@@ -303,7 +303,7 @@ const Rental: React.FC = () => {
                                     className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-2xl transition-all shadow-xl shadow-blue-500/30 active:scale-95 flex items-center justify-center gap-2 text-sm uppercase tracking-widest"
                                 >
                                     <Search size={16} />
-                                    {isRTL ? 'بحث' : 'Search'}
+                                    {t('rental.search.button')}
                                 </button>
                             </div>
                         </div>
@@ -311,10 +311,7 @@ const Rental: React.FC = () => {
                         {/* Days summary */}
                         {pickupDate && returnDate && rentalMode !== 'trip' && rentalMode !== 'wedding' && (
                             <div className="mt-3 text-center text-xs text-slate-400 font-bold">
-                                {isRTL
-                                    ? `مدة الإيجار: ${getDayDiff()} ${getDayDiff() === 1 ? 'يوم' : 'أيام'}`
-                                    : `Rental Duration: ${getDayDiff()} ${getDayDiff() === 1 ? 'day' : 'days'}`
-                                }
+                                {t('rental.search.duration', { count: getDayDiff() })}
                             </div>
                         )}
                     </div>
@@ -351,15 +348,15 @@ const Rental: React.FC = () => {
                 <div className="flex items-end justify-between mb-10">
                     <div>
                         <p className="text-[10px] font-black text-blue-500 uppercase tracking-[0.3em] mb-1">
-                            {isRTL ? 'أسطول الإيجار' : 'Rental Fleet'}
+                            {t('rental.results.badge')}
                         </p>
                         <h2 className="text-3xl font-black text-slate-900 tracking-tight">
-                            {isRTL ? 'السيارات المتاحة للإيجار' : 'Available for Rent'}
+                            {t(`common.rent.${rentalMode === 'self' ? 'selfDrive' : rentalMode === 'trip' ? 'withDriver' : 'wedding'}`)}
                         </h2>
                     </div>
                     {!loading && (
                         <div className="text-right">
-                            <span className="text-[9px] text-slate-400 font-black uppercase tracking-widest">{isRTL ? 'عدد السيارات' : 'Available'}</span>
+                            <span className="text-[9px] text-slate-400 font-black uppercase tracking-widest">{t('rental.results.available')}</span>
                             <p className="text-4xl font-black text-blue-600">{filteredVehicles.length}</p>
                         </div>
                     )}

@@ -46,12 +46,12 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle }) => {
       <div className="p-4 md:p-10 flex flex-col flex-1">
         <div className="mb-4 md:mb-8">
           <div className="flex justify-between items-center mb-1 md:mb-2">
-            <span className="text-[8px] md:text-xs font-black text-brand-accent uppercase tracking-[0.2em] md:tracking-[0.3em]">{vehicle.year}</span>
+            <span className="text-[10px] md:text-sm font-black text-brand-accent uppercase tracking-[0.2em] md:tracking-[0.3em]">{vehicle.year}</span>
             <div className="h-px flex-1 bg-slate-100 mx-3 md:mx-6 hidden sm:block" />
           </div>
-          <h3 className="text-lg md:text-4xl font-black text-slate-900 tracking-tighter uppercase leading-[0.9] group-hover:text-brand-primary transition-colors">
+          <h3 className="text-xl md:text-5xl font-black text-slate-900 tracking-tighter uppercase leading-[0.85] group-hover:text-brand-primary transition-colors">
             {t('common.make_ar') === 'الماركة (بالعربي)' ? (vehicle.make_ar || vehicle.make_en) : (vehicle.make_en || vehicle.make_ar)}
-            <span className="block text-slate-400 text-sm md:text-xl font-bold mt-0.5 md:mt-1">
+            <span className="block text-slate-400 text-base md:text-2xl font-bold mt-1 md:mt-2">
                 {t('common.model_ar') === 'الموديل (بالعربي)' ? (vehicle.model_ar || vehicle.model_en) : (vehicle.model_en || vehicle.model_ar)}
             </span>
           </h3>
@@ -71,7 +71,7 @@ const VehicleCard: React.FC<VehicleCardProps> = ({ vehicle }) => {
 
             <button 
               onClick={() => navigate(`/vehicles/${vehicle.id}`)}
-              className="w-full py-2.5 md:py-4 bg-slate-50 hover:bg-brand-primary text-slate-900 hover:text-white font-black rounded-xl md:rounded-2xl transition-all active:scale-[0.98] border border-slate-100 hover:border-brand-primary uppercase tracking-[0.1em] md:tracking-[0.2em] text-[8px] md:text-[10px]"
+              className="w-full py-3.5 md:py-5 bg-slate-50 hover:bg-brand-primary text-slate-900 hover:text-white font-black rounded-xl md:rounded-3xl transition-all active:scale-[0.98] border border-slate-100 hover:border-brand-primary uppercase tracking-[0.1em] md:tracking-[0.2em] text-[10px] md:text-xs"
             >
               {t('card.viewDetails')}
             </button>

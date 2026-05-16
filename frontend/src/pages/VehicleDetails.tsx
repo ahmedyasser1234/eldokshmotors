@@ -148,8 +148,8 @@ const VehicleDetails: React.FC = () => {
     if (error || !vehicle) {
         return (
             <div className="min-h-screen bg-[#f8fafc] pt-24 flex flex-col items-center justify-center gap-6">
-                <p className="text-red-500 font-bold text-xl">{error || 'Vehicle not found'}</p>
-                <button onClick={() => navigate('/vehicles')} className="btn-primary">Back to Vehicles</button>
+                <p className="text-red-500 font-bold text-xl">{error || t('rental.errors.notFound')}</p>
+                <button onClick={() => navigate('/vehicles')} className="btn-primary">{t('rental.buttons.back')}</button>
             </div>
         );
     }
@@ -409,26 +409,26 @@ const VehicleDetails: React.FC = () => {
                                 {vehicle.is_for_rent && (
                                 <div className="space-y-3">
                                     <span className="text-[10px] text-blue-500 uppercase font-black tracking-[0.25em] flex items-center gap-1">
-                                        🚗 {isArabic ? 'أسعار الإيجار' : 'Rental Prices'}
+                                        🚗 {t('rental.pricing.title')}
                                     </span>
                                     <div className="grid grid-cols-3 gap-2">
                                         {Number(vehicle.rent_price_per_day) > 0 && (
                                             <div className="bg-blue-50 border border-blue-100 rounded-2xl p-3 text-center">
-                                                <p className="text-[8px] font-black text-blue-400 uppercase tracking-widest mb-1">{isArabic ? 'يوم' : 'Day'}</p>
+                                                <p className="text-[8px] font-black text-blue-400 uppercase tracking-widest mb-1">{t('rental.pricing.day')}</p>
                                                 <p className="text-lg font-black text-blue-700">{Number(vehicle.rent_price_per_day).toLocaleString()}</p>
                                                 <p className="text-[8px] text-blue-400 font-bold">EGP</p>
                                             </div>
                                         )}
                                         {Number(vehicle.rent_price_per_week) > 0 && (
                                             <div className="bg-blue-50 border border-blue-100 rounded-2xl p-3 text-center">
-                                                <p className="text-[8px] font-black text-blue-400 uppercase tracking-widest mb-1">{isArabic ? 'أسبوع' : 'Week'}</p>
+                                                <p className="text-[8px] font-black text-blue-400 uppercase tracking-widest mb-1">{t('rental.pricing.week')}</p>
                                                 <p className="text-lg font-black text-blue-700">{Number(vehicle.rent_price_per_week).toLocaleString()}</p>
                                                 <p className="text-[8px] text-blue-400 font-bold">EGP</p>
                                             </div>
                                         )}
                                         {Number(vehicle.rent_price_per_month) > 0 && (
                                             <div className="bg-blue-50 border border-blue-100 rounded-2xl p-3 text-center">
-                                                <p className="text-[8px] font-black text-blue-400 uppercase tracking-widest mb-1">{isArabic ? 'شهر' : 'Month'}</p>
+                                                <p className="text-[8px] font-black text-blue-400 uppercase tracking-widest mb-1">{t('rental.pricing.month')}</p>
                                                 <p className="text-lg font-black text-blue-700">{Number(vehicle.rent_price_per_month).toLocaleString()}</p>
                                                 <p className="text-[8px] text-blue-400 font-bold">EGP</p>
                                             </div>
@@ -440,13 +440,13 @@ const VehicleDetails: React.FC = () => {
                                                 onClick={() => navigate(`/rental`)}
                                                 className="flex flex-col items-center justify-center gap-1 py-3 bg-blue-50 border border-blue-100 rounded-2xl text-[10px] font-black text-blue-600 uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all shadow-sm"
                                             >
-                                                <User size={16} /> {isArabic ? 'إيجار ذاتي' : 'Self Drive'}
+                                                <User size={16} /> {t('common.rent.selfDrive')}
                                             </button>
                                             <button 
                                                 onClick={() => navigate(`/rental`)}
                                                 className={`flex flex-col items-center justify-center gap-1 py-3 bg-purple-50 border border-purple-100 rounded-2xl text-[10px] font-black text-purple-600 uppercase tracking-widest hover:bg-purple-600 hover:text-white transition-all shadow-sm`}
                                             >
-                                                <Zap size={16} /> {isArabic ? 'مشوار/زفاف' : 'Trip / Wedding'}
+                                                <Zap size={16} /> {t('common.rent.wedding')}
                                             </button>
                                         </div>
                                     )}

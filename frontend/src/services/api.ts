@@ -29,7 +29,8 @@ api.interceptors.request.use((config) => {
         // Token expired - clear storage
         localStorage.removeItem('token');
         localStorage.removeItem('auth-storage');
-        window.location.href = '/admin/login';
+        const isAdmin = window.location.pathname.startsWith('/admin') || !!localStorage.getItem('admin-token');
+        window.location.href = isAdmin ? '/admin/login' : '/login';
         return Promise.reject(new Error('Token expired'));
       }
     } catch (_) {}
@@ -51,8 +52,9 @@ api.interceptors.response.use(
     if (error.response?.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('auth-storage');
+      const isAdmin = window.location.pathname.startsWith('/admin') || !!localStorage.getItem('admin-token');
       if (!window.location.pathname.includes('/login')) {
-        window.location.href = '/admin/login';
+        window.location.href = isAdmin ? '/admin/login' : '/login';
       }
     }
     return Promise.reject(error);

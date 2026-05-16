@@ -49,7 +49,8 @@
     "contact": "تواصل معنا",
     "signIn": "تسجيل الدخول",
     "getStarted": "ابدأ الآن",
-    "sellCar": "بيع سيارتك"
+    "sellCar": "بيع سيارتك",
+    "rent": "إيجار سيارات"
   },
   "common": {
     "confirm": "تأكيد",
@@ -78,7 +79,43 @@
       "success": "شكراً لمشاركتنا رأيك!",
       "noReviews": "لا توجد تقييمات بعد. كن أول من يقيمنا!",
       "editReview": "تعديل التقييم",
-      "stars": "نجوم"
+      "stars": "نجوم",
+      "noReviewsFound": "لا توجد تقييمات حالياً"
+    },
+    "rent": {
+      "selfDrive": "قيادة ذاتية",
+      "withDriver": "رحلة مع سائق",
+      "wedding": "زفاف ومناسبات"
+    },
+    "rental": {
+      "search": {
+        "selectCar": "اختر السيارة",
+        "allCars": "جميع السيارات...",
+        "pickupDate": "تاريخ الاستلام",
+        "returnDate": "تاريخ الإرجاع",
+        "departureTime": "وقت التحرك",
+        "startPoint": "نقطة البداية",
+        "endPoint": "نقطة النهاية",
+        "selectOnMap": "اختر على الخريطة...",
+        "button": "بحث",
+        "duration": "مدة الإيجار: {{count}} يوم"
+      },
+      "results": {
+        "badge": "أسطول الإيجار",
+        "available": "عدد السيارات"
+      },
+      "pricing": {
+        "title": "أسعار الإيجار",
+        "day": "يوم",
+        "week": "أسبوع",
+        "month": "شهر"
+      },
+      "errors": {
+        "notFound": "عفواً، السيارة غير موجودة"
+      },
+      "buttons": {
+        "back": "العودة للمعرض"
+      }
     }
   },
   "home": {

@@ -63,7 +63,7 @@ const Navbar: React.FC = () => {
           <div className="hidden md:flex items-center gap-8">
             <Link to="/" className={navLinkClass('/')}>{t('nav.home')}</Link>
             <Link to="/vehicles" className={navLinkClass('/vehicles')}>{t('nav.vehicles')}</Link>
-            <Link to="/rental" className={navLinkClass('/rental')}>{i18n.language === 'ar' ? 'إيجار سيارات' : 'Car Rental'}</Link>
+            <Link to="/rental" className={navLinkClass('/rental')}>{t('nav.rent')}</Link>
             <Link to="/about" className={navLinkClass('/about')}>{t('nav.about')}</Link>
             <Link to="/contact" className={navLinkClass('/contact')}>{t('nav.contact')}</Link>
             {user?.role !== 'admin' && <Link to="/sell-car" className={navLinkClass('/sell-car')}>{t('nav.sellCar')}</Link>}
@@ -131,7 +131,7 @@ const Navbar: React.FC = () => {
         <div className="md:hidden bg-white/95 backdrop-blur-2xl border-b border-slate-200 py-6 px-6 space-y-4 shadow-2xl">
           <Link to="/" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-lg font-bold text-slate-700 hover:bg-brand-primary/5 rounded-2xl">{t('nav.home')}</Link>
           <Link to="/vehicles" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-lg font-bold text-slate-700 hover:bg-brand-primary/5 rounded-2xl">{t('nav.vehicles')}</Link>
-          <Link to="/rental" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-lg font-bold text-slate-700 hover:bg-brand-primary/5 rounded-2xl">{i18n.language === 'ar' ? 'إيجار سيارات' : 'Car Rental'}</Link>
+          <Link to="/rental" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-lg font-bold text-slate-700 hover:bg-brand-primary/5 rounded-2xl">{t('nav.rent')}</Link>
           <Link to="/about" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-lg font-bold text-slate-700 hover:bg-brand-primary/5 rounded-2xl">{t('nav.about')}</Link>
           <Link to="/contact" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-lg font-bold text-slate-700 hover:bg-brand-primary/5 rounded-2xl">{t('nav.contact')}</Link>
           {user?.role !== 'admin' && <Link to="/sell-car" onClick={() => setIsOpen(false)} className="block px-4 py-4 text-lg font-bold text-slate-700 hover:bg-brand-primary/5 rounded-2xl">{t('nav.sellCar')}</Link>}

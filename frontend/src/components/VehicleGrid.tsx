@@ -1,5 +1,6 @@
 import React from 'react';
 import VehicleCard from './VehicleCard';
+import { useTranslation } from 'react-i18next';
 
 interface VehicleGridProps {
   vehicles: any[];
@@ -7,6 +8,7 @@ interface VehicleGridProps {
 }
 
 const VehicleGrid: React.FC<VehicleGridProps> = ({ vehicles, isLoading }) => {
+  const { t } = useTranslation();
   if (isLoading) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -20,7 +22,7 @@ const VehicleGrid: React.FC<VehicleGridProps> = ({ vehicles, isLoading }) => {
   if (vehicles.length === 0) {
     return (
       <div className="text-center py-20">
-        <h3 className="text-2xl text-gray-500 font-medium">No vehicles found matching your criteria.</h3>
+        <h3 className="text-2xl text-gray-500 font-medium">{t('fleet.noVehicles')}</h3>
       </div>
     );
   }

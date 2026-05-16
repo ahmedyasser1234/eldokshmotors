@@ -49,7 +49,8 @@
     "contact": "Contact Us",
     "signIn": "Sign In",
     "getStarted": "Get Started",
-    "sellCar": "Sell Your Car"
+    "sellCar": "Sell Your Car",
+    "rent": "Car Rental"
   },
   "common": {
     "confirm": "Confirm",
@@ -78,7 +79,43 @@
       "success": "Thank you for your feedback!",
       "noReviews": "No reviews yet. Be the first to rate us!",
       "editReview": "Edit Review",
-      "stars": "Stars"
+      "stars": "Stars",
+      "noReviewsFound": "No reviews found yet"
+    },
+    "rent": {
+      "selfDrive": "Self Drive",
+      "withDriver": "Trip with Driver",
+      "wedding": "Wedding & Events"
+    },
+    "rental": {
+      "search": {
+        "selectCar": "Select Car",
+        "allCars": "All cars...",
+        "pickupDate": "Pick-Up Date",
+        "returnDate": "Return Date",
+        "departureTime": "Departure Time",
+        "startPoint": "Start Point",
+        "endPoint": "End Point",
+        "selectOnMap": "Select on map...",
+        "button": "SEARCH",
+        "duration": "Rental Duration: {{count}} days"
+      },
+      "results": {
+        "badge": "RENTAL FLEET",
+        "available": "Available"
+      },
+      "pricing": {
+        "title": "Rental Prices",
+        "day": "Day",
+        "week": "Week",
+        "month": "Month"
+      },
+      "errors": {
+        "notFound": "Oops, vehicle not found"
+      },
+      "buttons": {
+        "back": "Back to Vehicles"
+      }
     }
   },
   "home": {

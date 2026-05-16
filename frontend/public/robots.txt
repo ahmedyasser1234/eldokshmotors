@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap location
-Sitemap: https://eldoksh.com/sitemap.xml
+Sitemap: https://eldokshmators.netlify.app/sitemap.xml
 
 # Disallow admin and private pages
 Disallow: /admin/

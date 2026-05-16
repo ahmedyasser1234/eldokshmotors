@@ -38,14 +38,14 @@ const Footer: React.FC = () => {
                                 <MapPin size={20} className="text-brand-primary shrink-0 mt-1" />
                                 <span className="text-sm">{t('footer.address')}</span>
                             </div>
-                            <div className="flex items-center gap-3">
+                            <a href="tel:201211171888" className="flex items-center gap-3 hover:text-brand-primary transition-colors">
                                 <Phone size={20} className="text-brand-primary shrink-0" />
                                 <span className="text-sm font-medium" dir="ltr">01211171888</span>
-                            </div>
-                            <div className="flex items-center gap-3">
+                            </a>
+                            <a href="mailto:support@cobramotors.com" className="flex items-center gap-3 hover:text-brand-primary transition-colors">
                                 <Mail size={20} className="text-brand-primary shrink-0" />
                                 <span className="text-sm font-medium">support@cobramotors.com</span>
-                            </div>
+                            </a>
                         </div>
                     </div>
 

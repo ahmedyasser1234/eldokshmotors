@@ -95,7 +95,16 @@ const Contact: React.FC = () => {
                                 </div>
                                 <div>
                                     <h3 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-1">{info.title}</h3>
-                                    <p className="text-slate-800 font-bold text-lg leading-relaxed">{info.value}</p>
+                                    {info.title === t('contact.phone') ? (
+                                        <div className="flex flex-col">
+                                            <a href="tel:201011171888" className="text-slate-800 font-bold text-lg leading-relaxed hover:text-brand-primary transition-colors">01011171888</a>
+                                            <a href="tel:201211171888" className="text-slate-800 font-bold text-lg leading-relaxed hover:text-brand-primary transition-colors">01211171888</a>
+                                        </div>
+                                    ) : info.title === t('contact.email') ? (
+                                        <a href={`mailto:${info.value}`} className="text-slate-800 font-bold text-lg leading-relaxed hover:text-brand-primary transition-colors">{info.value}</a>
+                                    ) : (
+                                        <p className="text-slate-800 font-bold text-lg leading-relaxed">{info.value}</p>
+                                    )}
                                 </div>
                             </motion.div>
                         ))}
