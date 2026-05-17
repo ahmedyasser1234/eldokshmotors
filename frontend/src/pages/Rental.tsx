@@ -180,7 +180,7 @@ const Rental: React.FC = () => {
                                         }`}
                                     >
                                         <Icon size={14} />
-                                        <span>{t(mode.labelKey)}</span>
+                                        <span>{isRTL ? mode.labelAr : mode.labelEn}</span>
                                     </button>
                                 );
                             })}
