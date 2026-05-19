@@ -951,5 +951,120 @@
     "successDesc": "Purchase confirmed and vehicle added to the fleet with all its data.",
     "successClose": "Close",
     "errorGeneric": "An error occurred while adding. Please verify the data and try again."
+  },
+  "installments": {
+    "sidebar": {
+      "myInstallments": "My Installments",
+      "installments": "Installment Management"
+    },
+    "calculator": {
+      "title": "Smart Installment Calculator",
+      "subtitle": "Calculate your monthly payments using real credit formulas",
+      "method": "Calculation Method",
+      "flat": "Flat Rate Finance",
+      "reducing": "Reducing Rate Finance",
+      "downPayment": "Down Payment Amount",
+      "months": "Duration (Months)",
+      "adminFee": "Admin Fee",
+      "interestRate": "Annual Interest Rate",
+      "monthlyPayment": "Est. Monthly Payment",
+      "financedAmount": "Financed Amount",
+      "totalInterest": "Total Interest Payable",
+      "totalRepayment": "Total Cost of Finance",
+      "minDownPaymentWarning": "Warning: Minimum down payment is {{min}} EGP",
+      "applyButton": "Apply for Vehicle Financing"
+    },
+    "apply": {
+      "title": "Apply for Installments",
+      "subtitle": "Complete the financing application and upload required credit documents",
+      "personalInfo": "Employment & Credit Info",
+      "fullName": "Full Name (as in national ID)",
+      "job": "Job Title / Employer",
+      "monthlyIncome": "Net Monthly Income (EGP)",
+      "documents": "Required Documents",
+      "nationalId": "National ID Card (Valid)",
+      "incomeProof": "Proof of Income (Salary slip or bank statement)",
+      "nationalIdHelp": "Upload a clear image of both sides of your National ID",
+      "incomeProofHelp": "Upload your latest 3 months bank statement or official salary slip",
+      "termsConfirm": "Confirm Financial Terms",
+      "submitBtn": "Submit Application",
+      "successTitle": "Application Submitted Successfully!",
+      "successDesc": "Your application has been forwarded to our credit committee. Reference ID: {{id}}. We will notify you once reviewed.",
+      "backToFleet": "Back to Showroom",
+      "viewDashboard": "Go to My Installments"
+    },
+    "dashboard": {
+      "title": "My Installments",
+      "subtitle": "Track your schedules, due dates, and upload payment receipts",
+      "activeAgreements": "Active Plans",
+      "totalRemaining": "Total Remaining",
+      "paidInstallments": "Paid Installments",
+      "lateInstallments": "Late Payments",
+      "nextPayment": "Next Due Payment",
+      "noAgreements": "You do not have any active installment agreements.",
+      "agreementDetails": "Installment Plan Details",
+      "contractDownload": "Download Contract & Schedule (PDF)",
+      "agreementSummary": "Agreement Summary",
+      "schedule": "Amortization Payment Schedule",
+      "payInstallment": "Pay Installment",
+      "uploadReceipt": "Upload Receipt",
+      "receiptSelect": "Select receipt image or PDF",
+      "receiptHelp": "Upload a bank transfer receipt or screenshot (Vodafone Cash, InstaPay, etc.)",
+      "submitReceipt": "Confirm and Submit Receipt",
+      "pendingVerification": "Verification Pending"
+    },
+    "admin": {
+      "title": "Installments Management",
+      "subtitle": "Configure plans, review applications, audit receipts, and view reports",
+      "tabs": {
+        "analytics": "Reports & Insights",
+        "plans": "Plan Settings",
+        "requests": "Review Requests",
+        "agreements": "Active Contracts",
+        "auditor": "Payment Auditor"
+      },
+      "stats": {
+        "financed": "Total Financed",
+        "profits": "Expected Profits",
+        "active": "Active Contracts",
+        "late": "Late Installments",
+        "collections": "Total Collected",
+        "outstanding": "Outstanding Balances"
+      },
+      "plans": {
+        "globalTitle": "Global Default Configurations",
+        "editPlan": "Edit Installment Settings",
+        "createPlan": "Add Plan for Car",
+        "minDownPayment": "Min Down Payment (%)",
+        "adminFeePct": "Admin Fee Percentage (%)",
+        "adminFeeFlat": "Admin Fee Flat (EGP)",
+        "durationOptions": "Available Durations in Months (comma separated)",
+        "interestRate": "Annual Interest Rate (%)",
+        "fixed": "Fixed Rate",
+        "variable": "Variable Rate (based on months)",
+        "ratesJson": "Variable Rates (JSON: [{months:12, rate:8}, ...])",
+        "calcMethod": "Default Calculation Method",
+        "saveBtn": "Save Configuration"
+      },
+      "requests": {
+        "dossier": "Credit Dossier & Documents",
+        "job": "Customer Job Title",
+        "income": "Reported Income",
+        "docs": "Attached Credit Docs",
+        "nationalId": "National ID Card",
+        "incomeProof": "Proof of Income",
+        "approveBtn": "Approve & Sign Contract",
+        "rejectBtn": "Reject Application"
+      },
+      "auditor": {
+        "recordManual": "Record Manual Cash/Bank Payment",
+        "penalty": "Apply Late Penalty Fee (EGP)",
+        "notes": "Admin Notes / Payment Reference",
+        "approveReceipt": "Approve Receipt & Pay",
+        "rejectReceipt": "Reject Receipt & Revert",
+        "manualSuccess": "Manual payment registered successfully",
+        "auditSuccess": "Payment receipt audited and approved successfully"
+      }
+    }
   }
 }

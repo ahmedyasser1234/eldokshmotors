@@ -25,6 +25,8 @@ import { PaymentsModule } from 'src/modules/payments/payments.module';
 import { MediaModule } from './modules/media/media.module';
 import { PurchaseRequestsModule } from './modules/purchase-requests/purchase-requests.module';
 import { ChatModule } from './modules/chat/chat.module';
+import { InstallmentsModule } from './modules/installments/installments.module';
+
 
 import { Driver } from './modules/drivers/entities/driver.entity';
 import { User } from './modules/users/entities/user.entity';
@@ -45,6 +47,9 @@ import { DriverAssignment } from './modules/reservations/entities/driver-assignm
 import { PurchaseRequest } from './modules/purchase-requests/entities/purchase-request.entity';
 import { Conversation } from './modules/chat/entities/conversation.entity';
 import { ChatMessage } from './modules/chat/entities/chat-message.entity';
+import { InstallmentPlan } from './modules/installments/entities/installment-plan.entity';
+import { InstallmentAgreement } from './modules/installments/entities/installment-agreement.entity';
+import { InstallmentPayment } from './modules/installments/entities/installment-payment.entity';
 
 @Module({
   imports: [
@@ -62,7 +67,7 @@ import { ChatMessage } from './modules/chat/entities/chat-message.entity';
           User, Vehicle, Rental, Sale, Payment, LocationEntity,
           Addon, RentalAddon, Notification, Review, VehicleMaintenance,
           Coupon, UserDocument, SystemLog, Driver, DriverAssignment, PurchaseRequest,
-          Conversation, ChatMessage
+          Conversation, ChatMessage, InstallmentPlan, InstallmentAgreement, InstallmentPayment
         ],
         synchronize: true, // Auto-create tables for dev
       }),
@@ -92,6 +97,7 @@ import { ChatMessage } from './modules/chat/entities/chat-message.entity';
     MediaModule,
     PurchaseRequestsModule,
     ChatModule,
+    InstallmentsModule,
   ],
 })
 export class AppModule {}

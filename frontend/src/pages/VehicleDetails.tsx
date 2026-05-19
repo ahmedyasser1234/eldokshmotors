@@ -59,6 +59,27 @@ const VehicleDetails: React.FC = () => {
 
     const [downPaymentPercent, setDownPaymentPercent] = useState(20);
     const [installmentMonths, setInstallmentMonths] = useState(60);
+    const [installmentPlan, setInstallmentPlan] = useState<any>(null);
+
+    useEffect(() => {
+        const fetchPlan = async () => {
+            try {
+                if (!id) return;
+                const res = await api.get(`/installments/plans/vehicle/${id}`);
+                setInstallmentPlan(res.data);
+                if (res.data) {
+                    setDownPaymentPercent(Number(res.data.min_down_payment_percentage || 20));
+                    if (res.data.available_months && res.data.available_months.length > 0) {
+                        setInstallmentMonths(res.data.available_months[0]);
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to fetch installment plan", err);
+            }
+        };
+        if (id) fetchPlan();
+    }, [id]);
+
 
     const [alertConfig, setAlertConfig] = useState<{
         isOpen: boolean;
@@ -154,15 +175,64 @@ const VehicleDetails: React.FC = () => {
         );
     }
 
-    const salePrice = Number(vehicle?.sale_price || 0);
-    const downPaymentAmount = (salePrice * downPaymentPercent) / 100;
-    const loanAmount = salePrice - downPaymentAmount;
-    const annualInterestRate = Number(vehicle?.details?.installment_interest_rate || 15);
-    const totalInterest = loanAmount * (annualInterestRate / 100) * (installmentMonths / 12);
-    const totalToPay = loanAmount + totalInterest;
-    const monthlyPayment = totalToPay / installmentMonths;
-    const formattedDownPayment = Math.round(downPaymentAmount).toLocaleString();
-    const formattedMonthlyPayment = Math.round(monthlyPayment).toLocaleString();
+    const calculatedTerms = useMemo(() => {
+        if (!installmentPlan) return null;
+        const price = Number(vehicle?.sale_price || 0);
+        const downPayment = (price * downPaymentPercent) / 100;
+        const financed = price - downPayment;
+        
+        let rate = Number(installmentPlan.interest_rate || 0);
+        if (installmentPlan.interest_rate_type === 'variable' && installmentPlan.variable_rates) {
+            const match = installmentPlan.variable_rates.find((v: any) => Number(v.months) === Number(installmentMonths));
+            if (match) rate = match.rate;
+        }
+
+        const adminFee = (price * (Number(installmentPlan.admin_fee_percentage || 0) / 100)) + Number(installmentPlan.admin_fee_flat || 0);
+
+        let monthlyPayment = 0;
+        let totalInterest = 0;
+
+        if (installmentPlan.calculation_method === 'reducing') {
+            const monthlyRate = (rate / 100) / 12;
+            if (monthlyRate === 0) {
+                monthlyPayment = financed / installmentMonths;
+            } else {
+                monthlyPayment = financed * (monthlyRate * Math.pow(1 + monthlyRate, installmentMonths)) / (Math.pow(1 + monthlyRate, installmentMonths) - 1);
+            }
+            monthlyPayment = Math.round((monthlyPayment + Number.EPSILON) * 100) / 100;
+            totalInterest = (monthlyPayment * installmentMonths) - financed;
+            totalInterest = Math.round((totalInterest + Number.EPSILON) * 100) / 100;
+        } else {
+            totalInterest = financed * (rate / 100) * (installmentMonths / 12);
+            totalInterest = Math.round((totalInterest + Number.EPSILON) * 100) / 100;
+            monthlyPayment = Math.round(((financed + totalInterest) / installmentMonths + Number.EPSILON) * 100) / 100;
+        }
+
+        return {
+            downPayment,
+            financed,
+            rate,
+            adminFee,
+            monthlyPayment,
+            totalInterest,
+            totalRepayment: financed + totalInterest,
+        };
+    }, [vehicle, installmentPlan, downPaymentPercent, installmentMonths]);
+
+    const handleApplyInstallment = () => {
+        const token = localStorage.getItem('token') || localStorage.getItem('admin-token');
+        if (!token) {
+            navigate(`/login?redirect=${encodeURIComponent(window.location.pathname + window.location.search)}`);
+            return;
+        }
+        if (useAuthStore.getState().user?.role === 'admin') {
+            setAlertConfig({ isOpen: true, type: 'error', message: t('error.adminNotAllowed') });
+            return;
+        }
+        if (!calculatedTerms) return;
+        navigate(`/vehicles/${id}/apply-installment?downPayment=${Math.round(calculatedTerms.downPayment)}&months=${installmentMonths}`);
+    };
+
 
     const makeName = isArabic ? (vehicle.make_ar || vehicle.make_en) : (vehicle.make_en || vehicle.make_ar);
     const modelName = isArabic ? (vehicle.model_ar || vehicle.model_en) : (vehicle.model_en || vehicle.model_ar);
@@ -480,25 +550,37 @@ const VehicleDetails: React.FC = () => {
                             )}
 
                             {/* Installment Calculator */}
-                            {vehicle?.details?.is_installment_available && !rentalMode && (
+                            {vehicle.is_for_sale && installmentPlan && installmentPlan.is_active && !rentalMode && calculatedTerms && (
                                 <div className="pt-6 border-t border-slate-100 space-y-5">
                                     <div className="flex items-center gap-2">
                                         <CreditCard size={16} className="text-brand-primary" />
                                         <h3 className="font-black text-sm uppercase tracking-widest text-slate-800">
-                                            {t('details.financing.calcTitle')}
+                                            {t('installments.calculator.title')}
                                         </h3>
                                     </div>
 
                                     <div className="space-y-4">
+                                        {/* Method tag */}
+                                        <div className="flex justify-between items-center bg-slate-50 px-4 py-2.5 rounded-xl border border-slate-200/60 text-xs">
+                                            <span className="font-bold text-slate-400 uppercase">{t('installments.calculator.method')}</span>
+                                            <span className="font-black text-brand-primary uppercase">
+                                                {installmentPlan.calculation_method === 'reducing' 
+                                                    ? t('installments.calculator.reducing') 
+                                                    : t('installments.calculator.flat')}
+                                            </span>
+                                        </div>
+
                                         {/* Down Payment Slider */}
                                         <div>
                                             <div className="flex justify-between text-xs font-bold text-slate-500 mb-2">
-                                                <span className="uppercase tracking-tight">{t('details.financing.downPayment')}</span>
-                                                <span className="text-brand-primary">{formattedDownPayment} EGP ({downPaymentPercent}%)</span>
+                                                <span className="uppercase tracking-tight">{t('installments.calculator.downPayment')}</span>
+                                                <span className="text-brand-primary font-black">
+                                                    {Math.round(calculatedTerms.downPayment).toLocaleString()} EGP ({downPaymentPercent}%)
+                                                </span>
                                             </div>
                                             <input
                                                 type="range"
-                                                min={vehicle.details.min_down_payment_percentage || 20}
+                                                min={Number(installmentPlan.min_down_payment_percentage || 20)}
                                                 max={90}
                                                 step={5}
                                                 value={downPaymentPercent}
@@ -510,15 +592,16 @@ const VehicleDetails: React.FC = () => {
                                         {/* Duration Selector */}
                                         <div>
                                             <div className="flex justify-between text-xs font-bold text-slate-500 mb-2">
-                                                <span className="uppercase tracking-tight">{t('details.financing.months')}</span>
-                                                <span className="text-brand-primary">{installmentMonths} {t('common.months')}</span>
+                                                <span className="uppercase tracking-tight">{t('installments.calculator.months')}</span>
+                                                <span className="text-brand-primary font-black">{installmentMonths} {t('common.months')}</span>
                                             </div>
-                                            <div className="grid grid-cols-3 gap-2">
-                                                {[36, 48, 60].map(m => (
+                                            <div className="grid grid-cols-4 gap-1.5">
+                                                {(installmentPlan.available_months || [12, 24, 36, 48, 60]).map((m: number) => (
                                                     <button
                                                         key={m}
+                                                        type="button"
                                                         onClick={() => setInstallmentMonths(m)}
-                                                        className={`py-2 text-[11px] font-black rounded-xl transition-all border ${m === installmentMonths
+                                                        className={`py-2 text-[10px] font-black rounded-xl transition-all border ${m === installmentMonths
                                                             ? 'bg-brand-primary text-white border-brand-primary shadow-md shadow-brand-primary/20'
                                                             : 'bg-slate-50 text-slate-500 border-slate-200 hover:border-brand-primary/40 hover:text-brand-primary'
                                                         }`}
@@ -529,21 +612,47 @@ const VehicleDetails: React.FC = () => {
                                             </div>
                                         </div>
 
+                                        {/* Details Breakdown */}
+                                        <div className="bg-slate-50 border border-slate-200/60 rounded-2xl p-4 space-y-2.5 text-xs font-bold text-slate-600">
+                                            <div className="flex justify-between">
+                                                <span className="text-slate-400">{t('installments.calculator.financedAmount')}</span>
+                                                <span className="text-slate-800">{Math.round(calculatedTerms.financed).toLocaleString()} EGP</span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span className="text-slate-400">{t('installments.calculator.interestRate')}</span>
+                                                <span className="text-slate-800">{calculatedTerms.rate}%</span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span className="text-slate-400">{t('installments.calculator.adminFee')}</span>
+                                                <span className="text-slate-800">{Math.round(calculatedTerms.adminFee).toLocaleString()} EGP</span>
+                                            </div>
+                                            <div className="flex justify-between">
+                                                <span className="text-slate-400">{t('installments.calculator.totalInterest')}</span>
+                                                <span className="text-slate-800">{Math.round(calculatedTerms.totalInterest).toLocaleString()} EGP</span>
+                                            </div>
+                                            <div className="h-px bg-slate-200 my-1" />
+                                            <div className="flex justify-between text-sm">
+                                                <span className="text-slate-500">{t('installments.calculator.totalRepayment')}</span>
+                                                <span className="text-brand-primary font-black">{Math.round(calculatedTerms.totalRepayment).toLocaleString()} EGP</span>
+                                            </div>
+                                        </div>
+
                                         {/* Monthly Payment Result */}
                                         <div className="bg-brand-primary p-5 rounded-2xl text-center space-y-1 shadow-lg shadow-brand-primary/20">
                                             <p className="text-[10px] font-black text-white/70 uppercase tracking-widest">
-                                                {t('details.financing.monthlyPayment')}
+                                                {t('installments.calculator.monthlyPayment')}
                                             </p>
                                             <p className="text-3xl font-black text-white">
-                                                {formattedMonthlyPayment} <span className="text-sm font-bold text-white/70">EGP</span>
+                                                {Math.round(calculatedTerms.monthlyPayment).toLocaleString()} <span className="text-sm font-bold text-white/70">EGP</span>
                                             </p>
                                         </div>
 
                                         <button
-                                            onClick={handleBuy}
-                                            className="w-full py-3 text-xs font-black text-brand-primary hover:bg-brand-primary/5 border border-brand-primary/20 hover:border-brand-primary/40 rounded-xl transition-all flex items-center justify-center gap-2 group"
+                                            type="button"
+                                            onClick={handleApplyInstallment}
+                                            className="w-full py-3.5 bg-slate-900 text-white hover:bg-slate-800 rounded-xl transition-all flex items-center justify-center gap-2 group font-black text-xs uppercase tracking-wider"
                                         >
-                                            {t('details.financing.applyNow')}
+                                            {t('installments.calculator.applyButton')}
                                             <ChevronRight size={14} className={`${isArabic ? 'rotate-180 group-hover:-translate-x-1' : 'group-hover:translate-x-1'} transition-transform`} />
                                         </button>
                                     </div>

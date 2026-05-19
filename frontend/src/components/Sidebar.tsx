@@ -12,7 +12,9 @@ import {
     Truck,
     History,
     X,
-    MessageSquare
+    MessageSquare,
+    Percent,
+    FileText
 } from 'lucide-react';
 import api from '../services/api';
 import Logo from './Logo';
@@ -40,6 +42,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role, isOpen, onClose }) => {
         { name: t('sidebar.rentalRequests'), path: '/admin/rental-requests', icon: Car },
         { name: t('sidebar.soldVehicles'), path: '/admin/sold-vehicles', icon: CreditCard },
         { name: t('sidebar.sellOffers'), path: '/admin/sell-offers', icon: History },
+        { name: t('installments.sidebar.installments'), path: '/admin/installments', icon: Percent },
         { name: t('sidebar.messages'), path: '/admin/messages', icon: MessageSquare },
         { name: t('sidebar.customers'), path: '/admin/users', icon: Users },
         { name: t('sidebar.revenue'), path: '/admin/analytics', icon: BarChart3 },
@@ -48,6 +51,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role, isOpen, onClose }) => {
 
     const customerLinks = [
         { name: t('sidebar.overview'), path: '/dashboard', icon: LayoutDashboard },
+        { name: t('installments.sidebar.myInstallments'), path: '/dashboard/installments', icon: FileText },
         { name: t('sidebar.myPurchases'), path: '/dashboard/purchases', icon: Car },
         { name: t('sidebar.mySales'), path: '/dashboard/sales', icon: History },
         { name: t('sidebar.payments'), path: '/dashboard/payments', icon: CreditCard },

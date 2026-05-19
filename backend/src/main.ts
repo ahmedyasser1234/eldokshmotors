@@ -7,8 +7,8 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.enableCors({
     origin: [
-      'https://eldokshmators.netlify.app',
-      'https://eldokshmotors.netlify.app',
+      'https://cobramators.netlify.app',
+      'https://cobramators.netlify.app',
       'http://localhost:5173',
       'http://localhost:3000',
     ],
@@ -16,7 +16,7 @@ async function bootstrap() {
     credentials: true,
     allowedHeaders: 'Content-Type, Accept, Authorization',
   });
-  
+
   // Serve static files from the public folder
   app.useStaticAssets(join(process.cwd(), 'public'), {
     prefix: '/',

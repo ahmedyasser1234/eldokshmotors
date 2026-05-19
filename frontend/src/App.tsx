@@ -19,6 +19,10 @@ import UserPayments from './pages/UserPayments';
 import UserPurchases from './pages/UserPurchases';
 import UserSales from './pages/UserSales';
 import NotFound from './pages/NotFound';
+import UserInstallments from './pages/UserInstallments';
+import AdminInstallments from './pages/AdminInstallments';
+import InstallmentApply from './pages/InstallmentApply';
+
 
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -112,6 +116,16 @@ const AppContent: React.FC = () => {
               <ProfileSettings />
             </ProtectedRoute>
           } />
+          <Route path="/dashboard/installments" element={
+            <ProtectedRoute roles={['customer']}>
+              <UserInstallments />
+            </ProtectedRoute>
+          } />
+          <Route path="/vehicles/:id/apply-installment" element={
+            <ProtectedRoute roles={['customer']}>
+              <InstallmentApply />
+            </ProtectedRoute>
+          } />
           <Route path="/driver/dashboard" element={
             <ProtectedRoute roles={['driver', 'admin']}>
               <DriverDashboard />
@@ -170,6 +184,11 @@ const AppContent: React.FC = () => {
           <Route path="/admin/messages" element={
             <ProtectedRoute roles={['admin']}>
               <AdminChat />
+            </ProtectedRoute>
+          } />
+          <Route path="/admin/installments" element={
+            <ProtectedRoute roles={['admin']}>
+              <AdminInstallments />
             </ProtectedRoute>
           } />
           <Route path="/admin/settings" element={
