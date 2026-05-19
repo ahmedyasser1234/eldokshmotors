@@ -103,8 +103,8 @@ export class InstallmentsService {
       Object.assign(existing, data);
       return this.planRepo.save(existing);
     }
-    const newPlan = this.planRepo.create(data);
-    return this.planRepo.save(newPlan);
+    const newPlan = this.planRepo.create(data as any);
+    return this.planRepo.save(newPlan as any);
   }
 
   async getPlans(): Promise<InstallmentPlan[]> {
@@ -264,7 +264,7 @@ export class InstallmentsService {
       agreement.payments = payments;
 
       // Update vehicle status
-      await this.vehiclesService.updateStatus(agreement.vehicleId, VehicleStatus.SOLD);
+      await this.vehiclesService.update(agreement.vehicleId, { status: VehicleStatus.SOLD });
 
       // Notify customer
       await this.notificationsService.notify(
@@ -356,7 +356,7 @@ export class InstallmentsService {
       );
     } else if (data.status === 'unpaid') {
       payment.status = 'unpaid';
-      payment.receipt_url = null;
+      payment.receipt_url = '' as any;
       payment.notes = data.notes || payment.notes;
 
       // Notify customer
